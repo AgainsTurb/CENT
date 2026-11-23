@@ -111,6 +111,12 @@ def decode(model, cfg, text, tmask, refs, refmask, n_chars,
         _mu_t = torch.tensor(_sm, device=device)
         _sd_t = torch.tensor(_ss, device=device)
     counts = model.plan_counts(H, zg, tmask).argmax(-1) + 1          # [B,C]
+    # normalise anchors by their own span over the valid characters (see anchor_place)
+    _ax = anchors[:, :n_chars, 0]; _ay = anchors[:, :n_chars, 1]
+    _axn = 0.02 + 0.93 * ((_ax - _ax.min(1, True).values)
+                          / (_ax.max(1, True).values - _ax.min(1, True).values).clamp_min(1e-6))
+    _ayn = 0.15 + 0.55 * ((_ay - _ay.min(1, True).values)
+                          / (_ay.max(1, True).values - _ay.min(1, True).values).clamp_min(1e-6))
     B = text.shape[0]
     if mode == "tf":
         assert true is not None
@@ -136,10 +142,12 @@ def decode(model, cfg, text, tmask, refs, refmask, n_chars,
             # accumulate, so the pen cannot walk off the page. Anchors are canvas units,
             # strokes are normalised, hence the division.
             if anchor_place and _ == 0 and mode != "tf":
+                # SCALE-INVARIANT: the corpus dx unit is ~9x smaller than the canvas
+                # (absolute division gave x span 0.11 and stacked every glyph). Anchors are
+                # mapped by their OWN span onto the page, so relative spacing is kept and
+                # no unit is assumed.
                 for i in range(B):
-                    _ax = anchors[i, ci, 0] / float(cfg.canvas_width)
-                    _ay = anchors[i, ci, 1] / float(cfg.img_height)
-                    prev_end[i] = torch.stack([_ax, _ay]).to(prev_end[i].dtype)
+                    prev_end[i] = torch.stack([_axn[i, ci], _ayn[i, ci]]).to(prev_end[i].dtype)
             if mode == "tf":
                 if step >= max_steps:
                     break
