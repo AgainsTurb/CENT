@@ -1,0 +1,382 @@
+{
+  "plan_id": "cent-lines-runsheet-2026-11-22-f",
+  "schema_version": "1.0",
+  "created_utc": "2026-11-21T08:40:00Z",
+  "declared_by": "lead (orchestrator)",
+  "status": "frozen_not_executed",
+  "status_note": "Frozen plan only. No experiment has been run, no gate has been held, and no result exists. The manuscript reports no empirical comparison on this account.",
+  "split": {
+    "policy": "declared-subset",
+    "gate": "60 writers carved from the TRAINING side (validation only); 64x1024 padded lines",
+    "reported": [
+      "CASIA-HWDB2.0-2.2 test: 203 writers",
+      "CASIA-OLHWDB2.0-2.2 test: 200 writers",
+      "ICDAR-2013 lines (60 writers) as the external set"
+    ],
+    "subset_note": "The gate must read the validation subset, never the reported partitions. The reported partitions are evaluated once, after a gate PASS, and their numbers are reported whatever they show. Since the CASIA corpora are access-gated by an application process and were not obtained for this draft, the gate cannot be held today; that is the reason the manuscript carries no results, not an oversight."
+  },
+  "harness": {
+    "name": "CENT evaluation harness (frozen definition)",
+    "spec_path": "experiments/harness_spec.md",
+    "sha256": "6ed1236da401bc617fd70d7fdd6f18594d25239a2c5892da53a8e877f180c8cd",
+    "metric": "connector_rate_at_matched_ar",
+    "metric_definition": "primary: connector rate and pen-lift agreement at matched character accuracy (AR within 1 point of the best baseline). Secondary: continuity error, speed profile, AR, CR, FID, writer verification.",
+    "direction": "lower"
+  },
+  "baselines": [
+    {
+      "experiment_id": "b_diffbrush",
+      "method": "DiffBrush",
+      "paper_url": "https://arxiv.org/abs/2508.03256",
+      "repo": "https://github.com/dailenson/DiffBrush",
+      "commit": "da9addc1140b",
+      "license": "MIT",
+      "config_note": "offline line diffusion, k lines; Chinese configuration from the paper (DiffBrush reports a Chinese line dataset).",
+      "seeds": 3,
+      "retrieved_at": "2026-11-21T13:30:00Z",
+      "retrieved_via": "exa_search",
+      "retrieval_detail": "repo page via exa_search; full clone completed after a blob-filter retry; working tree 2946 files",
+      "reproducibility": "code adapted (adapter smoke 25/25); released loader is IAM-only, Chinese added by our adapter. Weights/VAE not present locally."
+    },
+    {
+      "experiment_id": "b_tgc_diff",
+      "method": "TGC-Diff",
+      "paper_url": "https://doi.org/10.1007/978-3-032-04614-7_9",
+      "repo": "https://github.com/newbie2niubility/TGC-Diff",
+      "commit": "4d4058d29a12",
+      "license": "MIT",
+      "config_note": "cascaded Layout-Diff + Imitating-Diff on Chinese text lines; k lines.",
+      "seeds": 3,
+      "retrieved_at": "2026-11-21T13:30:00Z",
+      "retrieved_via": "exa_search",
+      "reproducibility": "Chinese pipeline shipped; adapter smoke 10/10. VAE + weight.pt not present locally; nccl means Linux/CUDA host."
+    },
+    {
+      "experiment_id": "b_diffink",
+      "method": "DiffInk",
+      "paper_url": "https://arxiv.org/abs/2509.23624",
+      "repo": "https://github.com/awei669/DiffInk",
+      "commit": "65055545fbef",
+      "license": "MIT",
+      "config_note": "online line generation (TOHG); generates whole text lines with natural character connections.",
+      "seeds": 3,
+      "retrieved_at": "2026-11-21T13:30:00Z",
+      "retrieved_via": "exa_search",
+      "reproducibility": "HDF5 contract adapted (42/42 checks, 1 blocked on h5py). PREFIX-CONDITIONED completion, not text-only; release vocabulary required for a valid score."
+    },
+    {
+      "experiment_id": "b_olhwg",
+      "method": "OLHWG",
+      "paper_url": "https://arxiv.org/abs/2410.02309",
+      "repo": "https://github.com/singularityrms/OLHWG",
+      "commit": "e1bed55e0a66",
+      "license": "NONE - repository has no licence file",
+      "config_note": "online line via layout planner + glyph diffusion (decoupled); k samples.",
+      "seeds": 3,
+      "retrieved_at": "2026-11-21T13:30:00Z",
+      "retrieved_via": "exa_search",
+      "reproducibility": "CITE-ONLY: no licence, no generator weights, released eval entry point cannot execute. Do not report as reproduced."
+    }
+  ],
+  "cycles": [
+    {
+      "cycle": 1,
+      "experiment_id": "cent_r1",
+      "hypothesis": "Hard topology constraint + shared stroke-graph latent lowers soec against the best unconstrained baseline at a FID cost inside the declared acceptability band.",
+      "method_config": "stroke-graph diffusion, k=5, hard topology, global+local style, differentiable Bezier renderer, lambda1=0.1"
+    },
+    {
+      "cycle": 2,
+      "experiment_id": "cent_r2",
+      "hypothesis": "If cycle 1's legibility is inadequate, raising the content-verifier weight recovers CER without giving up stroke correctness.",
+      "method_config": "as cent_r1 with lambda1=0.5 and verifier warm-up over the first 20% of steps"
+    },
+    {
+      "cycle": 3,
+      "experiment_id": "cent_r3",
+      "hypothesis": "If cycle 1's style fidelity is inadequate, per-stroke local style plus a longer style-encoder pretraining schedule closes the writer-verification gap.",
+      "method_config": "as cent_r1 with local style ablation A3 reversed and style encoder pretrained for 2x steps"
+    }
+  ],
+  "ablations": [
+    {
+      "experiment_id": "abl_a1",
+      "factor": "connectivity mechanism",
+      "levels": [
+        "emergent (no connector tokens)",
+        "explicit connector latent"
+      ]
+    },
+    {
+      "experiment_id": "abl_a2",
+      "factor": "join supervision",
+      "levels": [
+        "supervised from stroke indices",
+        "predicted only"
+      ]
+    },
+    {
+      "experiment_id": "abl_a3",
+      "factor": "connector style",
+      "levels": [
+        "z_kappa off",
+        "z_kappa on"
+      ]
+    },
+    {
+      "experiment_id": "abl_a4",
+      "factor": "intra-character topology constraint",
+      "levels": [
+        "off",
+        "on (hard, lexicon)"
+      ]
+    },
+    {
+      "experiment_id": "abl_a5",
+      "factor": "reference lines k",
+      "levels": [
+        1,
+        5,
+        15
+      ]
+    },
+    {
+      "experiment_id": "abl_a6",
+      "factor": "cursive tolerance",
+      "levels": [
+        "canonical only",
+        "allow stroke merging inside characters"
+      ]
+    },
+    {
+      "experiment_id": "abl_a7",
+      "factor": "layout",
+      "levels": [
+        "fixed spacing",
+        "generated layout tokens"
+      ]
+    },
+    {
+      "experiment_id": "abl_a9",
+      "factor": "connector anchoring",
+      "levels": [
+        "free connector endpoints (learned placement)",
+        "anchored to neighbour exits/entries (continuity by construction)"
+      ]
+    }
+  ],
+  "decision_rule": {
+    "metric": "join_rate_error_at_matched_ar",
+    "min_margin": 0.1,
+    "min_margin_definition": "join-rate error at least 10 percentage points closer to the writer own rate than the best baseline, at AR within 1 point of that baseline",
+    "direction_rule": "and continuity direction error at joins lower than a boundary-aware baseline",
+    "seeds": 3,
+    "variance_rule": "95% bootstrap CI of the gap must exclude zero; otherwise inconclusive, not a win",
+    "content_gate": "AR within 1 point of the best baseline",
+    "declared_exits_on_fail": [
+      "redesign",
+      "narrow the claim",
+      "report the negative result",
+      "abandon"
+    ]
+  },
+  "budget": {
+    "max_cycles": 3,
+    "max_credits": 800,
+    "credit_unit": "GPU-hours (A100-class)",
+    "estimate_breakdown": {
+      "style_encoder_pretraining": 6,
+      "stroke_graph_diffusion_per_seed": 40,
+      "renderer_and_refiner_per_seed": 20,
+      "evaluation_all_metrics_all_baselines": 15,
+      "ablations_a1_to_a7": 120
+    }
+  },
+  "data_status": {
+    "required": [
+      "CASIA-OLHWDB1.0-1.2",
+      "CASIA-HWDB1.0-1.2",
+      "ICDAR-2013 Chinese handwriting"
+    ],
+    "access": "released for academic research through an application process at the supplier's site",
+    "obtained": false,
+    "obtained_note": "The supplier's download endpoint returns an error page to unauthenticated requests (9-byte 'url error'), i.e. it is gated. No third-party mirror was used, because redistributed copies breach the distribution terms.",
+    "consequence": "No gate can be held and no result can be reported until access is granted."
+  },
+  "preregistration_note": "This sheet is frozen before any run. Its SHA-256 is recorded in experiments/run_sheet.sha256. Amending a declaration requires a new plan_id, not an edit.",
+  "excluded_baselines": [
+    {
+      "method": "InkSpire",
+      "repo": "https://github.com/newbie2niubility/InkSpire",
+      "commit": "b4690edc448a",
+      "reason": "public repository contains one file and no Python; code not released. Cite published numbers as not re-run."
+    },
+    {
+      "method": "One-DM",
+      "repo": "https://github.com/dailenson/One-DM",
+      "commit": "dde2205a70a2",
+      "reason": "word-level, not line-level; also the released code is an English word generator. Used only as a style-transfer reference point."
+    },
+    {
+      "method": "character-level set (GANwriting, HWT, VATr, DiffusionPen, MetaScript, SDT)",
+      "repo": "baselines/_archive_character_level",
+      "commit": "n/a",
+      "reason": "archived: they generate isolated characters/words with no layout and no inter-character connectivity, so they cannot be compared to a line generator on connectivity metrics. Kept for a character-level ablation."
+    }
+  ],
+  "baseline_note": "Four line-level baselines cloned and adapted. None ships a metric, so scoring is ours (benchmark/score_lines.py). Reproducibility differs per system and is recorded per baseline; OLHWG is cite-only.",
+  "task": "Chinese handwritten TEXT LINE generation with cursive inter-character connectivity; few-shot style from k reference lines",
+  "protocol_alignment": {
+    "anchor_papers": [
+      "DiffBrush ICCV 2025 (offline Chinese lines)",
+      "OLHWG ICLR 2025 (online Chinese lines)"
+    ],
+    "adopted_from_them": {
+      "resolution": "64 x 1024 padded (never cropped)",
+      "split_offline": "816 train / 203 test writers (CASIA-HWDB2.0-2.2, 52230 lines, 1019 writers)",
+      "split_online": "1000 train / 200 test writers (CASIA-OLHWDB2.0-2.2)",
+      "content_input": "Unifont-rendered content images, shared by every offline baseline",
+      "recogniser": "one frozen Chinese line recogniser; its own AR/CR on real lines is reported and bounds ours",
+      "shot": "one-shot reported separately from few-shot",
+      "human": "user study on style fidelity and writing naturalness",
+      "cost": "inference time per line"
+    },
+    "adopted_with_a_difference": "word/character models are compared in COMPOSED mode with the layout named (uniform vs style). A composed number without its layout is uninterpretable.",
+    "beyond_the_field": [
+      "connector rate",
+      "pen-lift agreement",
+      "continuity error",
+      "speed profile"
+    ]
+  },
+  "metrics": [
+    "AR",
+    "CR",
+    "FID",
+    "KID",
+    "HWD",
+    "D_CER",
+    "D_WER",
+    "join_rate_error",
+    "join_f1",
+    "gap_similarity",
+    "continuity_error",
+    "offline_connectivity_proxy"
+  ],
+  "metric_requirements": {
+    "AR/CR": "frozen recogniser (identity + its own AR/CR recorded)",
+    "FID/KID": "Inception features, >=512 lines",
+    "HWD": "VGG16 pretrained on handwritten text images (NOT ImageNet: that would be incomparable)",
+    "D_CER/D_WER": "train a recogniser on the generated set, test on the real test set",
+    "connectivity": "generated trajectories only; image-only baselines cannot report it"
+  },
+  "baseline_groups": {
+    "native_offline": {
+      "b_diffbrush": "N",
+      "b_tgc_diff": "N",
+      "b_cent": "N"
+    },
+    "native_online": {
+      "b_diffink": "N (prefix-conditioned, reported as such)",
+      "b_olhwg": "ND (decoupled layout: glyphs placed by an LSTM planner, so connectivity cannot arise by construction). Weights + preprocessed line data released on HuggingFace Immortalman12/OLHWD (card: MIT); code repo has no LICENSE file; its evaluate_line.py needs the documented patch."
+    },
+    "composed": {
+      "b_sdt": "C (online Chinese characters, trajectory output); adapter 36/36; weights: Google Drive + Baidu; 15 character references, its own default",
+      "b_metascript": "C (offline Chinese characters, image output); adapter 73/73, 3 blocked; weights: Baidu Netdisk only (no Drive, no HF); 4 character references; vocabulary = 3755 GB2312 L1"
+    },
+    "cite_only": {
+      "InkSpire": "N, no source in the public repo",
+      "One-DM": "C, Chinese-impossible: 81-char Latin alphabet literal, no Chinese checkpoint",
+      "HCT-GAN (ICPR 2022)": "N claimed, no code found",
+      "TS-GAN": "N, Latin alphabet only, CC BY-NC-SA 4.0",
+      "CSA-GAN": "N, Latin alphabet only, no released code",
+      "Emuru": "N, Latin only",
+      "HiSAC (ECCV 2026)": "C, repo is a stub with no source",
+      "Diff-Writer (ICONIP 2023)": "C, no code found",
+      "BoundInk (arXiv 2604.02103)": "N; the system to beat on boundaries; code English-only (IAM+BRUSH), so cited with our reimplementation of its metric suite",
+      "UniCalli (arXiv 2510.13745)": "N; Chinese calligraphy columns with connecting strokes; different domain and data"
+    }
+  },
+  "composed_protocol": {
+    "layouts": [
+      "uniform",
+      "style"
+    ],
+    "layout_reported_as_a_column": true,
+    "image_assembly": "benchmark/compose_line.py + benchmark/run_composed.py",
+    "trajectory_assembly": "benchmark/compose_trajectory.py",
+    "declared_connectivity": "a composed baseline lifts the pen at every character boundary, so its connector rate is 0 BY CONSTRUCTION. Report it as declared, never as a measured model property.",
+    "content_scoring": "never self-scored: the baseline is told the characters, so AR/CR must come from a recogniser on the assembled output"
+  },
+  "generation_mode_taxonomy": {
+    "N": "native line model (layout and connectivity produced by the same generator)",
+    "ND": "native but glyphs placed by a separate layout planner: connectivity cannot arise by construction",
+    "C": "composed: character/word model plus our composer (layout named: uniform or style)",
+    "NR": "not runnable here: no code, no weights, no licence, or broken entry point"
+  },
+  "metric_direction_note": "AR/CR = fixed real-trained recogniser applied to GENERATED lines. D_AR/D_CR = recogniser TRAINED ON GENERATED lines, tested on REAL lines. Opposite directions; never placed in the same column.",
+  "split_conflict": "the literature uses three incompatible Chinese line splits: 816/203 (DiffBrush), 1000/200 (OLHWG), and train-HWDB2/test-ICDAR2013. We adopt 816/203 and state the conflict.",
+  "verified_in_release": {
+    "one_dm": "alphabet is an 81-char string literal at data_loader/loader.py:25; not in the weights (no nn.Embedding); no Chinese checkpoint in the model zoo",
+    "diffink": "prefix-conditioned on a clean 30% ground-truth prefix; text embedding derived from a vocabulary shipped with the weights",
+    "olhwg": "no licence, no generator weights, released eval entry point raises before computing",
+    "diffbrush": "IAM-only loader; ships 20992 CJK glyphs in files/unifont.pickle",
+    "tgc_diff": "Chinese pipeline shipped; needs a separately distributed template set"
+  },
+  "runnable_now": [
+    "b_diffbrush",
+    "b_tgc_diff",
+    "b_diffink",
+    "b_cent"
+  ],
+  "baseline_policy": "only baselines that can generate CHINESE (characters or lines) live in baselines/. A Chinese-impossible or unobtainable method is cited with published numbers and marked not re-run, and its folder moves to baselines/_cite_only/.",
+  "runnable_after_weights": [
+    "b_sdt",
+    "b_metascript",
+    "b_olhwg"
+  ],
+  "composed_reference_budgets": {
+    "SDT": 15,
+    "MetaScript": 4,
+    "CENT": 5,
+    "policy": "each system runs at its own published default; the budget is reported beside every number rather than equalised"
+  },
+  "composed_vocabulary": {
+    "MetaScript": "3755 first-level GB2312 characters; out-of-vocabulary lines excluded and the count reported"
+  },
+  "released_artefacts": {
+    "olhwg": {
+      "source": "https://huggingface.co/datasets/Immortalman12/OLHWD",
+      "licence": "MIT per dataset card; the code repo has no LICENSE",
+      "files": {
+        "unetddpm450000.pth": "164,622,792 B",
+        "style_encoder450000.pth": "31,760,219 B",
+        "all_datas.npy": "1,676,792,545 B (text lines, CASIA-OLHWDB 2.0-2.2)",
+        "dictionary.npy": "61,268 B (text-line charset)",
+        "mydict.npy": "81,228 B (char charset)",
+        "datas.npy": "4,233,681,604 B (single characters)",
+        "test_datas.npy": "331,560,323 B (ICDAR-2013 chars)"
+      },
+      "note": "generate_line.py already loads the 450000 pair; evaluate_line.py still names 290000 (stale)."
+    }
+  },
+  "corrections": {
+    "2026-11-22_olhwg": "Earlier audit concluded OLHWG released no weights; WRONG. The HF repo linked from its README hosts the line generator weights and the preprocessed line data under an MIT card. OLHWG is restored to baselines/ as a runnable ND-mode baseline pending a download and its documented patch."
+  },
+  "central_claim": "continuity at character boundaries should be a CONSTRUCTION (connector control points anchored to neighbour endpoints -> zero positional discontinuity, learned direction) rather than a SUPERVISION TARGET (per-timestep pen-state label). Secondary: connectivity must be measurable in the Chinese regime and in the offline image domain, where no prior metric suite applies.",
+  "primary_metric": "join_rate_error",
+  "secondary_metrics": [
+    "continuity_direction_error_deg",
+    "join_f1_where_positives_exist",
+    "gap_similarity_KGS",
+    "offline_connectivity_proxy_with_validated_agreement"
+  ],
+  "metric_notes": {
+    "join_rate_error": "defined even with zero positive boundaries (the Chinese case); two systems that join nothing vs a writer who joins nothing score 0",
+    "join_f1": "reported as UNDEFINED, not zero, when no positive boundary exists",
+    "word_space_similarity": "NOT_RUN for Chinese: no word spaces (BoundInk reports the same for the OLHWG protocol)",
+    "continuity_error": "position + DIRECTION mismatch at a join; the existing boundary suite has no smoothness term",
+    "offline_connectivity_proxy": "ink-only join estimate; its agreement with trajectory-derived GT on paired lines MUST be reported beside any number",
+    "csm_naming": "CSM-named quantities are our definitions of BoundInk constructs; the released text does not state their formulas"
+  }
+}

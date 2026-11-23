@@ -1,0 +1,275 @@
+{
+  "note": "Entries whose evidence is a retrieved full text or an official proceedings/DOI record rather than a Crossref/arXiv title match. Kept as data (not code) so each record is auditable and can be diffed. Every field was verified; `evidence` names what was read.",
+  "entries": {
+    "fid": {
+      "type": "proceedings",
+      "author": "Martin Heusel and Hubert Ramsauer and Thomas Unterthiner and Bernhard Nessler and Sepp Hochreiter",
+      "title": "GANs trained by a two time-scale update rule converge to a local Nash equilibrium",
+      "booktitle": "Advances in Neural Information Processing Systems (NeurIPS)",
+      "year": "2017",
+      "note": "arXiv:1706.08500",
+      "evidence": "arXiv API id_list=1706.08500 (title and all five authors matched, NeurIPS 2017). DELIBERATELY NO DOI: a Crossref title search returned a title-squatting record, DOI 10.18034/ajase.v8i1.9, Asian Journal of Applied Science and Engineering 2019, by an unrelated author; that record is a different work and is excluded. Verified independently at the Stage 2.5 gate."
+    },
+    "hisac": {
+      "type": "incollection",
+      "author": "Jiangpeng Wang and Fei Gao and Nannan Wang",
+      "title": "Hierarchical style aggregation for versatile {Chinese} handwriting generation",
+      "booktitle": "Lecture Notes in Computer Science",
+      "year": "2026",
+      "doi": "10.1007/978-3-032-37490-5_6",
+      "evidence": "Crossref DOI record 10.1007/978-3-032-37490-5_6 retrieved directly; ECCV 2026 camera-ready PDF retrieved (media.eventhosts.cc/Conferences/ECCV2026/pdfs/3526.pdf) and the three authors confirmed there."
+    },
+    "diffwriter": {
+      "type": "incollection",
+      "author": "Min-Si Ren and Yan-Ming Zhang and Qiu-Feng Wang and Fei Yin and Cheng-Lin Liu",
+      "title": "{Diff-Writer}: a diffusion model-based stylized online handwritten {Chinese} character generator",
+      "booktitle": "Communications in Computer and Information Science",
+      "year": "2023",
+      "doi": "10.1007/978-981-99-8141-0_7",
+      "evidence": "Crossref DOI record 10.1007/978-981-99-8141-0_7 retrieved directly."
+    },
+    "difffont": {
+      "type": "article",
+      "author": "Haibin He and Xinyuan Chen and Chaoyue Wang and Juhua Liu and Bo Du and Dacheng Tao and Yu Qiao",
+      "title": "{Diff-Font}: diffusion model for robust one-shot font generation",
+      "journal": "arXiv preprint arXiv:2212.05895",
+      "year": "2022",
+      "evidence": "arXiv API id_list=2212.05895 (title and seven authors matched). Note the arXiv title is '...Robust One-Shot Font Generation', not the '...One-shot Chinese Font Generation' form used in some secondary sources."
+    },
+    "dsd": {
+      "type": "article",
+      "author": "Atsunobu Kotani and Stefanie Tellex and James Tompkin",
+      "title": "Generating handwriting via decoupled style descriptors",
+      "journal": "arXiv preprint arXiv:2008.11354",
+      "year": "2020",
+      "evidence": "arXiv API id_list=2008.11354 (title and three authors matched)."
+    },
+    "boundink": {
+      "type": "article",
+      "author": "Jinsu Shin and Sungeun Hong and JinYeong Bak",
+      "title": "{BoundInk}: Boundary-aware online handwriting generation",
+      "journal": "arXiv preprint arXiv:2604.02103",
+      "year": "2026",
+      "note": "Earlier versions v1-v2 titled 'CASHG: Context-Aware Stylized Online Handwriting Generation'; renamed at v3",
+      "evidence": "arXiv API export.arxiv.org/api/query?id_list=2604.02103: v3 title, all three authors, and the comment field recording the rename from CASHG."
+    },
+    "inkspire": {
+      "type": "inproceedings",
+      "author": "Honglie Wang and Yan-Ming Zhang and Wangzi Yao and Fei Yin and Cheng-Lin Liu",
+      "title": "Learning to generate stylized handwritten text via a unified representation of style, content, and noise",
+      "booktitle": "International Conference on Learning Representations (ICLR)",
+      "year": "2026",
+      "note": "arXiv/OpenReview record",
+      "evidence": "Full text retrieved from the ICLR proceedings PDF (proceedings.iclr.cc). A Crossref/arXiv title search did NOT match; the entry is included because the paper itself was retrieved."
+    },
+    "dp_font": {
+      "type": "inproceedings",
+      "author": "Liguo Zhang and Yalong Zhu and Achref Benarab and Yusen Ma and Yuxin Dong and Jianguo Sun",
+      "title": "{DP-Font}: {Chinese} calligraphy font generation using diffusion model and physical information neural network",
+      "booktitle": "International Joint Conference on Artificial Intelligence (IJCAI)",
+      "year": "2024",
+      "evidence": "Full text retrieved from the IJCAI proceedings page (ijcai.org/proceedings/2024/863). The sixth author, Jianguo Sun, was restored at the Stage 2.5 gate, which caught its omission from this record."
+    },
+    "scfont": {
+      "type": "inproceedings",
+      "author": "Yue Jiang and Zhouhui Lian and Yingmin Tang and Jianguo Xiao",
+      "title": "{SCFont}: structure-guided {Chinese} font generation via deep stacked networks",
+      "booktitle": "AAAI Conference on Artificial Intelligence",
+      "year": "2019",
+      "doi": "10.1609/aaai.v33i01.33014015",
+      "evidence": "Retrieved via the AAAI DOI landing record."
+    },
+    "stroke2font": {
+      "type": "article",
+      "author": "Qing-Sheng Li and Yu-Lin Bian and Zhen-Hui Chai",
+      "title": "{Stroke2Font}: a hierarchical vector model with {AI}-driven optimization for {Chinese} font generation",
+      "journal": "Algorithms",
+      "year": "2026",
+      "evidence": "Retrieved from the MDPI article page (mdpi.com/1999-4893/19/3/231). DOI not recorded here; the article page is the evidence."
+    },
+    "lvgh": {
+      "type": "article",
+      "author": "Xinyue Zhang and Haolong Li and Jiawei Ma and Chen Ye",
+      "title": "Stroke modeling enables vectorized character generation with large vectorized glyph model",
+      "journal": "arXiv preprint arXiv:2511.11119",
+      "year": "2025",
+      "evidence": "arXiv API id_list=2511.11119 (title and all four authors matched). An earlier revision omitted the author list rather than guess it; the gate identified the omission and the authors were then read from the record."
+    },
+    "hanzi": {
+      "type": "misc",
+      "author": "Shaunak Kishore",
+      "title": "Make Me a Hanzi: free, open-source {Chinese} character data ({graphics.txt}, {Arphic} Public License)",
+      "year": "2024",
+      "note": "https://github.com/skishore/makemeahanzi",
+      "evidence": "Project page and COPYING file retrieved (skishore.me/makemeahanzi and the licence text). graphics.txt derives from AR PL KaitiM GB / AR PL UKai under the Arphic Public License; dictionary.txt is a separate LGPL-3.0-or-later work. Downloaded and analysed locally (30,778,076 bytes, 9,574 records)."
+    },
+    "tgc_diff": {
+      "type": "inproceedings",
+      "author": "Honglie Wang and Minsi Ren and Yan-Ming Zhang and Fei Yin and Cheng-Lin Liu",
+      "title": "{Template-Guided Cascaded Diffusion for Stylized Handwritten Chinese Text-Line Generation}",
+      "booktitle": "Document Analysis and Recognition -- ICDAR 2025",
+      "year": "2025",
+      "doi": "10.1007/978-3-032-04614-7_9",
+      "note": "ICDAR 2025 Best Paper; pp. 149-166",
+      "evidence": "Official bibtex in the authors' repository README (github.com/newbie2niubility/TGC-Diff), matched against the Springer chapter DOI 10.1007/978-3-032-04614-7_9. Code retrieved: 80 files, 22 Python, MIT."
+    },
+    "diffink": {
+      "type": "inproceedings",
+      "author": "Wei Pan and Huiguo He and Hiuyi Cheng and Yilin Shi and Lianwen Jin",
+      "title": "{DiffInk}: glyph- and style-aware latent diffusion transformer for text to online handwriting generation",
+      "booktitle": "International Conference on Learning Representations (ICLR)",
+      "year": "2026",
+      "note": "arXiv:2509.23624",
+      "evidence": "arXiv API id_list=2509.23624 (title and all five authors matched, 2025-09-28). Code retrieved: github.com/awei669/DiffInk, 712 KB, MIT, weights released 2026-03-21. ONLINE generation only (T2OHG) - cited as related work, not used as an offline baseline."
+    },
+    "diffbrush": {
+      "type": "inproceedings",
+      "author": "Gang Dai and Yifan Zhang and Yutao Qin and Qiangya Guo and Shuangping Huang and Shuicheng Yan",
+      "title": "{Beyond Isolated Words: Diffusion Brush for Handwritten Text-Line Generation}",
+      "booktitle": "IEEE/CVF International Conference on Computer Vision (ICCV)",
+      "year": "2025",
+      "note": "arXiv:2508.03256; pp. 19054-19064",
+      "evidence": "arXiv API id_list=2508.03256 (title and all six authors matched). ICCV 2025 open-access record confirms pages 19054-19064. Code retrieved: github.com/dailenson/DiffBrush, MIT."
+    },
+    "kid": {
+      "type": "inproceedings",
+      "author": "Mikołaj Bińkowski and Danica J. Sutherland and Michael Arbel and Arthur Gretton",
+      "title": "Demystifying {MMD} {GANs}",
+      "booktitle": "International Conference on Learning Representations (ICLR)",
+      "year": "2018",
+      "note": "arXiv:1801.01401",
+      "evidence": "arXiv API id_list=1801.01401: title and all four authors matched, and the same record's comment field states 'Published at ICLR 2018: https://openreview.net/forum?id=r1lUOzWCW', which is what fixes the venue. ICLR/PMLR proceedings carry no Crossref DOI, so none is recorded."
+    },
+    "inception_score": {
+      "type": "inproceedings",
+      "author": "Tim Salimans and Ian Goodfellow and Wojciech Zaremba and Vicki Cheung and Alec Radford and Xi Chen",
+      "title": "Improved Techniques for Training {GANs}",
+      "booktitle": "Advances in Neural Information Processing Systems (NeurIPS)",
+      "year": "2016",
+      "note": "arXiv:1606.03498",
+      "evidence": "arXiv API id_list=1606.03498: title and all six authors matched. Venue confirmed on the official NeurIPS 2016 proceedings index (proceedings.neurips.cc/paper_files/paper/2016), which lists the paper under exactly this title and the same author names (that index prints the last author twice; the paper has six authors). NeurIPS proceedings carry no Crossref DOI."
+    },
+    "gs": {
+      "type": "inproceedings",
+      "author": "Valentin Khrulkov and Ivan Oseledets",
+      "title": "Geometry Score: A Method For Comparing Generative Adversarial Networks",
+      "booktitle": "International Conference on Machine Learning (ICML)",
+      "year": "2018",
+      "note": "{PMLR} 80:2621-2629; arXiv:1802.02664",
+      "evidence": "Official PMLR ICML 2018 volume index (proceedings.mlr.press/v80/) lists the entry as 'Geometry Score: A Method For Comparing Generative Adversarial Networks', Valentin Khrulkov and Ivan Oseledets, PMLR 80:2621-2629. arXiv API id_list=1802.02664: title and both authors matched, comment field 'ICML 2018'. PMLR proceedings carry no Crossref DOI."
+    },
+    "hwd": {
+      "type": "inproceedings",
+      "author": "Vittorio Pippi and Fabio Quattrini and Silvia Cascianelli and Rita Cucchiara",
+      "title": "{HWD}: A Novel Evaluation Score for Styled Handwritten Text Generation",
+      "booktitle": "British Machine Vision Conference (BMVC)",
+      "year": "2023",
+      "note": "arXiv:2310.20316",
+      "evidence": "ORIGIN OF HWD, established from the BMVC 2023 official proceedings page (proceedings.bmvc2023.org/7/): the paper states in its abstract 'we devise the Handwriting Distance (HWD), tailored for HTG evaluation', and the page's own citation block gives these four authors, this title and BMVA 2023. Independent confirmation: arXiv API id_list=2310.20316 (title and all four authors matched, comment 'Accepted at BMVC2023'); the authors' code repository github.com/aimagelab/HWD describes HWD as 'the primary evaluation score introduced in the paper'; and the HTG-evaluation survey arXiv:2409.02683 cites this paper as the 'newly introduced' Handwriting Distance. The VGG16 backbone is pretrained on the Font2 synthetic text-image set. No Crossref DOI is registered for BMVC 2023 papers, so none is recorded. DiffBrush cites this work as reference 45 and calls HWD 'newly proposed'."
+    },
+    "ts_gan": {
+      "type": "inproceedings",
+      "author": "Brian Davis and Bryan Morse and Brian Price and Chris Tensmeyer and Curtis Wigington and Rajiv Jain",
+      "title": "Text and Style Conditioned {GAN} for the Generation of Offline-Handwriting Lines",
+      "booktitle": "British Machine Vision Conference (BMVC)",
+      "year": "2020",
+      "doi": "10.5244/c.34.174",
+      "note": "arXiv:2009.00678",
+      "evidence": "Crossref DOI record 10.5244/c.34.174 retrieved directly: title, all six authors, container 'Proceedings of the British Machine Vision Conference 2020', publisher British Machine Vision Association, 2020. Independent confirmation: arXiv API id_list=2009.00678 (title matched, comment 'Accepted at BMVC 2020'; that preprint lists the authors in a different order) and the BMVA archive page bmva-archive.org.uk/bmvc/2020/conference/papers/paper_0815.html, whose author order agrees with the DOI record. This is the paper DiffBrush cites as TS-GAN (reference 9)."
+    },
+    "csa_gan": {
+      "type": "article",
+      "author": "Lei Kang and Pau Riba and Marçal Rusiñol and Alicia Fornés and Mauricio Villegas",
+      "title": "Content and Style Aware Generation of Text-Line Images for Handwriting Recognition",
+      "journal": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+      "year": "2022",
+      "doi": "10.1109/TPAMI.2021.3122572",
+      "note": "vol. 44, no. 12, pp. 8846-8860; arXiv:2204.05539",
+      "evidence": "Crossref DOI record 10.1109/TPAMI.2021.3122572 retrieved directly: title, all five authors, IEEE TPAMI 44(12):8846-8860, 2022, publisher IEEE. Independent confirmation: arXiv API id_list=2204.05539 (title and all five authors matched; that record carries the same DOI). Crossref strips diacritics ('Marcal Rusinol', 'Alicia Fornes'); the accented spelling used here is the publisher's own in the arXiv deposit. This is the paper DiffBrush cites as CSA-GAN (reference 23), which lists it as 2021 early access; 2022 is the volume year."
+    },
+    "chen2023": {
+      "type": "incollection",
+      "author": "Yi Chen and Heng Zhang and Cheng-Lin Liu",
+      "title": "Improved Learning for Online Handwritten {Chinese} Text Recognition with Convolutional Prototype Network",
+      "booktitle": "Lecture Notes in Computer Science",
+      "year": "2023",
+      "doi": "10.1007/978-3-031-41685-9_3",
+      "note": "{ICDAR} 2023, vol. 14190, pp. 38-53",
+      "evidence": "Crossref DOI record 10.1007/978-3-031-41685-9_3 retrieved directly: title, Yi Chen / Heng Zhang / Cheng-Lin Liu, container 'Lecture Notes in Computer Science Document Analysis and Recognition - ICDAR 2023', pp. 38-53, 2023, Springer. Identity established, not guessed: OLHWG's own reference list, read in the retrieved arXiv HTML 2410.02309v3, gives 'Yi Chen, Heng Zhang, and Cheng-Lin Liu. Improved learning for online handwritten chinese text recognition with convolutional prototype network. ICDAR 2023, pp. 38-53' — exactly this record. This is the recogniser OLHWG uses for AR/CR (0.962 AR / 0.958 CR on real test lines)."
+    },
+    "hct_gan": {
+      "type": "inproceedings",
+      "author": "Shuo Li and Xiyan Liu and Gaofeng Meng and Shiming Xiang and Chunhong Pan",
+      "title": "Components Regulated Generation of Handwritten {Chinese} Text-lines in Arbitrary Length",
+      "booktitle": "International Conference on Pattern Recognition (ICPR)",
+      "year": "2022",
+      "doi": "10.1109/icpr56361.2022.9956698",
+      "note": "pp. 1378-1385",
+      "evidence": "Crossref DOI record 10.1109/icpr56361.2022.9956698 retrieved directly: title, Shuo Li / Xiyan Liu / Gaofeng Meng / Shiming Xiang / Chunhong Pan, container '2022 26th International Conference on Pattern Recognition (ICPR)', pp. 1378-1385, IEEE, 2022, type proceedings-article. The DOI arrived as an unverified search hit and was checked against the registry rather than trusted: it resolves to this paper, not to a title-squatting duplicate. The model in this paper is named HCT-GAN."
+    },
+    "yao2025": {
+      "type": "article",
+      "author": "Gang Yao and Liangrui Peng and Zhiyu Li and Tianqi Zhao and Kemeng Zhao and Ning Ding and Yao Tao",
+      "title": "Multi-level Style Control for {Chinese} Handwriting Generation",
+      "journal": "International Journal on Document Analysis and Recognition (IJDAR)",
+      "year": "2025",
+      "doi": "10.1007/s10032-025-00533-x",
+      "note": "vol. 28, no. 3, pp. 429-440",
+      "evidence": "Crossref DOI record 10.1007/s10032-025-00533-x retrieved directly: title, seven authors, container 'International Journal on Document Analysis and Recognition (IJDAR)', vol. 28, issue 3, pp. 429-440, 2025, Springer. The Springer article page confirms the same author list (Tsinghua University; Yao Tao at Noah's Ark Lab, Huawei), published 07 June 2025, special-issue paper. Crossref and Springer both print the fourth author's surname lowercased ('Tianqi zhao'); it is capitalised here as a surname. The override schema has no volume/issue/page fields, so those are recorded in note."
+    },
+    "sdt": {
+      "type": "proceedings",
+      "author": "Gang Dai and Yifan Zhang and Qingfeng Wang and Qing Du and Zhuliang Yu and Zhuoman Liu and Shuangping Huang",
+      "title": "{Disentangling Writer and Character Styles for Handwriting Generation}",
+      "booktitle": "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "year": "2023",
+      "note": "arXiv:2303.14736",
+      "evidence": "authors/title carried over unchanged from the verified store record (arXiv:2303.14736); venue corrected to CVPR 2023 because the official implementation repo github.com/dailenson/SDT states CVPR 2023 and the arXiv entry is the preprint of that work. Venue evidence is the authors' own repository, not a registry round-trip."
+    },
+    "lin2007": {
+      "type": "article",
+      "author": "Zhouchen Lin and Liang Wan",
+      "title": "Style-preserving {English} handwriting synthesis",
+      "journal": "Pattern Recognition",
+      "volume": "40",
+      "number": "7",
+      "pages": "2097--2109",
+      "year": "2007",
+      "doi": "10.1016/j.patcog.2006.11.024",
+      "evidence": "Crossref api.crossref.org/works/10.1016/j.patcog.2006.11.024: title, both authors, PR 40(7):2097-2109, July 2007."
+    },
+    "wang2005": {
+      "type": "article",
+      "author": "Jue Wang and Chenyu Wu and Ying-Qing Xu and Heung-Yeung Shum",
+      "title": "Combining shape and physical models for online cursive handwriting synthesis",
+      "journal": "International Journal of Document Analysis and Recognition (IJDAR)",
+      "volume": "7",
+      "number": "4",
+      "pages": "219--227",
+      "year": "2005",
+      "doi": "10.1007/s10032-004-0131-6",
+      "evidence": "Crossref api.crossref.org/works/10.1007/s10032-004-0131-6: title (the record omits one space, 'modelsfor'), all four authors, IJDAR 7(4):219-227, Sept 2005."
+    },
+    "chen2015": {
+      "type": "article",
+      "author": "Hsin-I Chen and Tse-Ju Lin and Xiao-Feng Jian and I-Chao Shen and Bing-Yu Chen",
+      "title": "Data-driven handwriting synthesis in a conjoined manner",
+      "journal": "Computer Graphics Forum",
+      "volume": "34",
+      "number": "7",
+      "pages": "235--244",
+      "year": "2015",
+      "doi": "10.1111/cgf.12762",
+      "evidence": "Crossref api.crossref.org/works/10.1111/cgf.12762: all five authors, CGF 34(7):235-244, Oct 2015."
+    },
+    "unicalli": {
+      "type": "article",
+      "author": "Tianshuo Xu and Kai Wang and Zhifei Chen and Leyi Wu and Tianshui Wen and Fei Chao and Ying-Cong Chen",
+      "title": "{UniCalli}: A unified diffusion framework for column-level generation and recognition of {Chinese} calligraphy",
+      "journal": "arXiv preprint arXiv:2510.13745",
+      "year": "2025",
+      "note": "code: https://github.com/EnVision-Research/UniCalli",
+      "evidence": "arXiv API export.arxiv.org/api/query?id_list=2510.13745: title, all seven authors, v2 2026-02-02."
+    }
+  }
+}

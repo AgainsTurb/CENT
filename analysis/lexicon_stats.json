@@ -1,0 +1,157 @@
+{
+  "generated_at": "2026-11-21T08:18:47+00:00",
+  "source": "Make Me A Hanzi graphics.txt (Arphic Public License)",
+  "license_note": "graphics.txt is derived from AR PL KaitiM GB / AR PL UKai and is distributed under the Arphic Public License. The dictionary file is a separate LGPL-3.0-or-later work.",
+  "records_total": 9574,
+  "records_unparsable": 0,
+  "characters_with_strokes": 9574,
+  "stroke_count_histogram": {
+    "1": 8,
+    "2": 44,
+    "3": 87,
+    "4": 168,
+    "5": 234,
+    "6": 382,
+    "7": 589,
+    "8": 757,
+    "9": 873,
+    "10": 871,
+    "11": 905,
+    "12": 873,
+    "13": 753,
+    "14": 649,
+    "15": 584,
+    "16": 475,
+    "17": 363,
+    "18": 241,
+    "19": 212,
+    "20": 146,
+    "21": 108,
+    "22": 81,
+    "23": 60,
+    "24": 50,
+    "25": 24,
+    "26": 8,
+    "27": 14,
+    "28": 6,
+    "29": 2,
+    "30": 5,
+    "32": 1,
+    "33": 1
+  },
+  "gb2312_level1": {
+    "n_inventory": 3755,
+    "n_covered": 3755,
+    "coverage_pct": 100.0,
+    "strokes_mean": 9.766,
+    "strokes_median": 10,
+    "strokes_stdev": 3.407,
+    "strokes_min": 1,
+    "strokes_p90": 14,
+    "strokes_p99": 19,
+    "strokes_max": 24,
+    "pct_gt20_strokes": 0.37,
+    "pct_gt30_strokes": 0.0,
+    "mean_svg_commands_per_char": 132.4,
+    "pct_with_bezier_curve": 100.0
+  },
+  "gb2312_level2": {
+    "n_inventory": 3008,
+    "n_covered": 3008,
+    "coverage_pct": 100.0,
+    "strokes_mean": 11.688,
+    "strokes_median": 11.0,
+    "strokes_stdev": 3.827,
+    "strokes_min": 1,
+    "strokes_p90": 17,
+    "strokes_p99": 22,
+    "strokes_max": 30,
+    "pct_gt20_strokes": 1.8,
+    "pct_gt30_strokes": 0.0,
+    "mean_svg_commands_per_char": 156.77,
+    "pct_with_bezier_curve": 100.0
+  },
+  "gb2312_union": {
+    "n_inventory": 6763,
+    "n_covered": 6763,
+    "coverage_pct": 100.0,
+    "strokes_mean": 10.62,
+    "strokes_median": 10,
+    "strokes_stdev": 3.724,
+    "strokes_min": 1,
+    "strokes_p90": 16,
+    "strokes_p99": 20,
+    "strokes_max": 30,
+    "pct_gt20_strokes": 1.01,
+    "pct_gt30_strokes": 0.0,
+    "mean_svg_commands_per_char": 143.24,
+    "pct_with_bezier_curve": 100.0
+  },
+  "all": {
+    "n_inventory": 9574,
+    "n_covered": 9574,
+    "coverage_pct": 100.0,
+    "strokes_mean": 11.763,
+    "strokes_median": 11.0,
+    "strokes_stdev": 4.399,
+    "strokes_min": 1,
+    "strokes_p90": 18,
+    "strokes_p99": 24,
+    "strokes_max": 33,
+    "pct_gt20_strokes": 3.76,
+    "pct_gt30_strokes": 0.02,
+    "mean_svg_commands_per_char": 156.75,
+    "pct_with_bezier_curve": 100.0
+  },
+  "most_complex": [
+    {
+      "character": "鱻",
+      "strokes": 33
+    },
+    {
+      "character": "籲",
+      "strokes": 32
+    },
+    {
+      "character": "饢",
+      "strokes": 30
+    },
+    {
+      "character": "鱺",
+      "strokes": 30
+    },
+    {
+      "character": "鸝",
+      "strokes": 30
+    },
+    {
+      "character": "鸞",
+      "strokes": 30
+    },
+    {
+      "character": "爨",
+      "strokes": 30
+    },
+    {
+      "character": "鬱",
+      "strokes": 29
+    },
+    {
+      "character": "驪",
+      "strokes": 29
+    },
+    {
+      "character": "鸚",
+      "strokes": 28
+    },
+    {
+      "character": "鑿",
+      "strokes": 28
+    },
+    {
+      "character": "鸘",
+      "strokes": 28
+    }
+  ],
+  "has_medians_pct": 100.0
+}

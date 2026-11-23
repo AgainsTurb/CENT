@@ -1,0 +1,274 @@
+{
+  "_note": "Machine-readable companion to docs/WEIGHTS_AND_DATA.md. Fetch on the GPU box; nothing here is downloaded except the two OLHWG files marked present.",
+  "policy": "single weight files >300 MB are recorded, not downloaded",
+  "present": [
+    {
+      "baseline": "olhwg",
+      "file": "baselines/olhwg/models/unetddpm450000.pth",
+      "bytes": 164622792,
+      "url": "https://huggingface.co/datasets/Immortalman12/OLHWD/resolve/main/unetddpm450000.pth",
+      "verified": "torch.load ok: 229 tensors, 41.13M params"
+    },
+    {
+      "baseline": "olhwg",
+      "file": "baselines/olhwg/models/style_encoder450000.pth",
+      "bytes": 31760219,
+      "url": "https://huggingface.co/datasets/Immortalman12/OLHWD/resolve/main/style_encoder450000.pth",
+      "verified": "torch.load ok: 46 tensors, 7.94M params"
+    }
+  ],
+  "deferred_over_300mb": [
+    {
+      "baseline": "diffbrush",
+      "file": "baselines/diffbrush/model_zoo/DiffBrush-ckpt.pt",
+      "bytes": 1165546469,
+      "url": "https://drive.google.com/file/d/1EWzBmLtnQ42cTf3k_CYQ-nF3RXCb35I6/view",
+      "http": "200"
+    },
+    {
+      "baseline": "diffbrush",
+      "file": "baselines/diffbrush/model_zoo/vae/ (diffusers SD1.5 VAE)",
+      "bytes": 334643276,
+      "url": "https://huggingface.co/sd-legacy/stable-diffusion-v1-5",
+      "http": "200"
+    },
+    {
+      "baseline": "tgc_diff",
+      "file": "baselines/tgc_diff/template/temp_weight.pt",
+      "bytes": 931372922,
+      "url": "https://drive.google.com/file/d/1rfH6ZFty-RQFtFf6_XwgXG8ZEx4njcvI/view",
+      "http": "200"
+    },
+    {
+      "baseline": "tgc_diff",
+      "file": "baselines/tgc_diff/weight/weight.pt",
+      "bytes": 2033807758,
+      "url": "https://drive.google.com/file/d/1fjGTLNjXt7tVza1ORllxcuakFBWo5bZO/view",
+      "http": "200"
+    },
+    {
+      "baseline": "diffink",
+      "file": "baselines/diffink/outputs/ink_dit_tune_03_21_13_37/ckpt/dit_epoch_1.pt",
+      "bytes": 2914621632,
+      "url": "https://drive.google.com/file/d/13sApjo9rqFHdfNnWmiWaRjFVWewJqECY/view",
+      "http": "200"
+    }
+  ],
+  "deferred_under_300mb_not_fetched_on_request": [
+    {
+      "baseline": "tgc_diff",
+      "file": "baselines/tgc_diff/.cache/.cache.zip",
+      "bytes": 234623734,
+      "url": "https://drive.google.com/file/d/1MA0ndX0kdMik11klXBfbx3MFb0wXgyP7/view"
+    },
+    {
+      "baseline": "diffink",
+      "file": "baselines/diffink/outputs/ink_vae_03_14_02_12/ckpt/vae_epoch_100.pt",
+      "bytes": 178524954,
+      "url": "https://drive.google.com/file/d/11fprScAKJnML2Dv_BFZ5JDSQ1cQm341t/view"
+    },
+    {
+      "baseline": "sdt",
+      "file": "baselines/sdt/model_zoo/checkpoint-iter199999.pth",
+      "bytes": 273587031,
+      "url": "https://drive.google.com/file/d/1OAjW463bVgreCuDKT_aT8a94Cx-53ZKu/view"
+    },
+    {
+      "baseline": "diffink",
+      "file": "baselines/diffink/datas/meta/All_zi.json",
+      "bytes": 44043,
+      "url": "https://drive.google.com/file/d/1yQpL0oxC5dv8yXTdWuHsdkaZpAI4XYeQ/view",
+      "critical": "the release vocabulary; without it a DiffInk text-conditioned score is not reproducible"
+    }
+  ],
+  "unavailable": [
+    {
+      "baseline": "metascript",
+      "file": "checkpoint/generator.pth",
+      "url": "https://pan.baidu.com/s/1UGHPKFVSvRj2QY_PbSjJGQ?pwd=1024",
+      "why": "Baidu Netdisk only; no GitHub release, no HF model. Needs Baidu account or a retrain."
+    }
+  ],
+  "folders_needing_gdown": [
+    {
+      "baseline": "diffink",
+      "url": "https://drive.google.com/drive/folders/1h_uLmn-55WmbSBGh1ES8-rftAbDs8riB"
+    },
+    {
+      "baseline": "sdt",
+      "url": "https://drive.google.com/drive/folders/1LendizOwcNXlyY946ThS8HQ4wJX--YL7"
+    },
+    {
+      "baseline": "sdt",
+      "url": "https://drive.google.com/drive/folders/1N-MGRnXEZmxAW-98Hz2f-o80oHrNaN_a"
+    }
+  ],
+  "datasets_reachable_not_downloaded": [
+    {
+      "name": "CASIA-HWDB2.0-2.2 (dgrl)",
+      "url": "https://nlpr.ia.ac.cn/databases/handwriting/Download.html",
+      "mb": 2203,
+      "note": "signed academic agreement required"
+    },
+    {
+      "name": "CASIA-OLHWDB2.0-2.2 (wptt)",
+      "url": "https://nlpr.ia.ac.cn/databases/handwriting/Download.html",
+      "mb": 193,
+      "note": "same agreement"
+    },
+    {
+      "name": "ICDAR-2013 text (offline)",
+      "url": "https://nlpr.ia.ac.cn/databases/handwriting/Download.html",
+      "mb": 140
+    },
+    {
+      "name": "ICDAR-2013 text (online)",
+      "url": "https://nlpr.ia.ac.cn/databases/handwriting/Download.html",
+      "mb": 12
+    },
+    {
+      "name": "OLHWG all_datas.npy",
+      "url": "https://huggingface.co/datasets/Immortalman12/OLHWD/resolve/main/all_datas.npy",
+      "bytes": 1676792545,
+      "http": "200",
+      "note": "CASIA-derived, third-party MIT label does not relicense the corpus"
+    },
+    {
+      "name": "Teklia CASIA-HWDB2-line train",
+      "url": "https://huggingface.co/datasets/Teklia/CASIA-HWDB2-line/resolve/main/data/train.parquet",
+      "bytes": 876003267,
+      "http": "200",
+      "note": "52,160 rows, h=128, RGB JPEG"
+    },
+    {
+      "name": "TGC-Diff chinese line data",
+      "url": "https://drive.google.com/file/d/1IAyfVImGdAPMAufQJHpBSdr-Afa2AAO_/view"
+    },
+    {
+      "name": "TGC-Diff template labels",
+      "url": "https://drive.google.com/file/d/14uHggU_ztBvxHGevld9jF1MCKQcnIYkd/view"
+    }
+  ],
+  "datasets": {
+    "_note": "Full audit in docs/DATASETS.md. All official URLs answered HTTP 200 (zip) on 2026-11-22. No application form required since 2020 for academic use.",
+    "terms": "academic only, no commercial; CASIA retains copyright; cite Liu et al. ICDAR 2011",
+    "essential": [
+      {
+        "name": "HWDB2.0Train",
+        "bytes": 726855826,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.0Train.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "HWDB2.0Test",
+        "bytes": 179749084,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.0Test.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "HWDB2.1Train",
+        "bytes": 553925763,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.1Train.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "HWDB2.1Test",
+        "bytes": 139912874,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.1Test.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "HWDB2.2Train",
+        "bytes": 527868892,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.2Train.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "HWDB2.2Test",
+        "bytes": 131544385,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/HWDB2.2Test.zip",
+        "dest": "data/raw/dgrl/"
+      },
+      {
+        "name": "WPTT2.0-Train",
+        "bytes": 63653107,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.0-Train.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "WPTT2.0-Test",
+        "bytes": 15998990,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.0-Test.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "WPTT2.1-Train",
+        "bytes": 51470049,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.1-Train.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "WPTT2.1-Test",
+        "bytes": 12947463,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.1-Test.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "WPTT2.2-Train",
+        "bytes": 45522785,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.2-Train.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "WPTT2.2-Test",
+        "bytes": 11237051,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/WPTT2.2-Test.zip",
+        "dest": "data/raw/wptt/"
+      },
+      {
+        "name": "Competition13Line (ICDAR-2013 offline text)",
+        "bytes": 143515530,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Offline/TextlineData/Competition13Line.zip",
+        "dest": "data/raw/icdar13/"
+      },
+      {
+        "name": "Competition13wptt (ICDAR-2013 online text)",
+        "bytes": 13297449,
+        "url": "https://nlpr.ia.ac.cn/databases/Download/Online/WPTTData/Competition13wptt.zip",
+        "dest": "data/raw/icdar13/"
+      },
+      {
+        "name": "Teklia/pylaia-casia-hwdb2 (HTR)",
+        "bytes": 65182957,
+        "url": "https://huggingface.co/Teklia/pylaia-casia-hwdb2",
+        "dest": "models/htr_casia_hwdb2/"
+      }
+    ],
+    "essential_total_bytes": 2682682205,
+    "recommended_optional": [
+      {
+        "name": "TGC-Diff temp_data.zip",
+        "bytes": 23656446,
+        "why": "real templates, cheaper than synthesising"
+      }
+    ],
+    "optional_mirrors": [
+      {
+        "name": "Teklia/CASIA-HWDB2-line",
+        "bytes": 1360000000,
+        "why": "52,160 rows, h=128 RGB JPEG"
+      },
+      {
+        "name": "OLHWD all_datas.npy",
+        "bytes": 1676792545,
+        "why": "independent conversion to cross-check our parser"
+      }
+    ],
+    "not_needed": {
+      "TGC-Diff chinese_textline.zip": "6.0 GB; our adapter builds its inputs from canonical lines",
+      "DiffInk train.h5+val.h5": "1.65 GB; adapter writes their HDF5 from canonical lines",
+      "SDT datasets": "weights only for a composed baseline",
+      "MetaScript dataset": "weights only; CASIA-HWDB1.1 only if retraining"
+    }
+  }
+}

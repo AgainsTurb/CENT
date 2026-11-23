@@ -1,0 +1,353 @@
+{
+  "pipeline_version": "3.24.4",
+  "project": "CENT",
+  "workspace": "A:\\Papers\\CENT",
+  "run_id": "cent-2026-11-21-a",
+  "created": "2026-11-21T15:57:18+08:00",
+  "target_venue": "CVPR (IEEE two-column; CVPR author kit must replace IEEEtran for submission)",
+  "global_state": "in_progress",
+  "current_stage": "2.5-closed",
+  "stages": {
+    "1": {
+      "name": "RESEARCH",
+      "skill": "deep-research",
+      "mode": "full",
+      "status": "complete",
+      "artifacts": [
+        "phase1_scoping/rq_brief.md",
+        "phase1_scoping/methodology_blueprint.md",
+        "phase1_scoping/devils_advocate_checkpoint1.md",
+        "phase2_literature/synthesis.md"
+      ],
+      "checkpoints": {
+        "devils_advocate_1": "REVISE. C4 (OOV content path) fixed in the blueprint; C2 (CASIA pairing) resolved in Phase 2; C1/C3/C5/C6 carried into the manuscript.",
+        "review_form": "Author replied 'It is planned for CVPR'. Recorded as no formal review form selected; a targeted related-work corpus was used."
+      }
+    },
+    "1.2": {
+      "name": "EXPERIMENT PLAN",
+      "status": "frozen_not_executed",
+      "artifacts": [
+        "experiments/run_sheet.json",
+        "experiments/harness_spec.md",
+        "experiments/harness.sha256",
+        "experiments/run_sheet.sha256"
+      ],
+      "plan_check": "ok - no findings (ars_experiment plan-check)",
+      "harness_sha256": "6ed1236da401bc617fd70d7fdd6f18594d25239a2c5892da53a8e877f180c8cd",
+      "plan_sha256": "00f759e8719125598f1135ab8402ece88ea062ac8edc13fd331b1a60d1fcd884",
+      "baselines_pinned": {
+        "GANwriting": "omni-us/research-GANwriting @ 9e0d8a3a8327 (MIT)",
+        "HWT": "ankanbhunia/Handwriting-Transformers @ fbc66bf33da4 (MIT)",
+        "VATr": "aimagelab/VATr @ 183501e02113 (MIT)",
+        "One-DM": "dailenson/One-DM @ dde2205a70a2 (MIT)",
+        "DiffusionPen": "koninik/DiffusionPen @ 059e2f2bcb73 (MIT)",
+        "HiSAC": "IIP-Lab-XDU/HiSAC @ 5e3e582d77b7 (Apache-2.0)"
+      },
+      "blocked_on": "CASIA corpus access (application process). No run performed, no gate held, no result reported."
+    },
+    "2": {
+      "name": "WRITE",
+      "skill": "academic-paper",
+      "mode": "full",
+      "status": "draft_complete",
+      "artifacts": [
+        "paper/main.tex",
+        "paper/refs.bib",
+        "paper/CENT-draft.pdf"
+      ],
+      "pages": 6,
+      "engine": "xelatex (IEEEtran conference + xeCJK)",
+      "honesty_note": "No comparative results reported, and no implementation exists. Stated in the abstract, section I.C, section IV and section VI."
+    },
+    "2.5": {
+      "name": "INTEGRITY",
+      "status": "closed_pass_with_notes",
+      "dispatched_role": "integrity-gate (separate subagent; not self-approved)",
+      "report_path": "phase2_5_integrity/integrity_report.md",
+      "round_1": "FAIL - 0 SERIOUS, 3 MEDIUM, 13 MINOR",
+      "round_2": "PASS WITH NOTES - 0 SERIOUS, 0 MEDIUM, 6 MINOR open",
+      "mediums_fixed": [
+        "dp_font sixth author (Jianguo Sun) restored",
+        "V.B splits corrected to 816/204 (released 4:1 of 1020)",
+        "III.B corpus-disagreement claim separated from Table I"
+      ],
+      "must_fix_after_round_2": "refs/verification_report.md rendered overrides from the stale store; rewritten to iterate the union of store, overrides and shipped bib, with overrides authoritative",
+      "residual_minors": [
+        "m8 LNCS/CCIS conference names not given",
+        "m10 stroke2font has no volume/DOI recorded",
+        "nits: advisory only"
+      ]
+    }
+  },
+  "reference_ledger": {
+    "candidates": 40,
+    "registry_accepted": 30,
+    "full_text_verified_overrides": 12,
+    "rejected": [
+      "fid - title-squatting DOI 10.18034/ajase.v8i1.9 rejected; superseded by arXiv:1706.08500"
+    ],
+    "no_match_dropped": 4,
+    "bib_entries": 42,
+    "cited_in_body": 42,
+    "orphans": 0,
+    "verifier": "refs/verify_refs.py, refs/verify_one.py, refs/make_bib.py, refs/render_report.py"
+  },
+  "empirical_evidence": {
+    "computed_by_author": [
+      "analysis/lexicon_stats.py -> analysis/lexicon_stats.json"
+    ],
+    "data_source": "Make Me A Hanzi graphics.txt (Arphic Public License), 30,778,076 bytes, 9,574 records",
+    "not_obtained": "CASIA-OLHWDB / CASIA-HWDB / ICDAR-2013 (access-gated; no mirror used)"
+  },
+  "pending_author_decisions": [
+    "Whether to obtain CASIA access and commit compute to execute the frozen run sheet",
+    "Whether to run Stage 3 review now, or after empirical results exist",
+    "Whether the paper should stay a design/protocol submission"
+  ],
+  "integrity_gates": {
+    "2.5": "PASS WITH NOTES (2026-11-21)",
+    "4.5": "not_run"
+  },
+  "round_trips": {
+    "revision_loops_used": 0,
+    "integrity_fix_rounds": 1
+  },
+  "next_stage": "3 (REVIEW) - not started",
+  "revision_4_2026_11_21": {
+    "trigger": "author asked to check baseline code/methods, make our method actually work, and adapt every baseline to run the main benchmark (no GPU rental)",
+    "baseline_audit": {
+      "report": "docs/BASELINE_AUDIT.md",
+      "diffbrush": {
+        "licence": "MIT",
+        "chinese_as_shipped": false,
+        "adapter_checks": 25,
+        "reproducibility": "reproducible after code change + weights"
+      },
+      "tgc_diff": {
+        "licence": "MIT",
+        "chinese_as_shipped": true,
+        "adapter_checks": 10,
+        "reproducibility": "reproducible; weights/VAE absent locally"
+      },
+      "diffink": {
+        "licence": "MIT",
+        "chinese_as_shipped": true,
+        "adapter_checks": "42/42 + 1 blocked",
+        "reproducibility": "prefix-conditioned completion, not text-only; release vocabulary required"
+      },
+      "olhwg": {
+        "licence": "NONE",
+        "chinese_as_shipped": true,
+        "adapter_checks": 60,
+        "reproducibility": "CITE-ONLY: no weights, no licence, eval entry point raises"
+      },
+      "cross_cutting": "none of the four ships a metric; scoring is ours (benchmark/score_lines.py)"
+    },
+    "cent_line_model": {
+      "status": "implemented and run end to end on the synthetic fixture",
+      "modules": [
+        "cent/models/line.py",
+        "cent/data_lines.py",
+        "cent/train_lines.py",
+        "cent/eval_lines.py"
+      ],
+      "verified": [
+        "dry run (4 losses)",
+        "1-epoch train -> checkpoint",
+        "sampling + connectivity metrics"
+      ],
+      "metrics": {
+        "connector_rate": "OK",
+        "pen_lift_agreement": "OK",
+        "continuity_error": "OK",
+        "speed_profile": "NOT_RUN (no timestamps)",
+        "AR/CR from images": "NOT_RUN (no frozen HTR)",
+        "FID": "NOT_RUN"
+      },
+      "numbers_are_fixture_only": true
+    },
+    "benchmark_scorer": {
+      "path": "benchmark/score_lines.py",
+      "ar_cr_verified": "12 chars, 1 deletion + 1 substitution -> AR 0.8333, CR 0.9167",
+      "image_mode": "NOT_RUN without a frozen HTR"
+    },
+    "paper_updated": [
+      "section V.D baseline qualifications",
+      "section V.A connectivity-supervision claim corrected"
+    ],
+    "verification": {
+      "core_tests": 66,
+      "adapter_checks": "~140 across 4 baselines",
+      "py_compile": "31 files clean"
+    }
+  },
+  "task_correction_2026_11_21": {
+    "trigger": "author clarified the task is CHINESE TEXT LINES with cursive inter-character connectivity and style from k reference LINES, not isolated characters",
+    "what_changed": {
+      "paper": "rewritten as a line-level manuscript: new title, abstract, intro, section II (offline/online line generation), method with connector latents and k-line style, connectivity metrics, line protocol",
+      "references": "DiffBrush added; line-level related work restructured; 44 entries, 44 cited, 0 orphans",
+      "data_layer": "added common/casia_lines.py (.dgrl/.wptt readers + connector inference + .pot size-field fix) and common/canonical_lines.py (line canonical builder + LineDataset)",
+      "baselines": "character-level set archived; four line-level repos cloned and pinned; adapters NOT yet written",
+      "run_sheet": "rebuilt for the line task: 4 line baselines, connectivity decision rule, plan-check ok"
+    },
+    "tests": {
+      "total": 66,
+      "all_passing": true,
+      "note": "synthetic fixtures only"
+    },
+    "corrections_of_my_own_errors": [
+      "the .pot header size field is 2 bytes, not 4 (common/casia.py was wrong)",
+      "the .wptt line record does NOT carry per-character stroke indices; connectivity must be INFERRED by a declared rule",
+      "text-line methods are the comparable baselines; character-level ones are not"
+    ],
+    "still_missing": [
+      "line-level model: connector tokens, layout tokens, k-line style encoding",
+      "four connectivity metrics",
+      "AR/CR by DP string matching",
+      "adapters for DiffBrush, TGC-Diff, DiffInk, OLHWG"
+    ]
+  },
+  "scripting_phase": {
+    "date": "2026-11-21",
+    "scope": "clone + adapt five baselines, implement CENT, build shared data layer",
+    "no_dataset_downloaded": true,
+    "no_gpu_rented": true,
+    "baselines": {
+      "metascript": {
+        "commit": "7ec444ffac44",
+        "adapter": "adapt_casia.py",
+        "checks": 17,
+        "status": "green",
+        "family": "Chinese-native offline, character-level",
+        "caveats": [
+          "64 px upscaled to its 128",
+          "class map from glob() order is a permutation"
+        ]
+      },
+      "sdt": {
+        "commit": "ba1da572c5c9",
+        "adapter": "adapt_casia.py",
+        "checks": 13,
+        "status": "green",
+        "family": "Chinese-native, offline path",
+        "blockers": [
+          "README --store_type offline does not exist; use img",
+          "test.py writes png but metric globs jpg",
+          "content encoder pretrain missing from model_zoo",
+          "style classifier is a fixed 60-way head"
+        ]
+      },
+      "ganwriting": {
+        "commit": "9e0d8a3a8327",
+        "adapter": "adapt_casia.py",
+        "checks": 54,
+        "status": "green",
+        "family": "language-agnostic"
+      },
+      "hwt": {
+        "commit": "fbc66bf33da4",
+        "adapter": "adapt_casia.py",
+        "checks": 25,
+        "status": "green",
+        "family": "language-agnostic"
+      },
+      "vatr": {
+        "commit": "183501e02113",
+        "adapter": "adapt_casia.py",
+        "checks": 94,
+        "status": "green",
+        "family": "language-agnostic"
+      },
+      "diffusionpen": {
+        "commit": "059e2f2bcb73",
+        "adapter": "adapt_casia.py",
+        "checks": 1787,
+        "status": "green",
+        "family": "language-agnostic",
+        "blockers": [
+          "requires DIFFUSIONPEN_MIN_TRANSCR_LEN=1"
+        ]
+      }
+    },
+    "baselines_revision_2": {
+      "date": "2026-11-21",
+      "trigger": "wide Exa+Tavily sweep for Chinese offline handwriting generation with runnable code",
+      "removed": {
+        "one_dm": "released code is an English word generator at the pinned commit",
+        "hisac": "repository contains LICENSE only; no source"
+      },
+      "added": [
+        "metascript",
+        "sdt"
+      ],
+      "excluded_with_reasons": {
+        "inkspire": "repo has 1 file, no Python; text-line granularity",
+        "tgc_diff": "real code but generates Chinese text LINES, not isolated characters",
+        "diffink": "online trajectories (T2OHG), not offline images",
+        "olhwg_writelikeyou_hccg": "online-only, or Torch7-era and not runnable"
+      },
+      "paper_updated": [
+        "section II.B text-line vs character-level",
+        "section II.C DiffInk",
+        "section V.D two baseline families + four exclusions"
+      ],
+      "references_added": [
+        "tgc_diff",
+        "diffink"
+      ],
+      "run_sheet": "6 baselines + excluded_baselines[4]; plan-check ok; sha256 7b4ba4b57b8d5c15aca558566d3640ea4017a0c51b93002f4da4c82036ce47e2"
+    },
+    "cent_implementation": {
+      "lines": 884,
+      "verified": [
+        "dry-run forward/backward with 5 loss terms",
+        "1-epoch train on fixture",
+        "sampling -> render -> metrics"
+      ],
+      "deviations": "DEVIATIONS.md (11 rows; 4 NOT IMPLEMENTED: CER, FID, SOEC, order distance)"
+    },
+    "shared_layer": {
+      "lines": 724,
+      "tests": 30,
+      "checks_passing": true
+    },
+    "findings": [
+      "HiSAC repository is empty - cannot be a reproduced baseline",
+      "One-DM pinned commit is an English word generator - 4 independent blockers",
+      "HWT upstream VOCAB_SIZE off-by-one would index out of range at 3755 classes",
+      "DiffusionPen filters style refs by len(transcr) > 3, which kills character-level training",
+      "canonical.py docstring claimed 255=ink while the code uses 0=ink; caught by 3 adapters, docstring fixed"
+    ]
+  },
+  "notes": "Fence policy: inline orchestration unfenced; dispatched roles declare ars_scope and are fenced to phase<N>_*/**. The integrity gate ran as a separate subagent because it cannot be self-approved.",
+  "training_plan_2026_11_22": {
+    "doc": "docs/CENT_TRAINING_PLAN.md",
+    "decisions": {
+      "canvas": "64x1024",
+      "max_chars": 32,
+      "max_tokens": 1024,
+      "verifier": "on",
+      "lambda_image": 1.0,
+      "recogniser": "Teklia/pylaia-casia-hwdb2 (MIT, 65.2 MB, not downloaded)",
+      "first_campaign": "paired lines only"
+    },
+    "blockers_fixed": [
+      "P1 tolerant parser + 1bpp stride",
+      "P2 single-scale aspect",
+      "P3 non-square renderer",
+      "P4 canvas-width refs/targets",
+      "P5 token budget",
+      "P6 verifier",
+      "P7 CFG dropout",
+      "P8 real writer ids"
+    ],
+    "tests": 144,
+    "ready_for_gpu_box": true,
+    "not_ready": [
+      "canonical data not built (needs corpus)",
+      "recogniser command not verified",
+      "baseline weights not fetched"
+    ]
+  }
+}

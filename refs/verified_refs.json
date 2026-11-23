@@ -1,0 +1,828 @@
+{
+  "accept_ratio": 0.87,
+  "generated_at": "2026-11-21T08:20:44+00:00",
+  "counts": {
+    "total": 40,
+    "accepted": 30,
+    "no_match": 4,
+    "lookup_failed": 0,
+    "rejected": 1
+  },
+  "entries": [
+    {
+      "key": "diffusionpen",
+      "query_title": "DiffusionPen: Towards Controlling the Style of Handwritten Text Generation",
+      "hint": "Nikolaidou 2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:10:59+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "DiffusionPen: Towards Controlling the Style of Handwritten Text Generation",
+      "score": 1.0,
+      "doi": "10.1007/978-3-031-73013-9_24",
+      "arxiv_id": null,
+      "venue": "Lecture Notes in Computer Science",
+      "year": 2024,
+      "authors": [
+        "Konstantina Nikolaidou",
+        "George Retsinas",
+        "Giorgos Sfikas",
+        "Marcus Liwicki"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=DiffusionPen%3A+Towards+Controlling+the+Style+of+Handwritten+Text+Generation&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "one_dm",
+      "query_title": "One-DM: One-Shot Diffusion Mimicker for Handwritten Text Generation",
+      "hint": "ECCV 2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:02+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "One-DM: One-Shot Diffusion Mimicker for Handwritten Text Generation",
+      "score": 1.0,
+      "doi": "10.1007/978-3-031-73636-0_24",
+      "arxiv_id": null,
+      "venue": "Lecture Notes in Computer Science",
+      "year": 2024,
+      "authors": [
+        "Gang Dai",
+        "Yifan Zhang",
+        "Quhui Ke",
+        "Qiangya Guo",
+        "Shuangping Huang"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=One-DM%3A+One-Shot+Diffusion+Mimicker+for+Handwritten+Text+Generation&rows=5&mailto=research%40example.org",
+      "type": "book-chapter"
+    },
+    {
+      "key": "vatr",
+      "query_title": "Handwritten Text Generation from Visual Archetypes",
+      "hint": "CVPR 2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:08+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Handwritten Text Generation from Visual Archetypes",
+      "score": 1.0,
+      "doi": "10.1109/cvpr52729.2023.02151",
+      "arxiv_id": null,
+      "venue": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "year": 2023,
+      "authors": [
+        "Vittorio Pippi",
+        "Silvia Cascianelli",
+        "Rita Cucchiara"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Handwritten+Text+Generation+from+Visual+Archetypes&rows=5&mailto=research%40example.org",
+      "type": "proceedings-article"
+    },
+    {
+      "key": "vatr_pp",
+      "query_title": "VATr++: Choose Your Words Wisely for Handwritten Text Generation",
+      "hint": "2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:17+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "VATr++: Choose Your Words Wisely for Handwritten Text Generation",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2402.10798v1",
+      "venue": "arXiv",
+      "year": "2024",
+      "authors": [
+        "Bram Vanherle",
+        "Vittorio Pippi",
+        "Silvia Cascianelli",
+        "Nick Michiels",
+        "Frank Van Reeth",
+        "Rita Cucchiara"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22VATr%2B%2B%3A+Choose+Your+Words+Wisely+for+Handwritten+Text+Generation%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "hwt",
+      "query_title": "Handwriting Transformers",
+      "hint": "ICCV 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:24+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Handwriting Transformers",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2104.03964v1",
+      "venue": "arXiv",
+      "year": "2021",
+      "authors": [
+        "Ankan Kumar Bhunia",
+        "Salman Khan",
+        "Hisham Cholakkal",
+        "Rao Muhammad Anwer",
+        "Fahad Shahbaz Khan",
+        "Mubarak Shah"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Handwriting+Transformers%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "ganwriting",
+      "query_title": "GANwriting: Content-Conditioned Generation of Styled Handwritten Word Images",
+      "hint": "ECCV 2020",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:31+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "GANwriting: Content-Conditioned Generation of Styled Handwritten Word Images",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2003.02567v2",
+      "venue": "arXiv",
+      "year": "2020",
+      "authors": [
+        "Lei Kang",
+        "Pau Riba",
+        "Yaxing Wang",
+        "Marçal Rusiñol",
+        "Alicia Fornés",
+        "Mauricio Villegas"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22GANwriting%3A+Content-Conditioned+Generation+of+Styled+Handwritten+Word+Images%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "wordstylist",
+      "query_title": "WordStylist: Styled Verbatim Handwritten Text Generation with Latent Diffusion Models",
+      "hint": "2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:39+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "WordStylist: Styled Verbatim Handwritten Text Generation with Latent Diffusion Models",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2303.16576v2",
+      "venue": "arXiv",
+      "year": "2023",
+      "authors": [
+        "Konstantina Nikolaidou",
+        "George Retsinas",
+        "Vincent Christlein",
+        "Mathias Seuret",
+        "Giorgos Sfikas",
+        "Elisa Barney Smith",
+        "Hamam Mokayed",
+        "Marcus Liwicki"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22WordStylist%3A+Styled+Verbatim+Handwritten+Text+Generation+with+Latent+Diffusion+Models%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "hisac",
+      "query_title": "Hierarchical Style Aggregation for Versatile Chinese Handwriting Generation",
+      "hint": "2025",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:15+00:00",
+      "status": "NO_MATCH",
+      "best_partial_score": null,
+      "best_partial_title": null
+    },
+    {
+      "key": "metascript",
+      "query_title": "MetaScript: Few-Shot Handwritten Chinese Content Generation via Generative Adversarial Networks",
+      "hint": "2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:52+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "MetaScript: Few-Shot Handwritten Chinese Content Generation via Generative Adversarial Networks",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2312.16251v1",
+      "venue": "arXiv",
+      "year": "2023",
+      "authors": [
+        "Xiangyuan Xue",
+        "Kailing Wang",
+        "Jiazi Bu",
+        "Qirui Li",
+        "Zhiyuan Zhang"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22MetaScript%3A+Few-Shot+Handwritten+Chinese+Content+Generation+via+Generative+Adversarial+Networks%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "inkspire",
+      "query_title": "Learning to Generate Stylized Handwritten Text via a Unified Representation of Style, Content, and Noise",
+      "hint": "ICLR 2026",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:11:58+00:00",
+      "status": "UNMATCHED",
+      "matched_title": "Stylized image denoising via noise style transfer and Quasi Siamese network",
+      "score": 0.4407,
+      "doi": "10.1016/j.image.2023.116958",
+      "arxiv_id": null,
+      "venue": "Signal Processing: Image Communication",
+      "year": 2023,
+      "authors": [
+        "Jikang Cheng",
+        "Zhen Han",
+        "Zhongyuan Wang"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Learning+to+Generate+Stylized+Handwritten+Text+via+a+Unified+Representation+of+Style%2C+Content%2C+and+Noise&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "diffwriter",
+      "query_title": "Diff-Writer: A Diffusion Model-Based Stylized Online Handwritten Chinese Character Generator",
+      "hint": "Ren 2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:21+00:00",
+      "status": "NO_MATCH",
+      "best_partial_score": null,
+      "best_partial_title": null
+    },
+    {
+      "key": "layout_glyph",
+      "query_title": "Decoupling Layout from Glyph in Online Chinese Handwriting Generation",
+      "hint": "2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:11+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Decoupling Layout from Glyph in Online Chinese Handwriting Generation",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2410.02309v3",
+      "venue": "arXiv",
+      "year": "2024",
+      "authors": [
+        "Min-Si Ren",
+        "Yan-Ming Zhang",
+        "Yi Chen"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Decoupling+Layout+from+Glyph+in+Online+Chinese+Handwriting+Generation%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "sdt",
+      "query_title": "Disentangling Writer and Character Styles for Handwriting Generation",
+      "hint": "CVPR 2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:19+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Disentangling Writer and Character Styles for Handwriting Generation",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2303.14736v2",
+      "venue": "arXiv",
+      "year": "2023",
+      "authors": [
+        "Gang Dai",
+        "Yifan Zhang",
+        "Qingfeng Wang",
+        "Qing Du",
+        "Zhuliang Yu",
+        "Zhuoman Liu",
+        "Shuangping Huang"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Disentangling+Writer+and+Character+Styles+for+Handwriting+Generation%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "rcgan",
+      "query_title": "Radical Constraint-Based Generative Adversarial Network for Handwritten Chinese Character Generation",
+      "hint": "2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:39+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Radical Constraint-Based Generative Adversarial Network for Handwritten Chinese Character Generation",
+      "score": 1.0,
+      "doi": "10.31577/cai_2024_2_482",
+      "arxiv_id": null,
+      "venue": "Computing and Informatics",
+      "year": 2024,
+      "authors": [
+        "Xi-Ling Ye",
+        "Hong-Bo Zhang",
+        "Li-Jie Yang",
+        "Ji-Xiang Du"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Radical+Constraint-Based+Generative+Adversarial+Network+for+Handwritten+Chinese+Character+Generation&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "casia",
+      "query_title": "CASIA Online and Offline Chinese Handwriting Databases",
+      "hint": "ICDAR 2011",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:42+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "CASIA Online and Offline Chinese Handwriting Databases",
+      "score": 1.0,
+      "doi": "10.1109/icdar.2011.17",
+      "arxiv_id": null,
+      "venue": "2011 International Conference on Document Analysis and Recognition",
+      "year": 2011,
+      "authors": [
+        "Cheng-Lin Liu",
+        "Fei Yin",
+        "Da-Han Wang",
+        "Qiu-Feng Wang"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=CASIA+Online+and+Offline+Chinese+Handwriting+Databases&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "icdar2013zh",
+      "query_title": "ICDAR 2013 Chinese Handwriting Recognition Competition",
+      "hint": "2013",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:23+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "ICDAR 2013 Chinese Handwriting Recognition Competition",
+      "score": 1.0,
+      "doi": "10.1109/icdar.2013.218",
+      "arxiv_id": null,
+      "venue": "2013 12th International Conference on Document Analysis and Recognition",
+      "year": 2013,
+      "authors": [
+        "Fei Yin",
+        "Qiu-Feng Wang",
+        "Xu-Yao Zhang",
+        "Cheng-Lin Liu"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=ICDAR+2013+Chinese+Handwriting+Recognition+Competition&rows=5&mailto=research%40example.org",
+      "type": "proceedings-article"
+    },
+    {
+      "key": "ddpm",
+      "query_title": "Denoising Diffusion Probabilistic Models",
+      "hint": "NeurIPS 2020",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:51+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Denoising Diffusion Probabilistic Models",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2006.11239v2",
+      "venue": "arXiv",
+      "year": "2020",
+      "authors": [
+        "Jonathan Ho",
+        "Ajay Jain",
+        "Pieter Abbeel"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Denoising+Diffusion+Probabilistic+Models%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "ldm",
+      "query_title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "hint": "CVPR 2022",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:12:57+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2112.10752v2",
+      "venue": "arXiv",
+      "year": "2021",
+      "authors": [
+        "Robin Rombach",
+        "Andreas Blattmann",
+        "Dominik Lorenz",
+        "Patrick Esser",
+        "Björn Ommer"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22High-Resolution+Image+Synthesis+with+Latent+Diffusion+Models%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "dit",
+      "query_title": "Scalable Diffusion Models with Transformers",
+      "hint": "ICCV 2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:05+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Scalable Diffusion Models with Transformers",
+      "score": 1.0,
+      "doi": "10.1109/iccv51070.2023.00387",
+      "arxiv_id": null,
+      "venue": "2023 IEEE/CVF International Conference on Computer Vision (ICCV)",
+      "year": 2023,
+      "authors": [
+        "William Peebles",
+        "Saining Xie"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Scalable+Diffusion+Models+with+Transformers&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "graves2013",
+      "query_title": "Generating Sequences With Recurrent Neural Networks",
+      "hint": "2013",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:07+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Generating Sequences With Recurrent Neural Networks",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "1308.0850v5",
+      "venue": "arXiv",
+      "year": "2013",
+      "authors": [
+        "Alex Graves"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Generating+Sequences+With+Recurrent+Neural+Networks%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "calligan",
+      "query_title": "CalliGAN: Style and Structure-aware Chinese Calligraphy Character Generator",
+      "hint": "2020",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:13+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "CalliGAN: Style and Structure-aware Chinese Calligraphy Character Generator",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2005.12500v1",
+      "venue": "arXiv",
+      "year": "2020",
+      "authors": [
+        "Shan-Jean Wu",
+        "Chih-Yuan Yang",
+        "Jane Yung-jen Hsu"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22CalliGAN%3A+Style+and+Structure-aware+Chinese+Calligraphy+Character+Generator%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "difffont",
+      "query_title": "Diff-Font: Diffusion Model for Robust One-shot Chinese Font Generation",
+      "hint": "2022",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:29+00:00",
+      "status": "NO_MATCH",
+      "best_partial_score": null,
+      "best_partial_title": null
+    },
+    {
+      "key": "cffont",
+      "query_title": "CF-Font: Content Fusion for Few-shot Font Generation",
+      "hint": "CVPR 2023",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:26+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "CF-Font: Content Fusion for Few-Shot Font Generation",
+      "score": 1.0,
+      "doi": "10.1109/cvpr52729.2023.00185",
+      "arxiv_id": null,
+      "venue": "2023 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "year": 2023,
+      "authors": [
+        "Chi Wang",
+        "Min Zhou",
+        "Tiezheng Ge",
+        "Yuning Jiang",
+        "Hujun Bao",
+        "Weiwei Xu"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=CF-Font%3A+Content+Fusion+for+Few-shot+Font+Generation&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "fontdiffuser",
+      "query_title": "FontDiffuser: One-Shot Font Generation via Denoising Diffusion with Multi-Scale Content Aggregation and Style Contrastive Learning",
+      "hint": "AAAI 2024",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:28+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "FontDiffuser: One-Shot Font Generation via Denoising Diffusion with Multi-Scale Content Aggregation and Style Contrastive Learning",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2312.12142v1",
+      "venue": "arXiv",
+      "year": "2023",
+      "authors": [
+        "Zhenhua Yang",
+        "Dezhi Peng",
+        "Yuxin Kong",
+        "Yuyi Zhang",
+        "Cong Yao",
+        "Lianwen Jin"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22FontDiffuser%3A+One-Shot+Font+Generation+via+Denoising+Diffusion+with+Multi-Scale+Content+Aggregation+and+Style+Contrastive+Learning%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "emuru",
+      "query_title": "Zero-Shot Styled Text Image Generation, but Make It Autoregressive",
+      "hint": "2025",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:35+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Zero-Shot Styled Text Image Generation, but Make It Autoregressive",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2503.17074v2",
+      "venue": "arXiv",
+      "year": "2025",
+      "authors": [
+        "Vittorio Pippi",
+        "Fabio Quattrini",
+        "Silvia Cascianelli",
+        "Alessio Tonioni",
+        "Rita Cucchiara"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Zero-Shot+Styled+Text+Image+Generation%2C+but+Make+It+Autoregressive%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "scriptvit",
+      "query_title": "ScriptViT: Vision Transformer-Based Personalized Handwriting Generation",
+      "hint": "2025",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:13:41+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "ScriptViT: Vision Transformer-Based Personalized Handwriting Generation",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2511.18307v1",
+      "venue": "arXiv",
+      "year": "2025",
+      "authors": [
+        "Sajjan Acharya",
+        "Rajendra Baskota"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22ScriptViT%3A+Vision+Transformer-Based+Personalized+Handwriting+Generation%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "fid",
+      "query_title": "GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium",
+      "hint": "NeurIPS 2017",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:35+00:00",
+      "status": "REJECTED",
+      "matched_title": "GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium",
+      "score": 1.0,
+      "doi": "10.18034/ajase.v8i1.9",
+      "arxiv_id": null,
+      "venue": "Asian Journal of Applied Science and Engineering",
+      "year": 2019,
+      "authors": [
+        "Naresh Babu Bynagari"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=GANs+Trained+by+a+Two+Time-Scale+Update+Rule+Converge+to+a+Local+Nash+Equilibrium&rows=5&mailto=research%40example.org",
+      "type": "journal-article",
+      "rejection_reason": "Crossref title search matched a title-squatting record (DOI 10.18034/ajase.v8i1.9, Asian Journal of Applied Science and Engineering) that is not Heusel et al.'s NeurIPS 2017 paper. Title similarity alone is not verification; the intended work is cited from its arXiv record (1706.08500) instead.",
+      "superseded_by": "arxiv:1706.08500"
+    },
+    {
+      "key": "crnn",
+      "query_title": "An End-to-End Trainable Neural Network for Image-Based Sequence Recognition and Its Application to Scene Text Recognition",
+      "hint": "TPAMI 2017",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:10+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "An End-to-End Trainable Neural Network for Image-based Sequence Recognition and Its Application to Scene Text Recognition",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "1507.05717v1",
+      "venue": "arXiv",
+      "year": "2015",
+      "authors": [
+        "Baoguang Shi",
+        "Xiang Bai",
+        "Cong Yao"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22An+End-to-End+Trainable+Neural+Network+for+Image-Based+Sequence+Recognition+and+Its+Application+to+Scene+Text+Recognition%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "cfg",
+      "query_title": "Classifier-Free Diffusion Guidance",
+      "hint": "2022",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:16+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Classifier-Free Diffusion Guidance",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2207.12598v1",
+      "venue": "arXiv",
+      "year": "2022",
+      "authors": [
+        "Jonathan Ho",
+        "Tim Salimans"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Classifier-Free+Diffusion+Guidance%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "diffvg",
+      "query_title": "Differentiable Vector Graphics Rasterization for Editing and Learning",
+      "hint": "SIGGRAPH Asia 2020",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:39+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Differentiable vector graphics rasterization for editing and learning",
+      "score": 1.0,
+      "doi": "10.1145/3414685.3417871",
+      "arxiv_id": null,
+      "venue": "ACM Transactions on Graphics",
+      "year": 2020,
+      "authors": [
+        "Tzu-Mao Li",
+        "Michal Lukáč",
+        "Michaël Gharbi",
+        "Jonathan Ragan-Kelley"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Differentiable+Vector+Graphics+Rasterization+for+Editing+and+Learning&rows=5&mailto=research%40example.org",
+      "type": "journal-article"
+    },
+    {
+      "key": "softras",
+      "query_title": "Soft Rasterizer: A Differentiable Renderer for Image-based 3D Reasoning",
+      "hint": "ICCV 2019",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:28+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Soft Rasterizer: A Differentiable Renderer for Image-based 3D Reasoning",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "1904.01786v1",
+      "venue": "arXiv",
+      "year": "2019",
+      "authors": [
+        "Shichen Liu",
+        "Tianye Li",
+        "Weikai Chen",
+        "Hao Li"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22Soft+Rasterizer%3A+A+Differentiable+Renderer+for+Image-based+3D+Reasoning%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "lffont",
+      "query_title": "Few-shot Font Generation with Localized Style Representations and Factorization",
+      "hint": "AAAI 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:35+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Few-shot Font Generation with Localized Style Representations and Factorization",
+      "score": 1.0,
+      "doi": "10.1609/aaai.v35i3.16340",
+      "arxiv_id": null,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "year": 2021,
+      "authors": [
+        "Song Park",
+        "Sanghyuk Chun",
+        "Junbum Cha",
+        "Bado Lee",
+        "Hyunjung Shim"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Few-shot+Font+Generation+with+Localized+Style+Representations+and+Factorization&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "mxfont",
+      "query_title": "MX-Font: Multiple-Extended Head Network for Few-shot Font Generation",
+      "hint": "ICCV 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:20:44+00:00",
+      "status": "NO_MATCH",
+      "best_partial_score": 0.6494,
+      "best_partial_title": "Learning Font-Style Space Using Style-Guided Discriminator for Few-Shot Font Generation"
+    },
+    {
+      "key": "dgfont",
+      "query_title": "DG-Font: Deformable Generative Networks for Unsupervised Font Generation",
+      "hint": "CVPR 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:44+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "DG-Font: Deformable Generative Networks for Unsupervised Font Generation",
+      "score": 1.0,
+      "doi": null,
+      "arxiv_id": "2104.03064v2",
+      "venue": "arXiv",
+      "year": "2021",
+      "authors": [
+        "Yangchen Xie",
+        "Xinyuan Chen",
+        "Li Sun",
+        "Yue Lu"
+      ],
+      "source": "arxiv",
+      "query_url": "http://export.arxiv.org/api/query?search_query=ti%3A%22DG-Font%3A+Deformable+Generative+Networks+for+Unsupervised+Font+Generation%22&max_results=5&sortBy=relevance"
+    },
+    {
+      "key": "inception",
+      "query_title": "Rethinking the Inception Architecture for Computer Vision",
+      "hint": "CVPR 2016",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:55+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "Rethinking the Inception Architecture for Computer Vision",
+      "score": 1.0,
+      "doi": "10.1109/cvpr.2016.308",
+      "arxiv_id": null,
+      "venue": "2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)",
+      "year": 2016,
+      "authors": [
+        "Christian Szegedy",
+        "Vincent Vanhoucke",
+        "Sergey Ioffe",
+        "Jon Shlens",
+        "Zbigniew Wojna"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=Rethinking+the+Inception+Architecture+for+Computer+Vision&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "schneider1990",
+      "query_title": "An Algorithm for Automatically Fitting Digitized Curves",
+      "hint": "Graphics Gems 1990",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:14:57+00:00",
+      "status": "UNMATCHED",
+      "evidence": {
+        "crossref": {
+          "error": "HTTPError: HTTP Error 429: Too Many Requests",
+          "query_url": "https://api.crossref.org/works?query.bibliographic=An+Algorithm+for+Automatically+Fitting+Digitized+Curves&rows=5&mailto=research%40example.org"
+        }
+      }
+    },
+    {
+      "key": "zhangsuen",
+      "query_title": "A fast parallel algorithm for thinning digital patterns",
+      "hint": "CACM 1984",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:15:03+00:00",
+      "status": "UNMATCHED",
+      "evidence": {
+        "crossref": {
+          "error": "HTTPError: HTTP Error 429: Too Many Requests",
+          "query_url": "https://api.crossref.org/works?query.bibliographic=A+fast+parallel+algorithm+for+thinning+digital+patterns&rows=5&mailto=research%40example.org"
+        }
+      }
+    },
+    {
+      "key": "tortured",
+      "query_title": "The tortured phrases of the academic literature",
+      "hint": "Cabanac 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:15:08+00:00",
+      "status": "UNMATCHED",
+      "matched_title": "Tortured phrases in sport-related literature",
+      "score": 0.7253,
+      "doi": "10.36950/2024.9ciss010",
+      "arxiv_id": null,
+      "venue": "Current Issues in Sport Science (CISS)",
+      "year": 2024,
+      "authors": [
+        "Jaime A. Teixeira da Silva"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=The+tortured+phrases+of+the+academic+literature&rows=5&mailto=research%40example.org"
+    },
+    {
+      "key": "deep_hccr",
+      "query_title": "Deep learning for Chinese handwriting recognition",
+      "hint": "probe",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:15:15+00:00",
+      "status": "UNMATCHED",
+      "evidence": {
+        "crossref": {
+          "error": "HTTPError: HTTP Error 429: Too Many Requests",
+          "query_url": "https://api.crossref.org/works?query.bibliographic=Deep+learning+for+Chinese+handwriting+recognition&rows=5&mailto=research%40example.org"
+        }
+      }
+    },
+    {
+      "key": "hi_gan",
+      "query_title": "HiGAN: Handwriting Imitation Conditioned on Arbitrary-Length Texts and Disentangled Styles",
+      "hint": "AAAI 2021",
+      "kind": "paper",
+      "retrieved_at": "2026-11-21T08:15:21+00:00",
+      "status": "ACCEPTED",
+      "matched_title": "HiGAN: Handwriting Imitation Conditioned on Arbitrary-Length Texts and Disentangled Styles",
+      "score": 1.0,
+      "doi": "10.1609/aaai.v35i9.16917",
+      "arxiv_id": null,
+      "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "year": 2021,
+      "authors": [
+        "Ji Gan",
+        "Weiqiang Wang"
+      ],
+      "source": "crossref",
+      "query_url": "https://api.crossref.org/works?query.bibliographic=HiGAN%3A+Handwriting+Imitation+Conditioned+on+Arbitrary-Length+Texts+and+Disentangled+Styles&rows=5&mailto=research%40example.org"
+    }
+  ]
+}
