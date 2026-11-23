@@ -122,13 +122,15 @@ def step_loss(model, b, cfg: V3Config, device: str, stage: str):
         _l = (_bez(_p0, _p1, _p2, _p3) - _bez(_g0, _g1, _g2, _g3)).abs().mean(-1).mean(-1)
         l_curve = (_l * mask).sum() / mask.sum().clamp_min(1.0)
         _curve_term = float(getattr(cfg, "lambda_curve", 0.0)) * l_curve
-        logs["curve"] = float(l_curve.detach())
+        _curve_v = float(l_curve.detach())
     loss = (cfg.lambda_stroke * l_stroke + cfg.lambda_pen * l_pen
             + cfg.lambda_stop * l_stop + float(getattr(cfg, "lambda_abs", 1.0)) * l_abs
             + _curve_term)
     logs = {"stroke": float(l_stroke.detach()), "pen": float(l_pen.detach()),
             "stop": float(l_stop.detach())}
     logs["abs"] = float(l_abs.detach())
+    if float(getattr(cfg, "lambda_curve", 0.0)) > 0:
+        logs["curve"] = _curve_v
 
     # M7 writer identification — auxiliary, keeps z_g informative
     if cfg.lambda_writer > 0:
