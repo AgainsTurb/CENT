@@ -1,0 +1,20 @@
+{
+  "canonical_root": "data/_fixture/v1",
+  "run_name": "smoke_v3",
+  "out_dir": "runs",
+  "dim": 64,
+  "depth": 2,
+  "n_heads": 4,
+  "style_dim": 64,
+  "n_classes": 14,
+  "max_chars": 8,
+  "max_strokes_char": 8,
+  "max_strokes_line": 48,
+  "batch_size": 2,
+  "epochs": 1,
+  "num_workers": 0,
+  "amp": false,
+  "stage": "s3",
+  "k_refs": 2,
+  "pair_prior_path": ""
+}
