@@ -159,6 +159,12 @@ class CenterModel(nn.Module):
         # and inter-character connection expressible.
         self.layout_head = nn.Linear(dim, 5)
         self.anchor_ctx = nn.Linear(5 * 3, dim)       # a_{i-1}, a_i, a_{i+1}
+        # SLOT POSITIONAL CODE (soft layout, no boxes): a Fourier code of the character's
+        # position along the line, added to the transcript memory. Position becomes a
+        # property of identity rather than of a chained prediction, and no layout stage or
+        # clip rectangle is needed. Gated by `use_slot_pos` so it can be A/B'd.
+        self.slot_pos = nn.Linear(8, dim)
+        self.use_slot_pos = False
         self.count_head = nn.Linear(dim, 13)          # strokes for this character, 1..13
 
         # M4 join planner
@@ -196,6 +202,12 @@ class CenterModel(nn.Module):
                             a,
                             torch.nn.functional.pad(a[:, 1:], (0, 0, 0, 1))], dim=-1)
             H = H + self.anchor_ctx(nb)
+        if getattr(self, "use_slot_pos", False):
+            C = H.shape[1]
+            u = torch.arange(C, device=H.device, dtype=H.dtype) / max(C - 1, 1)
+            fr = torch.stack([torch.sin(3.14159265 * u * (2 ** k)) for k in range(4)]
+                             + [torch.cos(3.14159265 * u * (2 ** k)) for k in range(4)], -1)
+            H = H + self.slot_pos(fr).unsqueeze(0)
             self._last_anchors = a          # reused by the loss: plan_layout is a
                                             # full transformer pass, do not run it twice
         return H, tmask
