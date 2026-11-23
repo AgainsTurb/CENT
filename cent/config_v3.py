@@ -58,6 +58,9 @@ class V3Config:
     lambda_layout: float = 1.0
     # soft-anchor continuity: penalises anchor jerk, not glyph shape
     lambda_cont: float = 0.5
+    # CURVE loss: L1 between sampled points along the predicted and target cubics.
+    # The MDN likelihood cannot see a wrong bulge (position dims dominate it); this can.
+    lambda_curve: float = 0.0
     # per-dimension standardisation of the 8 token dims. Measured means: Delta ~0.004,
     # control points ~0.2. One sigma over mixed scales crushed the Delta dims, so the
     # generated horizontal advance was 6x too small and the line collapsed left.

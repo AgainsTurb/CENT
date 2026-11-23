@@ -105,8 +105,27 @@ def step_loss(model, b, cfg: V3Config, device: str, stage: str):
     abs_t = torch.cumsum(torch.cat([_d[:, :1], _d[:, 1:] + _p3[:, :-1]], dim=1), dim=1)
     l_abs = (((out["abs"] - abs_t).abs().sum(-1)) * mask).sum() / mask.sum().clamp_min(1.0)
 
+    # CURVE LOSS: sample both cubics and compare points. Differentiable, cheap, and
+    # the only term whose value depends on where the control points sit.
+    _curve_term = 0.0
+    if float(getattr(cfg, "lambda_curve", 0.0)) > 0:
+        _pi = out["pi"].exp().unsqueeze(-1)
+        _m = (out["mu"] * _pi).sum(2)          # expected token [B,L,8]
+        _p0 = out["abs"]
+        _p1 = _p0 + _m[..., 2:4]; _p2 = _p0 + _m[..., 4:6]; _p3 = _p0 + _m[..., 6:8]
+        _g0 = abs_t
+        _g1 = _g0 + cont[..., 2:4]; _g2 = _g0 + cont[..., 4:6]; _g3 = _g0 + cont[..., 6:8]
+        _tt = torch.linspace(0, 1, 8, device=device).view(1, 1, 8, 1)
+        def _bez(a, b, c, d):
+            return ((1 - _tt) ** 3 * a.unsqueeze(-2) + 3 * (1 - _tt) ** 2 * _tt * b.unsqueeze(-2)
+                    + 3 * (1 - _tt) * _tt ** 2 * c.unsqueeze(-2) + _tt ** 3 * d.unsqueeze(-2))
+        _l = (_bez(_p0, _p1, _p2, _p3) - _bez(_g0, _g1, _g2, _g3)).abs().mean(-1).mean(-1)
+        l_curve = (_l * mask).sum() / mask.sum().clamp_min(1.0)
+        _curve_term = float(getattr(cfg, "lambda_curve", 0.0)) * l_curve
+        logs["curve"] = float(l_curve.detach())
     loss = (cfg.lambda_stroke * l_stroke + cfg.lambda_pen * l_pen
-            + cfg.lambda_stop * l_stop + float(getattr(cfg, "lambda_abs", 1.0)) * l_abs)
+            + cfg.lambda_stop * l_stop + float(getattr(cfg, "lambda_abs", 1.0)) * l_abs
+            + _curve_term)
     logs = {"stroke": float(l_stroke.detach()), "pen": float(l_pen.detach()),
             "stop": float(l_stop.detach())}
     logs["abs"] = float(l_abs.detach())
