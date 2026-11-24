@@ -87,9 +87,20 @@ the user sees, and it is the only term that can see a misplaced character.
 
 ## Risks, stated up front
 
-- **M9 needs character-level data.** Our corpus has ~30k lines x ~13 chars, but the same character
-  appears in many contexts; the character-level sample count is what matters. It may be necessary to
-  add CASIA-HWDB character images (~1M) or font-rendered prototypes, as MetaScript does.
+- **M9 needs character-level data — MEASURED, and we have it.** Corpus census (31,589 train
+  lines, 817,631 character tokens, 2,660 distinct characters):
+
+  | statistic | value |
+  |---|---|
+  | median occurrences per character | **83** |
+  | characters with >= 5 occurrences | 2,617 / 2,660 |
+  | characters with >= 20 occurrences | 2,480 |
+  | characters with >= 50 occurrences | 1,686 |
+  | token coverage at >= 5 / >= 20 / >= 50 | **100 % / 99.8 % / 96.6 %** |
+
+  So a character dictionary is trainable **from this corpus alone**; the fallback to CASIA-HWDB
+  character images or font-rendered prototypes is not required. This removes the main risk from the
+  design and is the reason to build M9 next.
 - **Assembly can hide errors.** If M9 is good and assembly is wrong, step 2 fails while step 1
   passes; the two tests are designed to distinguish exactly this.
 - **The connector thesis is untouched** — M4 and the boundary contract survive unchanged, which is
