@@ -99,8 +99,11 @@ def step_loss(model, b, cfg: V3Config, device: str, stage: str):
         _ci = char_idx
         _eq = (_ci[:, :, None] == _ci[:, None, :]).float()
         _j = (torch.tril(_eq, diagonal=-1).sum(-1)).long().clamp_min(0)
-        _base = model.stroke_base(_ci, _j)
-        out["mu"] = out["mu"] + _base.unsqueeze(2)
+        # ONLY the shape dims (2:8). The first two dims are the position offset; feeding a
+        # prototype into them corrupted placement (measured ooc 95/78, err 0.52).
+        _b = model.stroke_base(_ci, _j)
+        _base_shape = torch.cat([torch.zeros_like(_b[..., :2]), _b[..., 2:]], dim=-1)
+        out["mu"] = out["mu"] + _base_shape.unsqueeze(2)
     l_stroke = model.decoder.nll(out, cont_t, mask)
     l_pen = F.binary_cross_entropy_with_logits(out["pen"], pen.float(), weight=mask)
     l_stop = F.binary_cross_entropy_with_logits(out["stop"], stop, weight=mask)

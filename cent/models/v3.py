@@ -226,7 +226,7 @@ class CenterModel(nn.Module):
 
     def stroke_base(self, ci: torch.Tensor, j: torch.Tensor):
         """Per-stroke prototype token for (character, stroke-index-in-character)."""
-        K = self.max_strokes_char
+        K = int(getattr(self, 'max_strokes_char', 48))
         if self.char_dict_head is None:
             self.char_dict_head = torch.nn.Linear(64, K * 8).to(ci.device)
         e = self.char_dict(ci)                       # [B,L,64]

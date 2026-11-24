@@ -169,7 +169,9 @@ def decode(model, cfg, text, tmask, refs, refmask, n_chars,
             if bool(getattr(cfg, "use_char_dict", False)):
                 _ci_t = torch.full((B, 1), ci, dtype=torch.long, device=device)
                 _j_t = torch.full((B, 1), _, dtype=torch.long, device=device)
-                out["mu"] = out["mu"] + model.stroke_base(_ci_t, _j_t).unsqueeze(2)
+                _b = model.stroke_base(_ci_t, _j_t)
+                _bs = torch.cat([torch.zeros_like(_b[..., :2]), _b[..., 2:]], dim=-1)
+                out["mu"] = out["mu"] + _bs.unsqueeze(2)
             t_last = full_c.shape[1] - 1
             pred = (mixture_mean(out, t_last) if temperature <= 0
                     else mixture_sample(out, t_last, temperature, generator))
