@@ -159,10 +159,30 @@ class StrokeDatasetV3(Dataset):
             lab = lab[:n_all_kept]
         n_lab = (max(lab) + 1) if lab else 0
         idxg = [[j for j in range(n_all_kept) if lab[j] == k] for k in range(n_lab)]
+        # Drop characters with no strokes, then truncate the text to the surviving count.
+        # NOTE: the gap against index.jsonl (7800 file chars vs 4385 over 300 lines) is NOT a
+        # bug here: char_strokes annotates only ~56% of each line, and text+strokes are
+        # consistently truncated to that annotated prefix. The remaining characters of a line
+        # have no stroke labels at all, so they cannot be trained on.
         keep = [k for k, g in enumerate(idxg) if g]
         idxg = [idxg[k] for k in keep]
+
         groups = [[strokes[j] for j in g] for g in idxg]
         counts = [len(g) for g in groups]
+        # characters with no strokes are kept for ALIGNMENT; their anchors fall back to the
+        # nearest non-empty neighbour so boundary lookups cannot go out of range
+        def _frst(k):
+            for g in idxg[k:]:
+                if g: return g[0]
+            for g in reversed(idxg[:k]):
+                if g: return g[-1]
+            return 0
+        def _last(k):
+            for g in reversed(idxg[:k + 1]):
+                if g: return g[-1]
+            for g in idxg[k + 1:]:
+                if g: return g[0]
+            return 0
 
         text = r["text"][: self.max_chars]
         ids = [int(self.base.char2idx.get(ch, self.base.pad_id)) for ch in text]
@@ -226,8 +246,8 @@ class StrokeDatasetV3(Dataset):
         gap_t = torch.zeros(Jfix, 2)
         prior_t = torch.zeros(Jfix, dtype=torch.float32)
         for k in range(J):
-            e = fit_stroke(strokes[idxg[k][-1]])[3]
-            s2 = fit_stroke(strokes[idxg[k + 1][0]])[0]
+            e = fit_stroke(strokes[_last(k)])[3]
+            s2 = fit_stroke(strokes[_frst(k + 1)])[0]
             v = s2 - e
             gap_t[k] = torch.from_numpy(v.astype(np.float32))
             join_t[k] = 1.0 if float(np.linalg.norm(v)) < self.join_tau else 0.0
