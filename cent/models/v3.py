@@ -164,6 +164,11 @@ class CenterModel(nn.Module):
         # property of identity rather than of a chained prediction, and no layout stage or
         # clip rectangle is needed. Gated by `use_slot_pos` so it can be A/B'd.
         self.slot_pos = nn.Linear(8, dim)
+        # CHARACTER DICTIONARY (A.1): a learned per-character prototype of its strokes,
+        # in token space. The decoder predicts a RESIDUAL on top of this, so glyph shape
+        # has a content prior instead of being inferred from the transcript alone.
+        self.char_dict = nn.Embedding(n_classes, 64)
+        self.char_dict_head = None      # built lazily: 64 -> max_strokes*8
         self.use_slot_pos = False
         self.count_head = nn.Linear(dim, 13)          # strokes for this character, 1..13
 
@@ -218,6 +223,16 @@ class CenterModel(nn.Module):
         causal = torch.triu(torch.ones(C, C, device=H.device, dtype=torch.bool), diagonal=1)
         x = self.layout(x, mask=causal, src_key_padding_mask=(text_mask < 0.5))
         return self.layout_head(x)                     # [B,C,4] in canvas units
+
+    def stroke_base(self, ci: torch.Tensor, j: torch.Tensor):
+        """Per-stroke prototype token for (character, stroke-index-in-character)."""
+        K = self.max_strokes_char
+        if self.char_dict_head is None:
+            self.char_dict_head = torch.nn.Linear(64, K * 8).to(ci.device)
+        e = self.char_dict(ci)                       # [B,L,64]
+        v = self.char_dict_head(e).view(*ci.shape, K, 8)
+        idx = j.clamp(0, K - 1).unsqueeze(-1).unsqueeze(-1).expand(-1, -1, 1, 8)
+        return v.gather(2, idx).squeeze(2)           # [B,L,8]
 
     def plan_counts(self, H: torch.Tensor, zg: torch.Tensor, text_mask: torch.Tensor):
         """Per-character stroke count logits, 1..13 (class 0 = one stroke)."""

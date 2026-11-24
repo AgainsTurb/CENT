@@ -93,6 +93,14 @@ def step_loss(model, b, cfg: V3Config, device: str, stage: str):
         inp_c = torch.where(drop, model._mu_self, inp_c)
     model._gstep = gstep + 1
     out = model.decoder(inp_c, inp_p, inp_ci, inp_m, mem, mmask, sigma=cfg.gauss_sigma)
+    # CHARACTER DICTIONARY: add the per-(char, stroke-index) prototype to the predicted
+    # token mean, so the decoder models a RESIDUAL on top of a learned glyph prior.
+    if bool(getattr(cfg, "use_char_dict", False)):
+        _ci = char_idx
+        _eq = (_ci[:, :, None] == _ci[:, None, :]).float()
+        _j = (torch.tril(_eq, diagonal=-1).sum(-1)).long().clamp_min(0)
+        _base = model.stroke_base(_ci, _j)
+        out["mu"] = out["mu"] + _base.unsqueeze(2)
     l_stroke = model.decoder.nll(out, cont_t, mask)
     l_pen = F.binary_cross_entropy_with_logits(out["pen"], pen.float(), weight=mask)
     l_stop = F.binary_cross_entropy_with_logits(out["stop"], stop, weight=mask)
@@ -123,14 +131,40 @@ def step_loss(model, b, cfg: V3Config, device: str, stage: str):
         l_curve = (_l * mask).sum() / mask.sum().clamp_min(1.0)
         _curve_term = float(getattr(cfg, "lambda_curve", 0.0)) * l_curve
         _curve_v = float(l_curve.detach())
+    # RENDER LOSS (narrow piece of the appearance prior): differentiable soft splat of the
+    # sampled curves, so a stroke in the wrong pixels is penalised directly.
+    _render_term = 0.0
+    if float(getattr(cfg, "lambda_render", 0.0)) > 0 and _curve_term != 0.0:
+        _Hh, _Ww = 48, 192
+        def _raster(pts):
+            Bx = pts.shape[0]
+            x = pts[..., 0].reshape(Bx, -1) * (_Ww - 1)
+            y = pts[..., 1].reshape(Bx, -1) * (_Hh - 1)
+            x0 = x.floor(); y0 = y.floor()
+            fx = (x - x0).clamp(0, 1); fy = (y - y0).clamp(0, 1)
+            x0 = x0.clamp(0, _Ww - 2).long(); y0 = y0.clamp(0, _Hh - 2).long()
+            img = pts.new_zeros(Bx, _Hh * _Ww)
+            for dx, dy, wgt in ((0, 0, (1 - fx) * (1 - fy)), (1, 0, fx * (1 - fy)),
+                                (0, 1, (1 - fx) * fy), (1, 1, fx * fy)):
+                idx = ((y0 + dy) * _Ww + (x0 + dx)).view(Bx, -1)
+                img.scatter_add_(1, idx, wgt)
+            return img.view(Bx, 1, _Hh, _Ww).clamp(0, 1)
+        _rg = _raster(_bez(_p0, _p1, _p2, _p3))
+        _rt = _raster(_bez(_g0, _g1, _g2, _g3))
+        _l1 = (_rg - _rt).abs().mean()
+        _cov = 1.0 - (_rg * _rt).sum() / _rg.sum().clamp_min(1e-6)
+        _render_term = float(getattr(cfg, "lambda_render", 0.0)) * (_l1 + 0.5 * _cov)
+        _render_v = float(_l1.detach())
     loss = (cfg.lambda_stroke * l_stroke + cfg.lambda_pen * l_pen
             + cfg.lambda_stop * l_stop + float(getattr(cfg, "lambda_abs", 1.0)) * l_abs
-            + _curve_term)
+            + _curve_term + _render_term)
     logs = {"stroke": float(l_stroke.detach()), "pen": float(l_pen.detach()),
             "stop": float(l_stop.detach())}
     logs["abs"] = float(l_abs.detach())
     if float(getattr(cfg, "lambda_curve", 0.0)) > 0:
         logs["curve"] = _curve_v
+    if float(getattr(cfg, "lambda_render", 0.0)) > 0:
+        logs["render"] = _render_v
 
     # M7 writer identification — auxiliary, keeps z_g informative
     if cfg.lambda_writer > 0:

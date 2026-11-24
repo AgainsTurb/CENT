@@ -21,7 +21,9 @@ for s in range(14000):
     with torch.autocast("cuda",dtype=torch.bfloat16): loss,logs=step_loss(m,b,cfg,dev,"s2")
     loss.backward(); torch.nn.utils.clip_grad_norm_(m.parameters(),cfg.grad_clip); opt.step()
     if s<13999: sch.step()
-gp=[p.grad is not None for p in m.slot_pos.parameters()]; print("[grad] slot_pos", gp, flush=True)\nm.eval()
+gp=[p.grad is not None for p in m.slot_pos.parameters()]
+print("[grad] slot_pos", gp, flush=True)
+m.eval()
 with torch.no_grad():
     r=decode(m,cfg,b["text"].to(dev),b["text_mask"].to(dev),b["refs"].to(dev),
              b["ref_mask"].to(dev),int(b["n_chars"][0]),mode="free",temperature=0.0, anchor_place=True)

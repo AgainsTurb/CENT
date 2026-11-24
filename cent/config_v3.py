@@ -61,6 +61,9 @@ class V3Config:
     # CURVE loss: L1 between sampled points along the predicted and target cubics.
     # The MDN likelihood cannot see a wrong bulge (position dims dominate it); this can.
     lambda_curve: float = 0.0
+    # RENDER loss: differentiable soft-splat of the sampled curves, L1 + coverage.
+    # Curve L1 is blind to a stroke sitting in the wrong pixels; this is not.
+    lambda_render: float = 0.0
     # per-dimension standardisation of the 8 token dims. Measured means: Delta ~0.004,
     # control points ~0.2. One sigma over mixed scales crushed the Delta dims, so the
     # generated horizontal advance was 6x too small and the line collapsed left.
