@@ -128,7 +128,7 @@ def main() -> int:
         out = model(x, ev["pen"], ev["point_mask"], sample=False)
         z = out["mu"]
         # gmm_to_points returns per-step DELTAS; positions need a cumsum
-        recon = torch.cumsum(gmm_to_points(out["gmm"]), dim=1)
+        recon = gmm_to_points(out["gmm"])      # already absolute (x, y)
         # latent swap: decode with another line's latent
         z_swap = z.roll(1, dims=0)
         out_swap = model.decode(z_swap)
@@ -141,7 +141,8 @@ def main() -> int:
 
     # gmm_to_points returns cumulative positions (see common.gmm_to_points)
     r = recon.cpu().numpy()
-    truth = np.cumsum(ev["dxy"].cpu().numpy(), axis=1)
+    _d = ev["dxy"].cpu().numpy()
+    truth = np.stack([np.cumsum(_d[..., 0], axis=1), np.cumsum(_d[..., 1], axis=1)], axis=-1)
     mask = ev["point_mask"].cpu().numpy()
 
     epis, straights_t, straights_r, cers = [], [], [], []

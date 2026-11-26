@@ -88,8 +88,9 @@ def _recon_visuals(model, loader, device, out_dir: Path, n: int = 3):
             mask = batch["point_mask"].cpu().numpy()
             for b in range(min(n, rec.shape[0])):
                 t = int(mask[b].sum())
-                orig_pts = np.cumsum(dxy0[b, :t], axis=0)
-                r_pts = np.cumsum(rec[b, :t], axis=0)
+                ot = dxy0[b, :t]
+                orig_pts = np.stack([np.cumsum(ot[:, 0]), np.cumsum(ot[:, 1])], axis=-1)
+                r_pts = rec[b, :t]        # absolute (x, y)
                 p = out_dir / f"recon_{b}.png"
                 figure_panels([
                     ("input (real writer)",

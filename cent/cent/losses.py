@@ -56,7 +56,12 @@ def vae_losses(out: dict, dxy: torch.Tensor, pen: torch.Tensor,
     """
     from .models.inkvae import InkVAE
 
-    nll = InkVAE.gmm_nll(out["gmm"].float(), dxy.float())     # (B,T)
+    # (dx, y) parameterisation: y is absolute and free, so per-step vertical
+    # noise cannot integrate into a wandering baseline. x stays a delta.
+    x_abs = torch.cumsum(dxy[..., 0], dim=1)
+    y_abs = torch.cumsum(dxy[..., 1], dim=1)
+    geo = torch.stack([x_abs, y_abs], dim=-1)
+    nll = InkVAE.gmm_nll(out["gmm"].float(), geo.float())     # (B,T)
     l_gmm = masked_mean(nll, mask)
 
     pen_loss = F.cross_entropy(
@@ -87,7 +92,7 @@ def vae_losses(out: dict, dxy: torch.Tensor, pen: torch.Tensor,
     # mixture expectation forces the mean to track the real pen movement.
     pi = F.softmax(out["gmm"][..., 0], dim=-1)
     pred_delta = (pi.unsqueeze(-1) * out["gmm"][..., 1:3]).sum(2)
-    l_aux = masked_mean((pred_delta.float() - dxy.float()).abs().sum(-1), mask)
+    l_aux = masked_mean((pred_delta.float() - geo.float()).abs().sum(-1), mask)
 
     total = (w_gmm * l_gmm + w_pen * l_pen + w_kl * l_kl
              + w_ctc * l_ctc + w_style * l_style + w_aux * l_aux)
