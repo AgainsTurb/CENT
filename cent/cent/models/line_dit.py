@@ -1,23 +1,64 @@
-"""LineDiT — text-line diffusion with NO layout of any kind.
+"""LineDiT — text-line diffusion with NO layout, but WITH order.
 
-Contribution (ii) is preserved and sharpened: there is no `frame_char`, no
-per-character frame allocation, no boundary token, and no head predicting which
-character sits where. The character sequence conditions the latent through
-**cross-attention only**, so where each glyph lands and whether neighbours are
-joined is decided by the model, per boundary, from context — dynamic continuity
-rather than an all-or-nothing rule.
+A vanilla positional embedding is not enough here: the DiT denoises every frame
+jointly and non-causally, so nothing forces character l to land anywhere in
+particular, and the fastest descent is "predict the average line".
 
-Joins are not classified here. They live where they are observable: in the
-decoder's 4-way pen state (PEN_MOVE / PEN_UP / EOC / CURSIVE_EOC). See
-`decode_pen` for the decode-time cursiveness knob.
+What is added is *order*, never *width*:
+
+    score(t, l) = q_t·k_l/√d  −  λ_h · (u_t − v_l)²
+    u_t = t/(T−1),  v_l = l/(L−1),  λ_h = softplus(learnable, per head)
+
+This is a Gaussian band along the diagonal. It constrains only that characters
+appear in sequence, not how many frames each occupies, so unequal glyph widths
+stay free and nothing is pre-generated at train or inference time. λ is learned
+and soft: heads may override it, which is what allows dynamic behaviour.
+
+Joins are not decided here. They live in the decoder's pen state (MOVE vs UP).
 """
 
 from __future__ import annotations
+
+import math
 
 import torch
 import torch.nn as nn
 
 from .boundary_dit import AdaLNBlock, sinusoidal_embedding
+
+
+class MonotoneCrossAttention(nn.Module):
+    """Cross-attention with a learned monotone-order penalty on the logits."""
+
+    def __init__(self, d: int, n_heads: int) -> None:
+        super().__init__()
+        self.h = n_heads
+        self.hd = d // n_heads
+        self.q = nn.Linear(d, d)
+        self.kv = nn.Linear(d, 2 * d)
+        self.out = nn.Linear(d, d)
+        # per-head strength of the order prior; starts almost free (λ≈0.10)
+        self.lam = nn.Parameter(torch.full((n_heads,), -2.2))
+
+    def forward(self, x: torch.Tensor, ctx: torch.Tensor,
+                ctx_mask: torch.Tensor) -> torch.Tensor:
+        B, T, _ = x.shape
+        L = ctx.shape[1]
+        q = self.q(x).view(B, T, self.h, self.hd).transpose(1, 2)
+        k, v = self.kv(ctx).chunk(2, dim=-1)
+        k = k.view(B, L, self.h, self.hd).transpose(1, 2)
+        v = v.view(B, L, self.h, self.hd).transpose(1, 2)
+
+        s = torch.matmul(q, k.transpose(-1, -2)) / math.sqrt(self.hd)   # B,H,T,L
+        u = torch.arange(T, device=x.device, dtype=x.dtype) / max(1, T - 1)
+        w = torch.arange(L, device=x.device, dtype=x.dtype) / max(1, L - 1)
+        lam = torch.nn.functional.softplus(self.lam).view(1, self.h, 1, 1)
+        s = s - lam * (u.view(1, 1, T, 1) - w.view(1, 1, 1, L)) ** 2
+
+        s = s.masked_fill(~ctx_mask.view(B, 1, 1, L), float("-inf"))
+        a = torch.softmax(s, dim=-1)
+        o = torch.matmul(a, v).transpose(1, 2).reshape(B, T, self.h * self.hd)
+        return self.out(o)
 
 
 class LineDiT(nn.Module):
@@ -33,9 +74,7 @@ class LineDiT(nn.Module):
         self.t_mlp = nn.Sequential(nn.Linear(d, d), nn.GELU(), nn.Linear(d, d))
         self.style_proj = nn.Linear(d, d)
 
-        # text conditioning: frames attend to the character sequence.
-        # No frame->character map exists anywhere in this model.
-        self.xattn = nn.MultiheadAttention(d, n_heads, batch_first=True)
+        self.xattn = MonotoneCrossAttention(d, n_heads)
         self.xnorm = nn.LayerNorm(d)
         self.blocks = nn.ModuleList([AdaLNBlock(d, n_heads) for _ in range(depth)])
         self.norm_out = nn.LayerNorm(d)
@@ -48,12 +87,9 @@ class LineDiT(nn.Module):
         pos = torch.arange(T, device=z_t.device)
         h = self.in_proj(z_t) + self.pos_emb(pos)[None]
 
-        q = self.xnorm(h)
-        a, _ = self.xattn(q, char_ctx, char_ctx,
-                          key_padding_mask=~char_mask, need_weights=False)
-        h = h + a
+        h = h + self.xattn(self.xnorm(h), char_ctx, char_mask)
 
         cond = self.t_mlp(sinusoidal_embedding(t, self.d)) + self.style_proj(style)
         for blk in self.blocks:
             h = blk(h, cond)
-        return {"x0": self.frame_head(self.norm_out(h))}
+        return {"x0": self.frame_head(self.norm_out(h)), "lam": self.xattn.lam}
