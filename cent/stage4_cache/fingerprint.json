@@ -1,0 +1,8 @@
+{
+  "vae_hash": "5f694102f6dc142f",
+  "stride": 8,
+  "z_dim": 64,
+  "dit_d": 384,
+  "text_vocab": 1199,
+  "n_writers": 8
+}

@@ -22,7 +22,9 @@ from torch.utils.data import DataLoader, Dataset
 from ..data.tokens import CharVocab
 from ..losses import boundary_loss, masked_mean
 from ..model import CENTModel
-from ..viz import (backend_name, figure_panels, plot_bars, plot_curves,
+from .common import gmm_to_points, points_to_strokes
+from ..viz import (backend_name, figure_panels, plot_bars, plot_curves, render_strokes,
+                   save_png,
                    render_strokes, save_png, vstack_padded)
 from . import cache as cache_mod
 from . import fetch, perf
@@ -195,7 +197,7 @@ def run(args: argparse.Namespace) -> int:
 
     writers = sorted({int(w) for w in cache_mod.LineStore(root, "train").writers})
     model = CENTModel(n_chars=max(64, len(vocab)), n_writers=int(ck.get("n_writers") or max(8, len(writers))),
-                      d=args.d, z_dim=args.z_dim, vae_d=args.d, stride=args.stride,
+                      d=args.d, z_dim=args.z_dim, vae_d=args.vae_d, stride=args.stride,
                       dit_depth=args.depth, dit_heads=args.heads, n_mix=args.n_mix,
                       n_steps=1000).to(device)
     model.vae.load_state_dict(ck["model"])
@@ -203,6 +205,23 @@ def run(args: argparse.Namespace) -> int:
         p.requires_grad_(False)
     trainable = [p for p in model.parameters() if p.requires_grad]
     opt = torch.optim.AdamW(trainable, lr=args.lr)
+    if args.resume and not args.eval_only:
+        rs0 = torch.load(args.resume, map_location="cpu")
+        if rs0.get("optimizer"):
+            opt.load_state_dict(rs0["optimizer"])
+        print(f"  [resume] continuing from step {start_step}")
+    start_step = 0
+    if args.resume:
+        rs = torch.load(args.resume, map_location="cpu")
+        model.load_state_dict(rs["model"])
+        start_step = int(rs.get("step") or 0)
+        print(f"  [resume] loaded {args.resume} (step {rs.get('step')})")
+        if args.eval_only:
+            ds_v = DitDataset(root, "train", vocab, phase="lines", limit=args.limit_lines or 6)
+            vis, curve = _sample_visuals(model, ds_v, device, out / "visuals", args)
+            print("  [eval-only] control curve:", curve)
+            visual_check(vis, "stage 4 (eval-only)")
+            return 0
     pinfo = perf.setup_perf(device, amp=args.amp)
     print(f"  vocab={len(vocab)} writers={len(writers)} lines={len(ds)} "
           f"trainable params={sum(p.numel() for p in trainable)/1e6:.2f} M")
@@ -210,7 +229,7 @@ def run(args: argparse.Namespace) -> int:
 
     lk = perf.loader_kwargs(device, args.workers)
     if args.cache_latents:
-        cache = _build_latent_cache(model, ds, device)
+        cache = _build_latent_cache(model, ds, device, layout=args.layout)
         print(f"  [cache] {len(cache)} lines encoded once (VAE is frozen)")
         dl = DataLoader(cache, batch_size=args.batch_size, shuffle=True,
                         collate_fn=_collate_cached, **lk)
@@ -219,7 +238,19 @@ def run(args: argparse.Namespace) -> int:
         dl = DataLoader(ds, batch_size=args.batch_size, shuffle=True,
                         collate_fn=collate_dit, **lk)
 
+    # held-out writers, used only for early stopping
+    val_cache = None
+    if args.eval_every:
+        try:
+            ds_val = DitDataset(root, "val", vocab, phase="lines",
+                                limit=args.limit_val or 400, seed=args.seed)
+            val_cache = _build_latent_cache(model, ds_val, device, log_every=0, layout=args.layout)
+            print(f"  [val] {len(val_cache)} held-out lines for F1 checkpointing")
+        except Exception as e:  # noqa: BLE001
+            print(f"  [val] skipped ({type(e).__name__}: {e})")
+
     hist = {"total": [], "diff": [], "bnd": [], "bnd_acc": []}
+    best_f1 = float("-inf")
     step, t0 = 0, time.time()
     model.train()
     for epoch in range(args.epochs):
@@ -236,9 +267,24 @@ def run(args: argparse.Namespace) -> int:
                 with torch.no_grad():
                     mu, _, lm = model.vae.encode(x, batch["point_mask"])
                 z0 = mu
-                fchar, fmask, labels, lmask = _layout(
-                    batch["char_ids"], batch["point_mask"], batch["bnd_points"],
-                    batch["bnd_join"], batch["bnd_mask"], args.stride)
+                if args.layout == "even":
+                    nch = batch["char_mask"].sum(1).tolist()
+                    fcs, fms = [], []
+                    for b in range(mu.shape[0]):
+                        fc1, fm1 = _even_frame_char(int(nch[b]), mu.shape[1], device,
+                                                    model.stride)
+                        fcs.append(fc1[0])
+                        fms.append(fm1[0])
+                    fchar = torch.stack(fcs)
+                    fmask = torch.stack(fms)
+                    labels = torch.zeros(fchar.shape[0], max(1, fchar.shape[1] - 1),
+                                         device=device)
+                    lmask = torch.zeros(fchar.shape[0], max(1, fchar.shape[1] - 1),
+                                        dtype=torch.bool, device=device)
+                else:
+                    fchar, fmask, labels, lmask = _layout(
+                        batch["char_ids"], batch["point_mask"], batch["bnd_points"],
+                        batch["bnd_join"], batch["bnd_mask"], args.stride)
                 with perf.autocast(device, pinfo["amp"]):
                     ctx = model.text(batch["char_seq"], batch["char_mask"])
                 style = model.style_proj(
@@ -279,6 +325,29 @@ def run(args: argparse.Namespace) -> int:
             for k, v in (("total", total), ("diff", l_diff), ("bnd", l_bnd)):
                 hist[k].append(float(v.detach()))
             hist["bnd_acc"].append(acc)
+
+            if args.eval_every and step % args.eval_every == 0:
+                f1 = _eval_boundary_f1(model, val_cache, device)
+                hist.setdefault("val_f1", []).append(float(f1))
+                # always keep a rolling checkpoint, so stopping early never
+                # throws the run away even when no validation split is available
+                torch.save({"model": model.state_dict(), "vocab": chars,
+                            "n_writers": int(ck.get("n_writers") or len(writers)),
+                            "optimizer": opt.state_dict(), "step": step,
+                            "val_f1": float(f1) if f1 == f1 else None,
+                            "args": vars(args)}, out / "dit_last.pt")
+                better = (f1 > best_f1) if (f1 == f1 and best_f1 == best_f1) else (f1 == f1)
+                if better:
+                    best_f1 = f1
+                    torch.save({"model": model.state_dict(), "vocab": chars,
+                                "n_writers": int(ck.get("n_writers") or len(writers)),
+                                "optimizer": opt.state_dict(),
+                                "step": step, "val_f1": float(f1),
+                                "args": vars(args)}, out / "dit_best.pt")
+                _quick_sample(model, val_cache or cache, device,
+                              out / "visuals" / f"sample_step{step:06d}.png")
+                print(f"  [eval] step {step:6d}  val boundary F1={f1:.4f}"
+                      f"  best={best_f1:.4f}  ({'saved' if better else 'kept'})")
             if step % args.log_every == 0:
                 print(f"  ep{epoch} step{step:5d} total={float(total):.3f} "
                       f"diff={float(l_diff):.3f} bnd={float(l_bnd):.3f} "
@@ -358,7 +427,26 @@ def _sample_visuals(model, ds, device, out_dir: Path, args):
     return paths_out + [out_dir / "control_curve.png"], curve
 
 
-def _build_latent_cache(model, ds, device, *, batch_size: int = 32, log_every: int = 200):
+
+def _even_frame_char(n_chars: int, T_lat: int, device, stride: int = 8):
+    """Character id per latent frame, evenly split.
+
+    This is the layout `generate()` can reproduce at inference time. Training on
+    the Viterbi-aligned layout instead was the mismatch that produced scribbles.
+    """
+    fc = torch.full((1, T_lat), -1, dtype=torch.long, device=device)
+    fm = torch.zeros(1, T_lat, dtype=torch.bool, device=device)
+    if n_chars <= 0:
+        return fc, fm
+    per = T_lat / float(n_chars)
+    idx = (torch.arange(T_lat, device=device) / per).long().clamp(0, n_chars - 1)
+    fc[0] = idx
+    fm[0] = True
+    return fc, fm
+
+
+def _build_latent_cache(model, ds, device, *, batch_size: int = 32, log_every: int = 200,
+                        layout: str = "aligned"):
     """Encode every training line once (VAE frozen) and cache the DiT inputs.
 
     Removes the per-step VAE encode *and* the per-step python layout building,
@@ -373,10 +461,21 @@ def _build_latent_cache(model, ds, device, *, batch_size: int = 32, log_every: i
             batch = collate_dit(raw)
             batch = {k: (v.to(device) if torch.is_tensor(v) else v) for k, v in batch.items()}
             x = torch.cat([batch["dxy"],
-                           torch.nn.functional.one_hot(batch["pen"], 4).float()], -1)
+                               torch.nn.functional.one_hot(batch["pen"], 4).float()], -1)
             with perf.autocast(device, True):
                 mu, _, lm = model.vae.encode(x, batch["point_mask"])
-            fchar, fmask, labels, lmask = _layout(
+            if layout == "even":
+                nch = batch["char_mask"].sum(1).tolist()
+                fcs, fms = [], []
+                for b in range(mu.shape[0]):
+                    fc1, fm1 = _even_frame_char(int(nch[b]), mu.shape[1], device, model.stride)
+                    fcs.append(fc1[0]); fms.append(fm1[0])
+                fchar = torch.stack(fcs); fmask = torch.stack(fms)
+                labels = torch.zeros(fchar.shape[0], max(1, fchar.shape[1] - 1), device=device)
+                lmask = torch.zeros(fchar.shape[0], max(1, fchar.shape[1] - 1),
+                                    dtype=torch.bool, device=device)
+            else:
+                fchar, fmask, labels, lmask = _layout(
                 batch["char_ids"], batch["point_mask"], batch["bnd_points"],
                 batch["bnd_join"], batch["bnd_mask"], model.stride)
             style = model.style_proj(
@@ -429,6 +528,60 @@ def _collate_cached(batch: list[dict]) -> dict:
             "lmask": lmask, "ctx": ctx, "style": style}
 
 
+
+def _eval_boundary_f1(model, val_cache, device, *, batch_size=16, n_batches=12):
+    """Boundary F1 on held-out writers. The DiT is trained on a noised latent, so
+    evaluate at a small fixed t with no noise for a stable, comparable signal."""
+    if not val_cache:
+        return float("nan")
+    model.eval()
+    tp = fp = fn = 0
+    with torch.no_grad():
+        for start in range(0, min(len(val_cache), batch_size * n_batches), batch_size):
+            batch = _collate_cached(val_cache[start:start + batch_size])
+            batch = {k: v.to(device) for k, v in batch.items()}
+            z0 = batch["z0"]
+            B = z0.shape[0]
+            t = torch.zeros(B, dtype=torch.long, device=device)
+            out = model.dit(z0, t, frame_char=batch["fchar"], frame_mask=batch["fmask"],
+                            char_ctx=batch["ctx"], style=batch["style"])
+            mask = batch["lmask"] & out["bnd_valid"]
+            pred = (out["bnd_logits"][mask] > 0)
+            lab = batch["labels"][mask] > 0.5
+            tp += int((pred & lab).sum())
+            fp += int((pred & ~lab).sum())
+            fn += int((~pred & lab).sum())
+    model.train()
+    prec = tp / max(1, tp + fp)
+    rec = tp / max(1, tp + fn)
+    return 2 * prec * rec / max(1e-9, prec + rec)
+
+
+
+@torch.no_grad()
+def _quick_sample(model, cache, device, path, *, steps=20):
+    """One line, DDIM from noise, rendered. Uses the cached real style + layout."""
+    if not cache:
+        return None
+    item = _collate_cached(cache[:1])
+    item = {k: v.to(device) for k, v in item.items()}
+    z = torch.randn(item["z0"].shape, device=device)
+    ts = torch.linspace(model.n_steps - 1, 0, steps).long().clamp(0, model.n_steps - 1)
+    for i, t in enumerate(ts):
+        tb = torch.full((1,), int(t), dtype=torch.long, device=device)
+        out = model.dit(z, tb, frame_char=item["fchar"], frame_mask=item["fmask"],
+                        char_ctx=item["ctx"], style=item["style"])
+        a = model.alphas_cumprod[t]
+        an = (model.alphas_cumprod[ts[i + 1]] if i + 1 < len(ts)
+              else torch.tensor(1.0, device=device))
+        eps = (z - a.sqrt() * out["x0"]) / (1 - a).sqrt().clamp_min(1e-6)
+        z = an.sqrt() * out["x0"] + (1 - an).sqrt() * eps
+    gmm, penl = model.vae.decode(z)
+    pts = torch.cumsum(gmm_to_points(gmm), dim=1)[0].cpu().numpy()
+    pen = penl[0, : len(pts)].argmax(-1).cpu().numpy()
+    return save_png(render_strokes(points_to_strokes(pts, pen), height=120), path)
+
+
 def build_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description="CENT stage 4: BoundaryDiT")
     ap.add_argument("--root", default="datasets")
@@ -436,12 +589,13 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--out", default="runs/stage4_dit")
     ap.add_argument("--device", default="auto")
     ap.add_argument("--phase", default="lines", choices=["lines", "phrases"])
-    ap.add_argument("--layout", default="aligned", choices=["aligned", "even"])
     ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--steps", type=int, default=0)
     ap.add_argument("--batch-size", type=int, default=16)
     ap.add_argument("--lr", type=float, default=1e-4)
     ap.add_argument("--d", type=int, default=128)
+    ap.add_argument("--vae-d", type=int, default=128,
+                    help="width of the frozen VAE; independent of the DiT --d")
     ap.add_argument("--z-dim", type=int, default=64)
     ap.add_argument("--stride", type=int, default=8)
     ap.add_argument("--depth", type=int, default=3)
@@ -463,6 +617,12 @@ def build_parser() -> argparse.ArgumentParser:
                     default=True, help="encode each line once (default on)")
     ap.add_argument("--no-cache-latents", dest="cache_latents", action="store_false")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--eval-every", type=int, default=5000)
+    ap.add_argument("--resume", default="")
+    ap.add_argument("--layout", default="even", choices=["even", "aligned"])
+    ap.add_argument("--save-every", type=int, default=5000)
+    ap.add_argument("--eval-only", dest="eval_only", action="store_true")
+    ap.add_argument("--limit-val", type=int, default=400)
     ap.add_argument("--no-download", action="store_true")
     ap.add_argument("--rebuild-cache", action="store_true")
     ap.add_argument("--strict", action="store_true")

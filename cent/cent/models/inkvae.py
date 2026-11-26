@@ -179,12 +179,22 @@ class InkVAE(nn.Module):
         h = self.post(h)
         h = self.post_proj(h)
         M = self.n_mix
-        gmm = h[..., : 6 * M].view(*h.shape[:2], M, 6)
+        g = h[..., : 6 * M].view(*h.shape[:2], M, 6)
+        # Bound means and variance logits *functionally* (no in-place writes:
+        # assigning into a view breaks autograd's version counter). Full-scale
+        # data contains lines whose geometry drives the head to extremes, and one
+        # such batch turns the run into NaN; clamping makes a bad line cost one
+        # step instead of the whole training.
+        gmm = torch.cat([g[..., 0:1],
+                         g[..., 1:3].clamp(-4.0, 4.0),
+                         g[..., 3:5].clamp(-12.0, 3.0),
+                         g[..., 5:6]], dim=-1)
         pen = h[..., 6 * M:]
         return gmm, pen
 
     def forward(self, x: torch.Tensor, pen: torch.Tensor, mask: torch.Tensor,
                 *, sample: bool = True, n_chars: int | None = None):
+        x = torch.nan_to_num(x, nan=0.0, posinf=0.0, neginf=0.0).clamp(-8.0, 8.0)
         mu, logvar, lm, skips = self.encode(x, mask, return_skips=True)
         z = self.reparameterise(mu, logvar, sample=sample)
         gmm, pen_logits = self.decode(z, skips=skips)
@@ -216,8 +226,10 @@ class InkVAE(nn.Module):
         """gmm: (B,T,M,6) [pi_logit, mux, muy, sx_logit, sy_logit, rho], target: (B,T,2)."""
         pi_logit, mux, muy, sx_logit, sy_logit, rho = gmm.unbind(-1)
         pi = F.log_softmax(pi_logit, dim=-1)
-        sx = torch.exp(sx_logit).clamp_min(1e-4)
-        sy = torch.exp(sy_logit).clamp_min(1e-4)
+        # bound BOTH sides: exp(logit) overflows to inf at raw-magnitude
+        # logits, and log(inf) is what turned the loss into NaN at batch 8
+        sx = torch.exp(sx_logit.clamp(-12.0, 3.0)).clamp_min(1e-4)
+        sy = torch.exp(sy_logit.clamp(-12.0, 3.0)).clamp_min(1e-4)
         rho = torch.tanh(rho)
         dx = target[..., 0:1]
         dy = target[..., 1:2]

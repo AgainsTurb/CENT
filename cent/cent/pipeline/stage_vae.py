@@ -88,9 +88,8 @@ def _recon_visuals(model, loader, device, out_dir: Path, n: int = 3):
             mask = batch["point_mask"].cpu().numpy()
             for b in range(min(n, rec.shape[0])):
                 t = int(mask[b].sum())
-                ot = dxy0[b, :t]
-                orig_pts = np.stack([np.cumsum(ot[:, 0]), np.cumsum(ot[:, 1])], axis=-1)
-                r_pts = rec[b, :t]        # absolute (x, y)
+                orig_pts = np.cumsum(dxy0[b, :t], axis=0)
+                r_pts = np.cumsum(rec[b, :t], axis=0)
                 p = out_dir / f"recon_{b}.png"
                 figure_panels([
                     ("input (real writer)",
@@ -167,6 +166,7 @@ def run(args: argparse.Namespace) -> int:
     out.mkdir(parents=True, exist_ok=True)
     history = {"total": [], "gmm": [], "ctc": [], "val_ctc_acc": []}
     step = 0
+    n_skip = 0
     t0 = time.time()
     max_steps = args.steps
 
@@ -180,10 +180,28 @@ def run(args: argparse.Namespace) -> int:
             widx = torch.tensor([writer_table.get(w, 0) for w in batch["writers"]],
                                 device=device)
             losses = vae_losses(outv, batch["dxy"], batch["pen"], batch["char_seq"],
-                                batch["char_mask"], widx, batch["point_mask"])
+                                batch["char_mask"], widx, batch["point_mask"],
+                                w_ctc=args.w_ctc)
+            # A rare pathological batch must not cost the whole run: skip it,
+            # count it, and abort only if it becomes systematic. (Aborting on the
+            # first bad batch killed three full-data runs at 6k-12k steps.)
+            if not bool(torch.isfinite(losses["total"])):
+                n_skip += 1
+                print(f"  [skip] non-finite loss at step {step} "
+                      f"(total={losses['total'].item():.4f}, skipped={n_skip})")
+                opt.zero_grad(set_to_none=True)
+                if n_skip > args.max_skip:
+                    raise RuntimeError(
+                        f"{n_skip} non-finite batches — this is systematic, not a "
+                        "rare outlier. Lower --lr or --batch-size.")
+                continue
             opt.zero_grad(set_to_none=True)
             losses["total"].backward()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 0.5)
+            if args.warmup > 0:
+                frac = min(1.0, (step + 1) / args.warmup)
+                for g in opt.param_groups:
+                    g["lr"] = args.lr * frac
             opt.step()
 
             step += 1
@@ -202,10 +220,17 @@ def run(args: argparse.Namespace) -> int:
             break
 
     acc = _ctc_accuracy(model, val_loader, device, max_batches=8)
-    ckpt = out / "vae.pt"
-    torch.save({"model": model.state_dict(), "vocab": vocab.chars,
+    ckpt = (out / "vae.pt").resolve()
+    ckpt.parent.mkdir(parents=True, exist_ok=True)
+    torch.save({"model": model.state_dict(), "optimizer": opt.state_dict(),
+                "vocab": vocab.chars,
                 "n_writers": max(8, len(writer_table)),
                 "stage": args.stage, "args": vars(args)}, ckpt)
+    # prove the file exists and is non-empty before anything downstream relies
+    # on it: a missing checkpoint must fail here, not three steps later
+    if not ckpt.exists() or ckpt.stat().st_size < 1024:
+        raise RuntimeError(f"checkpoint was not written: {ckpt}")
+    print(f"  [ckpt] {ckpt}  ({ckpt.stat().st_size/1e6:.2f} MB)")
 
     vis = _recon_visuals(model, val_loader, device, out / "visuals")
     plot_curves({"total": history["total"], "gmm nll": history["gmm"],
@@ -259,6 +284,10 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--no-amp", dest="amp", action="store_false")
     ap.add_argument("--compile", action="store_true", help="torch.compile the VAE")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--warmup", type=int, default=300)
+    ap.add_argument("--w-ctc", type=float, default=1.0,
+                    help="CTC weight: >1 makes the latent character-decodable")
+    ap.add_argument("--max-skip", type=int, default=200)
     ap.add_argument("--no-download", action="store_true")
     ap.add_argument("--rebuild-cache", action="store_true")
     ap.add_argument("--strict", action="store_true", help="exit non-zero on gate failure")

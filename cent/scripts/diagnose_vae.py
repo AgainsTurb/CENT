@@ -73,6 +73,7 @@ def main() -> int:
     ap.add_argument("--steps", type=int, default=400)
     ap.add_argument("--batch", type=int, default=8)
     ap.add_argument("--lr", type=float, default=3e-3)
+    ap.add_argument("--w-ctc", type=float, default=1.0)
     ap.add_argument("--d", type=int, default=128)
     ap.add_argument("--z-dim", type=int, default=64)
     ap.add_argument("--stride", type=int, default=8)
@@ -107,7 +108,8 @@ def main() -> int:
             out = model(x, batch["pen"], batch["point_mask"], sample=True)
             widx = torch.zeros(batch["dxy"].shape[0], dtype=torch.long, device=dev)
             losses = vae_losses(out, batch["dxy"], batch["pen"], batch["char_seq"],
-                                batch["char_mask"], widx, batch["point_mask"])
+                                batch["char_mask"], widx, batch["point_mask"],
+                                w_ctc=a.w_ctc)
             opt.zero_grad(set_to_none=True)
             losses["total"].backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -128,7 +130,7 @@ def main() -> int:
         out = model(x, ev["pen"], ev["point_mask"], sample=False)
         z = out["mu"]
         # gmm_to_points returns per-step DELTAS; positions need a cumsum
-        recon = gmm_to_points(out["gmm"])      # already absolute (x, y)
+        recon = torch.cumsum(gmm_to_points(out["gmm"]), dim=1)   # deltas -> points
         # latent swap: decode with another line's latent
         z_swap = z.roll(1, dims=0)
         out_swap = model.decode(z_swap)
@@ -141,8 +143,7 @@ def main() -> int:
 
     # gmm_to_points returns cumulative positions (see common.gmm_to_points)
     r = recon.cpu().numpy()
-    _d = ev["dxy"].cpu().numpy()
-    truth = np.stack([np.cumsum(_d[..., 0], axis=1), np.cumsum(_d[..., 1], axis=1)], axis=-1)
+    truth = np.cumsum(ev["dxy"].cpu().numpy(), axis=1)
     mask = ev["point_mask"].cpu().numpy()
 
     epis, straights_t, straights_r, cers = [], [], [], []

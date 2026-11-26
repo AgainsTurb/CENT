@@ -1,0 +1,15 @@
+{
+  "stage": 4,
+  "steps": 2,
+  "final_total": 711.5521850585938,
+  "final_diff": 708.1437377929688,
+  "final_bnd": 3.408433437347412,
+  "boundary_acc": 1.0,
+  "control_curve": {
+    "0.0": 0.0,
+    "0.5": 1.0,
+    "1.0": 1.0
+  },
+  "checkpoint": "runs_dit_check\\dit.pt",
+  "written_at": "2026-11-26 15:15:02"
+}

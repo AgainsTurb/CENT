@@ -58,9 +58,9 @@ def vae_losses(out: dict, dxy: torch.Tensor, pen: torch.Tensor,
 
     # (dx, y) parameterisation: y is absolute and free, so per-step vertical
     # noise cannot integrate into a wandering baseline. x stays a delta.
-    x_abs = torch.cumsum(dxy[..., 0], dim=1)
-    y_abs = torch.cumsum(dxy[..., 1], dim=1)
-    geo = torch.stack([x_abs, y_abs], dim=-1)
+    # Deltas, as in DiffInk: small and bounded, which is what keeps the
+    # Gaussian head stable on heterogeneous full-scale data.
+    geo = dxy
     nll = InkVAE.gmm_nll(out["gmm"].float(), geo.float())     # (B,T)
     l_gmm = masked_mean(nll, mask)
 
