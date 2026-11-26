@@ -1,0 +1,11 @@
+# CENT runtime dependencies (GPU box)
+# install:  pip install -r requirements.txt
+torch>=2.1            # CUDA build preferred; CPU works for the smoke run
+numpy>=1.24
+pyyaml>=6.0
+tqdm>=4.65
+
+# Figures. Optional in principle (cent/viz.py falls back to a numpy rasteriser),
+# but strongly recommended: axes, legends and anti-aliased strokes are what make
+# a visual check actually diagnostic.
+matplotlib>=3.7

@@ -1,0 +1,20 @@
+# data and artifacts are not versioned
+datasets/
+runs/
+runs_smoke/
+runs_remote_*
+repos/
+papers/
+survey/_records/
+_smoke/
+_probe/
+*.tar.gz
+*.zip
+*.pt
+*.npz
+*.png
+
+# python
+__pycache__/
+*.pyc
+.venv/

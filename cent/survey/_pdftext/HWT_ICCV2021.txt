@@ -1,0 +1,2341 @@
+
+
+===== PAGE 1 =====
+arXiv:2104.00826v1  [math.CA]  2 Apr 2021
+A QUANTIFICATION OF A BESICOVITCH NONLINEAR PROJECTION THEOREM
+VIA MULTISCALE ANALYSIS
+BLAIR DAVEY AND KRYSTAL TAYLOR
+ABSTRACT. The Besicovitch projection theorem states that if a subset E of the plane has ﬁnite length in
+the sense of Hausdorff measure and is purely unrectiﬁable (so its intersection with any Lipschitz graph
+has zero length), then almost every orthogonal projection of E to a line will have zero measure. In other
+words, the Favard length of a purely unrectiﬁable 1-set vanishes. In this article, we show that when
+linear projections are replaced by certain nonlinear projections called curve projections, this result remains
+true. In fact, we go further and use multiscale analysis to prove a quantitative version of this Besicovitch
+nonlinear projection theorem. Roughly speaking, we show that if a subset of the plane has ﬁnite length in
+the sense of Hausdorff and is nearly purely unrectiﬁable, then its Favard curve length is very small. Our
+techniques build on those of Tao, who in [19] proves a quantiﬁcation of the original Besicovitch projection
+theorem.
+CONTENTS
+1. Introduction and Main Results 1
+2. Preparation 10
+3. Decomposition of the Set 16
+4. The Non-Curve Elements 21
+5. Favard Curve Length Bounds 30
+6. The Remaining Curve Pairs 32
+7. Completion of the Proof 35
+Appendix A. Technical Results 36
+References 37
+1. INTRODUCTION AND MAIN RESULTS
+The Favard length of a set E ⊂ R2 is deﬁned as a rescaled average length of its orthogonal projections.
+That is,
+Fav(E) =
+ˆ
+S1
+|projω (E)| dω,
+where projω (E) denotes the linear projection of a set E onto the angle ω ∈ S1 := [0, 2π). Speciﬁcally,
+for a point (x, y) ∈ R2, projω (x, y) = x cos ω + y sin ω. Here and throughout, we use | · | to denote the
+(1-dimensional) Lebesgue measure. The Favard length arises in a number of central questions in geo-
+metric measure theory, and its study is closely tied to that of rectiﬁability and analytic capacity (see, for
+instance, [9]).
+The Besicovitch projection theorem provides a direct link between the rectiﬁability of a set and its
+Favard length. We refer the reader to [10, Theorem 6.13] and [15, Theorem 18.1] for the proof of
+this theorem, as well as higher-dimensional analogues. We use the notation H 1(E) to denote the 1-
+dimensional Hausdorff measure of a set E. A set E ⊂ R2 is called purely 1-unrectiﬁable if for every
+Lipschitz function f : R → R2, it holds that H 1 (E ∩ f (R)) = 0.
+2010 Mathematics Subject Classiﬁcation. 28A80, 28A75, 28A78.
+Key words and phrases. Besicovitch Projection Theorem, Favard curve length, nonlinear projections, multiscale analysis.
+Davey is supported in part by the Simons Foundation Grant 430198.
+Taylor is supported in part by the Simons Foundation Grant 523555.
+1
+
+===== PAGE 2 =====
+Theorem 1.1 (Besicovitch Projection Theorem). Let E ⊂ R2 be such that H 1(E) ∈ (0, ∞). Then E is
+purely 1-unrectiﬁable if and only if Fav(E) = 0.
+In this paper, we use multiscale analysis to obtain upper bounds on the Favard curve length for nearly
+unrectiﬁable sets. The quantitative version of rectiﬁability introduced by Tao in [19] is used to describe
+what we mean by a set being “nearly unrectiﬁable”, while the Favard curve length is deﬁned using the
+nonlinear projection maps introduced in [17], [18], and [8]. More precisely, in Theorem 1.6, we prove
+that an upper bound on the rectiﬁability constant given in Deﬁnition 1.5 translates to an upper bound on
+the Favard curve length described by Deﬁnition 1.2. As applications of this theorem, we
+(1) recover the qualitative Besicovitch projection theorem in this nonlinear setting; and
+(2) obtain a bound on the rate of decay for the Favard curve length of the nth generation in the
+construction of the four-corner Cantor set.
+The upper bound described by (2) is by no means optimal, but we include this result as an example of
+the utility of the main theorem. In fact, a much faster rate of decay, as well as a lower bound, is obtained
+in [8]. For a qualitative Besicovitch projection theorem for nonlinear families of mappings satisfying a
+transversality condition, see [11].
+1.1. Motivation. We consider a probabilistic interpretation of Favard length known as the Buffon nee-
+dle problem. Let E ⊂ [0, 1]2. The Buffon needle problem asks the probability that a needle, or a line,
+that is dropped at random onto the plane intersects the set E given that it intersects [0, 1]2. We deﬁne this
+probability as
+P := P
+(
+ℓ ∩ E ⁄= /0 : ℓ is any line in R2 for which ℓ ∩ [0, 1]2 ⁄= /0 ) .
+If we parametrize all such lines by letting ℓβ ,ω denote the line passing through (0, β ) with direction
+orthogonal to ω, then
+P ≃
+⏐⏐{ (β , ω) ∈ R × S1 : E ∩ ℓβ ,ω ⁄= /0 }⏐⏐ .
+Upon ﬁxing ω ∈ S1, we see that
+{
+β ∈ R : E ∩ ℓβ ,ω ⁄= /0
+}
+≃ projω (E) ,
+where projω (S) denotes the linear projection of a set S onto the angle ω. By Fubini’s theorem, we see
+that
+P ≃
+ˆ
+S1
+⏐⏐{ β ∈ R : E ∩ ℓβ ,ω ⁄= /0 }⏐⏐ dω ≃ ˆ
+S1
+|projω (E)| dω =: Fav(E).(1.1)
+Therefore, the Favard length is connected to the classical Buffon needle problem.
+To motivate the introduction of the Favard curve length, we now we ask what happens when lines are
+replaced by more general curves. Let C denote a curve in R2. We want to calculate the probability that
+C intersects E when it is dropped randomly onto the plane and intersects [0, 1]2. Deﬁne
+PC := P
+(
+Ce ∩ E ⁄= /0 : Ce is a translation of C for which Ce ∩ [0, 1]2 ⁄= /0 ) .
+Then
+PC ≃
+⏐⏐{ (α, β ) ∈ R2 : E ∩ ((α, β ) + C ) ⁄= /0 }⏐⏐ .
+Observe that E ∩ ((α, β ) + C ) ⁄= /0 iff (α, β ) ∈ E − C .
+Associated to the curve C in R2 is a family of nonlinear projections that we call curve projections,
+Φα : R2 → P(R), where P(R) denotes the power set of R. For each α ∈ R and p ∈ R2, Φα (p) is the
+set of y-coordinates of the intersection of p − C with the line x = α. That is,
+(1.2) Φα (p) = {β ∈ R : (α, β ) ∈ (p − C ) ∩ {x = α}} .
+The inverse map Φ−1 α : R → P(R2) is given by
+(1.3) Φ−1 α (β ) = (α, β ) + C .
+With this new notation, it follows that
+PC ≃
+⏐⏐{ (α, β ) ∈ R2 : E ∩ Φ−1 α (β ) ⁄= /0 }⏐⏐ .
+2
+
+===== PAGE 3 =====
+And for each ﬁxed α ∈ R, we have
+{
+β ∈ R : E ∩ Φ−1 α (β ) ⁄= /0 } = Φα (E).
+As above, an application of Fubini’s theorem shows that
+(1.4) PC ≃
+ˆ
+R
+⏐⏐{ β : E ∩ Φ−1 α (β ) ⁄= /0 }⏐⏐ dα = ˆ
+R
+|Φα (E)| dα =: FavC (E).
+Therefore, in this nonlinear case, the Favard curve length is proportional to the probability associated to
+the so-called Buffon curve problem.
+The expression in (1.4) is also equivalent to the measure of the Minkowki difference set E − C . That
+is,
+FavC (E) =
+ˆ
+R
+|Φα (E)| dα ≃ |E − C | .
+This observation is explained in detail in [8]; see also [17] and [18], where such sum sets are studied.
+1.2. Projections and Favard length. For a curve C in R2, we deﬁne a family of curve projections
+Φα : R2 → P(R) by (1.2) with inverse given by (1.3). We now formalize the deﬁnition of the Favard
+curve length.
+Deﬁnition 1.2 (Favard curve length). Let E ⊂ R2 and let C be some curve in R2. We deﬁne the Favard
+curve length as
+FavC (E) =
+⏐⏐{ (α, β ) ∈ R2 : Φ−1 α (β ) ∩ E ⁄= /0 }⏐⏐ = ˆ
+R
+|Φα (E)| dα.
+If E ⊂ R3, then with Eα = { e ∈ R2 : (e, α) ∈ E } , the Favard curve length is given by
+FavC (E ) =
+⏐⏐{ (α, β ) ∈ R2 : ( Φ−1 α (β ) × {α} ) ∩ E ⁄= /0 }⏐⏐ = ˆ
+R
+|Φα (Eα )| dα.
+Although we deﬁned Φα to be the set of y-values of the intersection of p − C with a vertical line
+deﬁned by x = α, the equivalence between the quantities in Deﬁnition 1.2 still holds for any other choice
+of orthonormal basis. For example, we could deﬁne Ψβ to be the set of x-values of the intersection of
+p − C with a horizontal line y = β , and then we would compute the Favard curve length by integrating
+over β .
+1.3. Hausdorff measure and rectiﬁability. Some additional notions that we require include the Haus-
+dorff measure, rectiﬁability, as well as the rectiﬁability constant of a set. We build the Hausdorff measure
+via the restricted Hausdorff content, which will be useful when we work with the multiscale analysis.
+Deﬁnition 1.3 (Restricted Hausdorff content; Hausdorff measure). Let E ⊂ R2 and let 0 ≤ r− < r+. The
+restricted Hausdorff content H 1 r−,r+ (E) is deﬁned as
+H 1 r−,r+ (E) = inf ∑
+B∈B
+diam(B),
+where the inﬁmum ranges over all at most countable collections B of open balls B with radius r(B) ∈
+[r−, r+] that cover E. The 1-dimensional Hausdorff measure is then deﬁned as
+H 1(E) = lim
+r+→0
+H 1 0,r+ (E).
+Deﬁnition 1.4 (Rectiﬁability; Unrectiﬁability). A set E ⊂ R2 is said to be 1-rectiﬁable if there exists a
+countable collection { fi} of Lipschitz curves fi : R → R2 such that
+H 1 (E \ ∪ fi(R)) = 0.
+Conversely, E is called purely 1-unrectiﬁable if for every Lipschitz function f : R → R2, it holds that
+H 1 (E ∩ f (R)) = 0.
+To present the statement of our theorem, we ﬁrst need to quantify the notion of rectiﬁability. Thus,
+we want to ﬁnd a way to measure how much of a given set E is covered, in an appropriate sense, by
+Lipschitz curves. To do this, we follow Tao’s deﬁnition [19, Deﬁnition 1.10].
+3
+
+===== PAGE 4 =====
+Deﬁnition 1.5 (Rectiﬁability constant). Let E ⊂ R2 be a set, and let ε, r, M > 0. The rectiﬁability
+constant RE (ε, r, M) of E is deﬁned by
+RE (ε, r, M) = sup |{x ∈ J : x ω1 + (F(x) + y) ω2 ∈ E for some |y| ≤ ε}| |J| ,
+where the supremum ranges over all orthonormal pairs ω1, ω2 in S1, all Lipschitz functions F : R → R
+with Lipschitz constant bounded above by M, and all intervals J ⊂ R for which |J| ≥ r.
+Remark 1.1. In contrast to above, here we use S1 to denote a set of unit 2-vectors. The use of S1,
+whether it denotes angles or vectors in a given direction, should be clear from the context.
+We see that for any E ⊂ R2 and any choice of parameters, RE (ε, r, M) ∈ [0, 1]. To gain some intuition
+for this deﬁnition, we consider some examples.
+Examples.
+(1) Let F : R → R be a Lipschitz function and set E = {(x, F(x)) : x ∈ [0, 1]}. For any ε > 0, r ≤ 1,
+and M ≥ Lip (F), we have RE (ε, r, M) = 1.
+(2) Let N ∈ N be even with N > 10. Set ε = 1 2N . For i = 1, . . . , N, let xi = ( 2i−1 2N , (−1)i) ∈ R2. Deﬁne
+E =
+N⋃
+i=1
+∂ Bε (xi), where ∂ Bi denotes the boundary of Bi. Note that the projection of E onto the
+x-axis is the full interval [0, 1]. However, for any M ≤ N 10 , RE (ε, 1, M) ≤ 1 2 .
+(3) Let E ⊂ R2 be purely unrectiﬁable. As shown in [19, Proposition 1.11], for every choice of r and
+M, lim
+ε→0
+RE (ε, r, M) = 0. Therefore, for any δ > 0, there exists ε > 0 so that RE (ε, r, M) ≤ δ .
+In conclusion, if E is almost purely unrectiﬁable, then RE (ε, r, M) should be near 0. And conversely,
+if E is almost rectiﬁable, then we expect RE (ε, r, M) to be near 1.
+1.4. Theorem statement. We now present the statement of our main result, which can be compared to
+[19, Theorem 1.13]
+Theorem 1.6 (Quantitative Besicovitch Nonlinear Projection Theorem). Let E ⊂ [0, 1]2 be a compact
+set for which H 1(E) ≤ L for some L ∈ (0, ∞). Assume that for some sufﬁciently large N ∈ N, there is a
+sequence of scales
+(1.5) 0 < r− N ≤ r+ N < · · · < r− 1 ≤ r+ 1 ≤ 1
+satisfying the following properties:
+- Uniform length bound: For all n = 1, 2, . . . , N,
+(1.6) H 1 r−n ,r+n (E) ≤ L
+- Separation of scales : For all n = 1, 2, . . . , N − 1,
+(1.7) r+ n+1 ≤ 1 2 r− n
+- Near unrectiﬁability: For all n = 1, 2, . . . , N − 2,
+(1.8) RE
+(
+r+ n+2, r− n , 1 r−n
+)
+≤ N−1/100.
+If C is a piecewise C1 curve of ﬁnite length with a piecewise bilipschitz continuous unit tangent vector,
+then
+FavC (E) ≲ N−1/100L.
+Remark 1.2. For convenience, we will assume that N1/100 ∈ N. Assuming that N1/100 ≥ 3 will sufﬁce.
+1.5. Applications. Before proceeding to a discussion of the proof of this quantitative Besicovitch non-
+linear projection theorem, we present two applications of the theorem.
+4
+
+===== PAGE 5 =====
+1.5.1. Application #1. First, we demonstrate how the quantitative result implies the following qualita-
+tive version of the theorem.
+Theorem 1.7 (Qualitative Besicovitch Nonlinear Projection Theorem). Let E ⊂ [0, 1]2 be a compact set
+for which H 1(E) < ∞. Assume that E is purely unrectiﬁable. If C is a piecewise C1 curve of ﬁnite
+length with a piecewise bilipschitz continuous unit tangent vector, then FavC (E) = 0.
+Proof. To apply Theorem 1.6, we need a sequence of scales that satisﬁes the uniform length bounds,
+separation of scales, and near unrectiﬁability. Fix some N ∈ N so that N1/100 ≥ 3. By Example (3)
+above, since E is purely unrectiﬁable, then for any δ , r, M > 0, there exists
+(1.9) ε0 = ε0 (δ , r, M) > 0
+so that whenever ε ≤ ε0, it holds that RE (ε, r, M) ≤ δ . We will choose δ = N−1/100.
+For notational convenience, set r− 0 = r− −1 = 1. We recursively deﬁne each r± n for n = 1, . . . , N, starting
+from r± 1 , as follows. Deﬁne
+rn = min
+{
+1
+2 r− n−1, ε0
+(
+N−1/100, r− n−2, 1 r− n−2
+)}
+,
+where ε0 is as deﬁned in (1.9). Since
+H 1(E) = lim
+r+→0
+H 1 0,r+ (E),
+then there exists r+ n ∈ (0, rn] so that
+(1.10)
+⏐⏐⏐H 1 0,r+n (E) − H 1(E) ⏐⏐⏐ < H 1(E) 2 .
+Since E is compact, then
+H 1 0,r+n (E) = lim r−→0 H 1 r−,r+n (E).
+Thus, there exists r− n ∈ (0, r+ n ] so that
+(1.11)
+⏐⏐⏐H 1 r−n ,r+n (E) − H 1 0,r+n (E) ⏐⏐⏐ < H 1(E) 2 .
+We continue this process until r± N have been deﬁned.
+It follows from the triangle inequality, (1.10), and (1.11), that for all 1 ≤ n ≤ N,
+H 1 r−n ,r+n (E) ≤ ⏐⏐⏐H 1 r−n ,r+n (E) − H 1 0,r+n (E) ⏐⏐⏐ + ⏐⏐⏐H 1 0,r+n (E) − H 1(E) ⏐⏐⏐ + H 1(E) < 2H 1(E).
+In particular, we have the required uniform length bounds. Since r+ n ≤ rn ≤ 1 2 r− n−1 for all 1 < n ≤ N,
+then we also have separation of scales. And because r+ n ≤ rn ≤ ε0
+(
+N−1/100, r− n−2, 1 r− n−2
+)
+, where ε0 is as
+deﬁned in (1.9), then for all 2 < n ≤ N,
+RE
+(
+r+ n , r− n−2, 1 r− n−2
+)
+≤ N−1/100.
+This shows that near unrectiﬁability is satisﬁed as well.
+Theorem 1.6 now implies that FavC (E) ≲ 2N−1/100H 1(E). Since we may repeat this process for any
+N ∈ N sufﬁciently large, then we can show that for any ε > 0, FavC (E) < ε. In particular, FavC (E) =
+0. □
+5
+
+===== PAGE 6 =====
+1.5.2. Application #2. For the second application, we use Theorem 1.6 to estimate the rate of decay
+of the Favard curve length of the four-corner Cantor set. That is, we establish upper bounds for each
+FavC (Kn), where Kn denotes the nth generation.
+First, we formally deﬁne the four-corner Cantor set in the plane. We start by describing the middle-
+half Cantor set in the real line, denoted by C. For any n ∈ N ∪ {0}, let Cn denote the nth generation of
+the set C. Then C0 = [0, 1] and for any n ∈ N,
+Cn =
+⋃
+a j ∈{0,3}
+j=1,...,n
+[
+n
+∑
+j=1
+a j4− j ,
+n
+∑
+j=1
+a j 4− j + 4−n
+]
+.
+For example, C1 =
+[
+0, 1 4 ] ∪ [ 3 4 , 1 ] , the set that is obtained by removing the middle half of C0. Each Cn+1
+is obtained through the self-similar process of removing the middle half of all intervals that comprise
+Cn. We deﬁne C =
+∞⋂
+n=0
+Cn, the middle-half Cantor set. Then the four-corner Cantor set is the product set
+given by K = C ×C. This means that the nth generation of K is given by
+(1.12) Kn = Cn ×Cn,
+so we may realize the four-corner Cantor set as K =
+∞⋂
+n=0
+Kn.
+As each Kn is a 2-set, Theorem 1.6 may not be applied with E = Kn. Thus, we deﬁne a 1-set associated
+to each Kn by taking its boundary. That is, set En = ∂ Kn. As we will see below, an upper bound on the
+Favard curve length of each En automatically implies the same bound for the curve length of Kn.
+To apply Theorem 1.6 to each En, we need an upper bound for the rectiﬁability constants of each En.
+In [19], the bounds for these constants are proved through a quantitative two-projection theorem. We
+rely on the following corollary to a result of Tao:
+Proposition 1.8 (Rectiﬁability constant for En = ∂ Kn, Corollary to Proposition 1.20 from [19]). Let
+n ≥ m > ℓ ≥ 0. Deﬁne En = ∂ Kn. If 1 ≤ M ≤ c [log (m − ℓ + 1)]1/100 for some sufﬁciently small ﬁxed
+constant c > 0, then
+REn
+(
+2−m, 2−ℓ, M ) ≲ [log (m − ℓ + 1)]−1/100 .
+This result follows from the proof of [19, Proposition 1.20] combined with the fact that En is a 1-set
+for which projω (Kn) = projω (En) for any ω ∈ S1.
+Now we use the previous proposition in combination with Theorem 1.6 to produce an upper bound
+for the Favard curve length of Kn. We use the notation log∗ to denote the inverse tower function deﬁned
+by
+log∗ x = min
+{
+m ≥ 0 : log(m) x ≤ 1 } .
+Theorem 1.9 (Rate of decay for Kn, cf. Proposition 1.21 in [19]). If n ≫ 1 and C is a piecewise C1
+curve of ﬁnite length with a piecewise bilipschitz continuous unit tangent vector, then
+FavC (Kn) ≲ (log∗ n)−1/100 .
+Our proof follows [19, Proposition 1.21], but we include the details here for completeness.
+Proof. As above, we deﬁne En = ∂ Kn and note that En is a 1-set with FavC (Kn) = FavC (En). Therefore,
+it sufﬁces to prove that FavC (En) ≲ (log∗ n)−1/100.
+Let N = log∗ n/C1 ∈ N for some sufﬁciently large constant C1 that will be speciﬁed below. That is,
+n = eee···e , where the tower contains C1N elements. Then we deﬁne an increasing sequence { m j }N j=1 ⊂ N
+recursively by choosing log N ≲ m1 ≲ N, then setting m j+1 = ⌈2C2 m100 j ⌉, where C2 = (100 log 2)−1. The
+6
+
+===== PAGE 7 =====
+starting point m1 is chosen so that m j+1 − m j ≥ N for all j = 1, . . . , N − 1. Taking a closer look:
+m2 ≈ 2C2 m100 1 = exp ( ˜C exp (M) )
+m3 ≈ exp
+( ˜Cm100 2 ) ≈ exp ( ˜C exp (exp (M)) )
+m4 ≈ exp
+( ˜Cm100 3 ) ≈ exp ( ˜C exp (exp (exp (M))) )
+...
+where M = 100 log m1 and ˜C = 1/100. Since log∗ M ≤ log∗(100 log(CN)) ≤ log∗(100 log( C C1 log∗ n)),
+then the constant C1 is chosen so that mN ≤ n. Then set r± j = 2−m j and note that r− N ≥ 2−n.
+Before we apply Theorem 1.6, we check that our sequence of scales satisﬁes the set of conditions
+outlined in that theorem.
+Observe that for any 2−n ≤ r ≤ 1, it holds that H 1 r,r(En) ≲ 1. This shows that our sequence of scales
+satisﬁes the uniform length bound.
+For any 1 ≤ j ≤ N − 1,
+r+ j+1 = 2−m j+1 = 2−m j 2−(m j+1−m j ) ≤ 2−m j 2−N ≤ 1 2 2−m j = 1 2 r− j ,
+so we also have separation of scales whenever n is large enough so that N ≥ 1.
+For any 1 ≤ j ≤ N − 2,
+REn
+(
+r+ j+2, r− j , 1 r− j
+)
+= REn (2−m j+2 , 2−m j , 2m j ).
+To apply Proposition 1.8, we need to check that 1 ≤ 2m j ≤ c [log (m j+2 − m j + 1)]1/100. Since
+log(m j+2 − m j + 1) ≈ log
+(
+e
+˜Cm100 j+1 − m j + 1 ) ≥ ˜C 2 m100 j+1,
+then we need 2m j ≤ c ( 1 200 )1/100 m j+1. As m j+1 ≈ 2C2 m100 j , the hypothesis holds and we conclude from
+Proposition 1.8 that
+REn (2−m j+2 , 2−m j , 2m j ) ≲ [log (m j+2 − m j + 1)]−1/100 .
+Since log(m j+2 − m j + 1) ≥ 1 200 m100 j+1 ≫ m j+1 ≥ N /greaterorsimilar log∗ n, then
+REn (2−m j+2 , 2−m j , 2m j ) ≲ (log∗ n)−1/100
+and the near unrectiﬁability condition also holds.
+Therefore, the sequence of scales satisﬁes the set of conditions outlined in Theorem 1.6. An applica-
+tion of Theorem 1.6 with L = 1 then shows that FavC (En) ≲ (log∗ n)−1/100, as required. □
+In [8], we use different techniques to prove a much faster rate of decay for the Favard curve length of
+the four-corner Cantor set. This and other rates-type results are discussed in the next subsection.
+1.6. Rates in the literature. There has been substantial interest in ﬁnding upper and lower bounds for
+the rate of decay of the Favard length of self-similar 1-sets, such as the four-corner Cantor set. It remains
+an open problem to obtain sharp asymptotic estimates for these rates.
+Theorem 1.9, as well as the faster decay rates obtained in [8], shed some light on the upper bound
+problem in the nonlinear setting. To put these results into context, we present the best known upper
+bounds in the linear setting for the four-corner Cantor set. As above, we use Kn to denote the nth
+generation of the four-corner Cantor set as deﬁned in (1.12).
+Theorem 1.10 (Navarov, Peres and Volberg [16]). For each p < 1/6, there exists a constant c > 0 so
+that for every n ∈ N, Fav(Kn) ≤ cn−p.
+7
+
+===== PAGE 8 =====
+Several additional works have investigated analogous upper bounds for the rate of decay of other
+sets: the 1-dimensional Sierpinski gasket in [3], more general 1-dimensional irregular self-similar sets
+in [5], product Cantor sets [2], [13], and random Cantor sets in [20]. A common thread through each of
+these results (with the exception of [20]), as well as the result of Theorem 1.10, is the analysis of Lp-
+norms of the projection multiplicity functions. The projection multiplicity functions count the number
+of components at a certain scale that orthogonally project onto a given point. A nice survey of this area
+and the techniques employed can be found in [12], see also [5].
+The best known lower bounds for the Favard length of the four-corner Cantor set are as follows.
+Theorem 1.11 (Bateman and Volberg [1]). There exists a constant c > 0 so that for every n ∈ N,
+Fav(Kn) ≥ cn−1 log n.
+Additional lower bound results apply to s-sets, those sets A ⊂ R2 for which H s(A) ∈ (0, ∞). In [14],
+Mattila attains lower bounds on the Favard length of neighborhoods of arbitrary s-sets when s ≤ 1. His
+technique involves deﬁning a measure on the projection space, then using a pushforward to relate the
+energy of this measure to the original set. See also [6] for related results.
+In a joint work with Cladek [8], the authors of this paper obtain upper and lower bounds on the rate
+of decay of the Favard curve length of the nth generation in the construction of the four-corner Cantor
+set. The upper bound in [8] is in line with the upper bound for the classic problem that appeared in [16].
+Theorem 1.12 (Cladek, Davey, Taylor [8]). Let C be a piecewise C1 curve of ﬁnite length with a piece-
+wise bilipschitz continuous unit tangent vector. For each p < 1/6, there exists a constant c > 0 so that
+for every n ∈ N, FavC (Kn) ≤ cn−p.
+The proof of Theorem 1.12 relies on a one-to-one correspondence between the family of linear pro-
+jections and the curve projections on sufﬁciently small components of Kn. Along with Cladek, we also
+establish the following lower bound.
+Theorem 1.13 (Cladek, Davey, Taylor [8]). Let C be a piecewise C1 curve of ﬁnite length with a piece-
+wise bilipschitz continuous unit tangent vector. There exists a constant c > 0 so that for every n ∈ N,
+FavC (Kn) ≥ cn−1.
+The proof of Theorem 1.13 involves studying interactions between pairs of squares, much in the spirit
+of the techniques introduced in [1] that are used to prove Theorem 1.11 above. In the curved setting, the
+argument becomes much more complex. We expect that further investigations in the curved setting will
+yield an improved lower bound on the order of n−1 log n.
+In [4], Bond and Volberg estimate from below the probability that a circle of radius r will intersect
+the nth generation in the construction of the four-corner Cantor set. Their lower bound is of the form
+n−1 log n. However, in their setting, the radius r > 0 grows with the generation n.
+In collaboration with Bongers [7], the second-listed author introduces a technique for producing lower
+bounds on the rate of decay of the Favard curve length in a much more general setting that applies to
+arbitrary s-sets for s ≤ 1. This work extends the results of Mattila in [14] by replacing orthogonal
+projection maps with more general families of projection operators.
+1.7. Proof Approach. Here we describe the big ideas that are used to prove Theorem 1.6. We draw
+inspiration from Tao’s [19, Theorem 1.13] as well as the original proofs of the Besicovitch projection
+theorem, which can be found in [10, Theorem 6.13] and [15, Theorem 18.1].
+A key property of purely 1-unrectiﬁable sets that is used in the proof the original qualitative Besicov-
+itch projection theorem (see [10, Theorem 6.13] and [15, Theorem 18.1]) is that such sets have “tangents
+almost nowhere”. This means that almost every point in the set is approached in almost every direction
+by other points in the set. This idea is formalized by introducing double-sectors about the points in E
+and investigating the size of the intersection of E with such sets. Introducing a curved variant of these
+double-sectors is critical to our analysis.
+In the proof of [19, Theorem 1.13], the ﬁrst step is to divide the set E × S1 into normal and non-
+normal pairs. Roughly speaking, a pair (e, ω) ∈ E × S1 is called normal if there is a bulk of points of E
+in a small neighborhood of e which concentrate along the direction that is normal to ω. As an example,
+consider when the part of E in a neighborhood of e is entirely contained in the line through e that is
+8
+
+===== PAGE 9 =====
+orthogonal to ω. In this setting, the orthogonal projection of the neighborhood of e in the direction ω
+gives only a singleton. The idea is that for a normal pair (e, ω), its neighborhood should have a suitably
+small projection onto the direction ω. A pair is called non-normal if it is not normal.
+Since we are considering curve projections, we need to adapt the notion of normal pairs to our setting.
+We call a pair (e, α) ∈ E × R a curve pair if the bulk of E near e concentrates along the curve centered
+along x = α that passes through e. The formal deﬁnition of the curve double-sector is given in (2.11)
+and the deﬁnition of normal pairs (which we call curve pairs) is provided by Deﬁnition 3.1. In practice,
+our curve pairs are deﬁned in an analogous way to Tao’s normal pairs, where we take ω = ω (α) ∈ S1
+to be the normal direction at the point e to the curve centered at (α, Φα (e)).
+Once the notion of a normal pair has been introduced in [19], each pair (e, ω) ∈ E × S1 is either
+normal or non-normal. To treat the non-normal points, an exceptional set of low density points is ﬁrst
+removed. Using a Vitali-type argument, it is shown that the exceptional set has small measure. A
+technical argument shows that the remaining points are Lipschitz in nature, and the assumed bound on
+the rectiﬁability constant is then used to estimate the measure of these remaining points. Since each
+projection is a contraction, an upper bound on the measure of the non-normal pairs immediately yields
+an upper bound on the Favard length. The general argument for our curve projections, which appears in
+Section 4, follows this idea while introducing a series of technical modiﬁcations. In fact, this part of our
+article contains many new ideas that signiﬁcantly distinguish it from the corresponding parts of [19]. If
+we are trying to compare these arguments to their qualitative counterparts, the non-normal pairs reﬂect
+the nature of Mattila’s A1,δ sets [15, Chapter 18]. Falconer [10, Chapter 6] shows that almost every
+point in E is a point of radiation, so the non-normal pairs correspond to the points that are not points of
+radiation, or the directions that are not condensation directions. In the qualitative setting, the set of all
+of these pairs has measure zero.
+Now we describe the approach to the normal pairs. First, high multiplicity lines (deﬁned at each scale)
+are introduced. These sets can be thought of as quantitative versions of Mattila’s A3 sets or Falconer’s
+condensation directions of the ﬁrst kind. In [19], a “sliding” pigeonhole principle (see Lemma 3.8) is
+used to select a single scale around which the high multiplicity lines have a sufﬁciently small measure.
+Then the neighborhood of the underlying set is analyzed using a Fubini-type argument. Next, the lines
+that are not of high multiplicity but are also not of zero multiplicity are considered. A counting argument
+combined with the pigeonhole principle is used to select the next scale in such a way that the resulting
+set has a sufﬁciently small measure. Points that lie in high density strips (deﬁned at each scale) are
+then analyzed. An application of the Hardy-Littlewood maximal inequality, which can be viewed as
+a quantitative version of the Lebesgue differentiation theorem, shows that these sets also have small
+Favard length. Again, the sliding pigeonhole principle is used to choose a third and ﬁnal scale around
+which this analysis is carried out. To ﬁnish the argument, the remaining normal pairs are analyzed.
+These normal pairs can be compared to Mattila’s A2,δ sets or Falconer’s condensation directions of the
+second kind. The main observation here is that these remaining normal pairs are concentrated around
+a special, ﬁne scale set, and another application of the Hardy-Littlewood maximal inequality completes
+the argument.
+For our curve pairs, the approach is very similar to Tao’s. Instead of sets of high-multiplicity lines,
+positive-multiplicity lines, and high-density strips, we consider sets of high-multiplicity curves, positive-
+multiplicity curves, and high-density curve strips. Although our proof roughly follows Tao’s, the non-
+linear nature of our projections introduces a number of technical hurdles that don’t appear in the linear
+setting. We also chose an exposition that is quite different from the one in [19]. Our ﬁrst step is to com-
+pletely decompose the set E, and then we analyze each of the components. For a visual representation of
+the decomposition, see Figure 4. A more detailed explanation of the ideas and notions discussed above,
+as well as a rigorous presentation of the selection of scales, is given in Section 3.
+1.8. Organization of the paper. The remainder of this article is organized as follows. In the next
+section, Section 2, we make some simplifying assumptions about our curves and reintroduce the curve
+projections in a more basic form. We then deﬁne our curve double-sectors and introduce the measures
+that will be used. Section 3 describes how we decompose the set into subsets that can be analyzed as
+described above. This section illuminates our use of multiscale analysis. In Section 4, we analyze the
+9
+
+===== PAGE 10 =====
+non-curve elements. The key observation here is that most of these points cluster around a Lipschitz
+curve, so by the near unrectiﬁability assumption, they must have small measure. Section 5 contains the
+analysis of the selected neighborhoods of the high-multiplicity curve set and the high-density curve strip
+set. This section contains a Fubini-type argument and an application of the Hardy-Littlewood maximal
+inequality. In Section 6, another application of the Hardy-Littlewood maximal inequality is used to show
+that the remaining curve pairs cluster around a ﬁne scale set, and consequently have a small measure.
+Our observations are combined in Section 7 where we complete the proof. Some technical details have
+been collected in the Appendix A.
+Acknowledgements. This material is based upon work supported by the National Security Agency
+under Grant No. H98230-19-1-0119, The Lyda Hill Foundation, The McGovern Foundation, and Mi-
+crosoft Research, while the authors were in residence at the Mathematical Sciences Research Institute
+in Berkeley, California, during the summer of 2019.
+2. PREPARATION
+Before we decompose the set E, we ﬁrst make a number of simplifying assumptions about the curve
+that we are working with. These simpliﬁcations allow us to describe the curve projection as a real-valued
+function. Then we deﬁne the curve double-sectors that will be used in the decomposition. Next, we in-
+troduce the relevant measures and collect some observations about their relationships. In the subsequent
+section, these tools are used to decompose the set.
+2.1. Simplifying the curve. Let the curve C be as given. That is, C is a piecewise C1 curve of ﬁnite
+length with a piecewise bilipschitz continuous unit tangent vector. Then we can write C =
+N⨆
+i=1
+Ci, where
+each Ci is a C1 graph with a strictly monotonic bilipschitz continuous derivative over some orthonormal
+basis. In other words, for each i, Ci =
+{
+tω i 1 + ϕi(t)ω i 2 : t ∈ Ii } , where ϕi is C1, ϕ ′ i is λi-bilipschitz (and
+therefore strictly monotonic), Ii is a ﬁnite interval, and
+(
+ω i 1, ω i 2 ) is a pair of orthonormal vectors. Since
+FavC (E) :=
+N
+∑
+i=1
+FavCi (E), then we make the simplifying assumption that C itself is such a graph. That
+is,
+(2.1) C = {(t, ϕ(t)) : t ∈ I} ,
+where I is a closed and bounded interval, ϕ is C1, and ϕ ′ is λ -bilipschitz so that for any s,t ∈ I,
+(2.2) λ −1 |s − t| ≤ ⏐⏐ϕ ′(s) − ϕ ′(t) ⏐⏐ ≤ λ |s − t| .
+In fact, since ϕ ′ is continuous on a compact set, then it is bounded. Moreover, since ϕ ′ is bilipschitz
+continuous, then ϕ ′ is strictly monotonic and ϕ ′′ exists a.e., so that λ ≥ |ϕ ′′| ≥ λ −1 > 0 a.e. in I.
+We will assume that |ϕ ′(t)| ≤ 1 − δ , where δ > 0 is deﬁned in (2.8), for all t ∈ I since there is no loss
+in doing so. Observe then that by the mean value theorem, there exists an h ∈ I between t and s such that
+(2.3) |ϕ(s) − ϕ(t)| =
+⏐⏐ϕ ′(h)(s − t) ⏐⏐ < |s − t| .
+In particular, ϕ is 1-Lipschitz.
+Remark 2.1. It is clear that λ ≥ 1. We will assume throughout the proof that λ ≤ 235. Our techniques
+can handle larger values of λ , but we would need to adjust our choices of constants, indices, etc.
+2.2. The projection map. The projection map Φα associated to C is deﬁned in (1.2). However, since
+the curve is given by a graph, we may now deﬁne Φα explicitly. For p = (p1, p2), the projection is either
+a singleton or the empty set:
+(2.4) Φα (p) =
+{
+{p2 − ϕ(p1 − α)} p1 − α ∈ I
+/0 otherwise .
+Moreover,
+Φ−1 α (β ) = (α, β ) + C = {(α + t, β + ϕ(t)) : t ∈ I} .
+10
+
+===== PAGE 11 =====
+Fix a compact set E ⊂ [0, 1]2 and let A = [0, 1] − I. Since I is assumed to be bounded, then so too is
+A. Deﬁne the 3-dimensional set of pairs associated to non-empty projections as
+(2.5) E = {(e, α) ∈ E × A : Φα (e) ⁄= /0} = {(e1, e2, e1 − t) : e = (e1, e2) ∈ E,t ∈ I} .
+For α ∈ A, the map
+Φα : Eα := {e ∈ E : (e, α) ∈ E } → R
+is well-deﬁned by identifying each singleton set with its element. Observe that for any (e, α) ∈ E ,
+Φ−1 α (Φα (e)) = (α, Φα (e)) + C , a non-empty curve that passes through e.
+Recalling Deﬁnition 1.2, if S ⊂ [0, 1]2, then
+(2.6) FavC (S) =
+ˆ
+R
+|Φα (S)| dα =
+ˆ
+A
+|Φα (S)| dα.
+In particular, if S ⊂ E, then (2.6) holds in place of the ﬁrst formula provided in Deﬁnition 1.2. Examining
+the second formula provided by Deﬁnition 1.2, if S ⊂ R2 × J, for some interval J ⊂ R, then Sα ⁄= /0 iff
+α ∈ J. Therefore,
+(2.7) FavC (S ) =
+ˆ
+J
+|Φα (Sα )| dα.
+For example, if S ⊂ E , then the above formula with J = A replaces the one presented in Deﬁnition 1.2.
+2.3. Extending the curve. Note that if e1 − α is near or at an endpoint of I, then e will be near or at an
+endpoint of the curve Φ−1 α (Φα (e)). Since we will (for technical reasons) want to avoid being near the
+endpoint of curves, we introduce extensions of our curves as follows.
+Set
+(2.8) δ = 10−5 + 2−100
+and let I+ denote the δ -neighborhood of I. That is, if I = [a, b], then I+ = [a − δ , b + δ ]. Deﬁne ϕ+ :
+I+ → R so that ϕ+ extends ϕ and maintains all of the properties of ϕ that we described above. In
+particular, we set
+ϕ+(t) =
+
+
+
+ϕ(a) + ϕ ′(a)(t − a) + sgn(ϕ ′′) 2λ (t − a)2 a − δ ≤ t ≤ a
+ϕ(t) a ≤ t ≤ b
+ϕ(b) + ϕ ′(b)(t − b) + sgn(ϕ ′′) 2λ (t − b)2 b ≤ t ≤ b + δ
+so that ϕ(t) = ϕ+(t) for every t ∈ I, ϕ+ is C1, ⏐⏐ϕ ′ +(t) ⏐⏐ ≤ 1 for all t ∈ I+, ϕ+ is 1-Lipschitz, and ϕ ′ + is
+λ -bilipschitz. Let C+ denote the extended curve given by C+ = {(t, ϕ+(t)) : t ∈ I+}.
+We now repeat the deﬁnitions from above for the extended curve. For p = (p1, p2), the extended
+projection is deﬁned as
+(2.9) Φα,+(p) =
+{
+{p2 − ϕ+(p1 − α)} p1 − α ∈ I+
+/0 otherwise .
+Then
+Φ−1 α,+(β ) = (α, β ) + C+ = {(α + t, β + ϕ+(t)) : t ∈ I+} .
+With A+ = [0, 1] − I+, set
+E+ = {(e, α) ∈ E × A+ : Φα,+(e) ⁄= /0} = {(e1, e2, e1 − t) : e = (e1, e2) ∈ E,t ∈ I+} .
+For (e, α) ∈ E+, we treat Φ+ α (e) as a real number by identifying each singleton set with its element. For
+any (e, α) ∈ E+, Φ−1 α,+(Φα,+(e)) = (α, Φα,+(e)) + C+ is a non-empty curve that passes through e. If
+(e, α) ∈ E , then Φ−1 α,+(Φα,+(e)) = Φ−1 α,+(Φα (e)) is a non-empty curve that passes through e and extends
+beyond e in both directions by at least δ measured along the x-axis.
+As these extended curves will be used extensively below, for any (e, α) ∈ E+, we deﬁne
+(2.10) Ce,α = Φ−1 α,+(Φα,+(e)) = (α, Φα,+(e)) + C+ = {(α + t, Φα,+(e) + ϕ+(t)) : t ∈ I+} .
+11
+
+===== PAGE 12 =====
+e
+(α, Φα (e))δ
+x = e1
+x = α
+Ce,α
+FIGURE 1. The image of Ce,α
+when e1 − α is at the endpoint of
+I; Ce,α extends by δ beyond e.
+This is the extended curve centered at
+(α, Φα,+(e)) that passes through e. Often, we
+will only work with (e, α) ∈ E . In this case,
+Φ+ α (e) = Φα (e) and then
+Ce,α = Φ−1 α,+(Φα (e)) = (α, Φα (e)) + C+.
+By construction, if (e, α) ∈ E , then e is never an
+endpoint of Ce,α and is always at least δ (mea-
+sured horizontally) from the end of the curve. See
+Figure 1.
+2.4. Curve double-sectors. Now we introduce
+the curve double-sectors. These sets are con-
+structed by looking at the curves Ce,α ′ in a neigh-
+borhood of e, where α ′ ranges over a small neigh-
+borhood of α. Given (e, α) ∈ E , r > 0 and M ≥ 1 δ ,
+set
+(2.11) Xe,α (r, M) =
+{
+z ∈ Ce,α ′ ⊂ R2 : ⏐⏐α − α ′⏐⏐ ≤ 1 M } ∩ Br (e) ,
+where Ce,α is the curve deﬁned in (2.10) that passes through e. The lower bound on M ensures that
+(e, α ′) ∈ E+ for all such α ′. Indeed, if |α − α ′| ≤ 1 M ≤ δ , then since (e, α) ∈ E implies that e − α ∈ I, it
+follows that e1 − α ′ ∈ I+. That is, every Ce,α ′ used to deﬁne this set is a well-deﬁned non-empty curve.
+See Figure 2 for a visualization of these sets.
+e
+r
+(
+α + 1 M , Φα+ 1 M ,+ (e) )( α − 1 M , Φα− 1 M ,+ (e) )
+Ce,α− 1 M
+Ce,α+ 1 M
+FIGURE 2. Xe,α (r, M) is the shaded region bounded by Ce,α− 1 M , Ce,α+ 1 M , and the
+boundary of Br (e).
+Related to the curve double-sectors are straight double-sectors orthogonal to ω ∈ S1 given by
+(2.12) Xe,ω (r, M) =
+{
+z ∈ R2 : |(z − e) · ω| ≤ 1 M |z − e| } ∩ Br(e).
+Before proceeding, it is important to check that the sets Xe,α (r, M) are not degenerate. In the next
+lemma, we establish that the curve double-sectors can be approximated by straight double-sectors with
+comparable amplitudes. These relationships are illustrated in Figure 3.
+Lemma 2.1 (Curve double-sectors are comparable to straight double-sectors). Let (e, α) ∈ E and set
+ω = (ϕ ′(e1−α),−1)√
+1+[ϕ ′(e1−α)]2 , the unit vector that is perpendicular to the tangent vector of Ce,α at e. Assume
+that r, M > 0 are chosen so that δ ≥ 1 M + r, where δ is as deﬁned in (2.8). Then Xe,α (r, M) ⊂
+12
+
+===== PAGE 13 =====
+Xe,ω
+(
+r, M λ (1 + Mr) ) . If we further assume that r, M > 0 are chosen so that r ≤ 1 2λ 2 M , then Xe,ω (r, c1M) ⊂
+Xe,α (r, M), where c1 = λ
+√
+8
+[
+1 +
+(
+1 + 2λ M
+)2]
+.
+ω
+e
+FIGURE 3. The region Xe,α (r, M) (shown with medium shading) is bounded by the
+black curves. The regions Xe,ω
+(
+r, M λ (1+Mr)
+)
+(lightly shaded) and Xe,ω (r, c1M) (darkly
+shaded) contain and are contained in Xe,α (r, M), respectively.
+We note that the second containment of Lemma 2.1 will be used in Section 4 while the ﬁrst contain-
+ment will be used to prove Corollary 2.3 below, which will be invoked in Section 6.
+Proof. As explained above, since δ ≥ 1 M , then all of the curves used in the deﬁnition (2.11) are non-
+empty and pass through e. In fact, e is always at least δ − 1 M ≥ r (measured horizontally) from the end
+of all such Ce,α ′ , so none of the curves used to deﬁne Xe,α (r, M) reach their endpoints before exiting the
+ball Br (e).
+Before showing the ﬁrst claimed set inclusion, we use a Taylor expansion to produce a useful obser-
+vation described by (2.13). We make use of the parametrization of Ce,α ′ given in (2.10). Note that the
+parameter choice t = e1 − α ′ corresponds to e along Ce,α ′ . Thus, with s = t + α ′, a Taylor expansion of
+the function f (s) = Φα ′,+(e) + ϕ+(s − α ′) about s = e1 shows that for a.e. point z = (z1, z2) on the curve
+Ce,α ′ near e
+(2.13)
+z2 = e2 + ϕ ′ +(e1 − α ′)(z1 − e1) + ϕ ′′ +(t0)(z1 − e1)2
+= e2 + ϕ ′(e1 − α)(z1 − e1) + [ ϕ ′ +(e1 − α ′) − ϕ ′ +(e1 − α) ] (z1 − e1) + ϕ ′′ +(t0)(z1 − e1)2,
+where t0 is a number between z1 + α ′ and e1 + α ′.
+Now we show that Xe,α (r, M) ⊂ Xe,ω
+(
+r, M λ (1+Mr)
+)
+. If z ∈ Xe,α (r, M), then z ∈ Ce,α ′ , where |α − α ′| ≤
+1
+M and |z − e| ≤ r. It follows from the expansion of z2 − e2 derived in (2.13) combined with the fact that
+ϕ ′ + is λ -Lipschitz and ⏐⏐ϕ ′′ + ⏐⏐ ≤ λ a.e., that for any such z along Ce,α ′
+|(z − e) · ω| = |(z − e) · (ϕ ′(e1 − α), −1)|√
+1 + |ϕ ′(e1 − α)|2
+≤
+⏐⏐(z − e) · ( ϕ ′(e1 − α), −1 )⏐⏐
+=
+⏐⏐ϕ ′(e1 − α)(z1 − e1) − (z2 − e2) ⏐⏐
+≤
+⏐⏐ϕ ′ +(e1 − α) − ϕ ′ +(e1 − α ′) ⏐⏐ |z1 − e1| + ⏐⏐ϕ ′′ (t0) ⏐⏐ |z1 − e1|2
+≤ λ M |z1 − e1| + λ |z1 − e1|2 ≤ λ ( 1 M + r ) |z − e| .
+That Xe,α (r, M) ⊂ Xe,ω
+(
+r, M λ (1+Mr)
+)
+follows from this observation.
+13
+
+===== PAGE 14 =====
+Going forward, we assume that r ≤ 1 2λ 2 M . Since ϕ ′ + is λ -Lipschitz, then ⏐⏐ϕ ′′ + ⏐⏐ ≤ λ a.e. Therefore,
+whenever |α − α ′| ≤ 1 M and |z1 − e1| ≤ |z − e| ≤ r ≤ 1 2λ 2 M < 1 M , it follows from (2.13) that
+|z2 − e2| ≤
+(⏐⏐ϕ ′(e1 − α) ⏐⏐ + 2λ M ) |z1 − e1| ≤ ( 1 + 2λ M ) |z1 − e1| ,
+where we have used the assumption that |ϕ ′| ≤ 1. In particular, with γ =
+√
+1 +
+(
+1 + 2λ M
+)2
+,
+(2.14) |z1 − e1| ≥ γ −1 |z − e| .
+Finally, to show that Xe,ω (r, c1M) ⊂ Xe,α (r, M), we show that elements on the boundary curves of
+Xe,α (r, M) belong to the closure of the complement of Xe,ω (r, c1M). That is, consider z ∈ Ce,α ′ where
+α ′ = α ± 1 M . From (2.13) combined with the fact that ϕ ′ + is λ -bilipschitz and ⏐⏐ϕ ′′ + ⏐⏐ ≤ λ a.e., we see that
+⏐⏐(z − e) · ( ϕ ′ (e1 − α) , −1 )⏐⏐ = ⏐⏐⏐⏐ [ ϕ ′ + ( e1 − α ∓ 1 M ) − ϕ ′(e1 − α) ] (z1 − e1) + ϕ ′′ +(t0)(z1 − e1)2 ⏐⏐⏐⏐
+≥
+⏐⏐⏐⏐ϕ ′ + ( e1 − α ∓ 1 M ) − ϕ ′ +(e1 − α) ⏐⏐⏐⏐ |z1 − e1| − ⏐⏐ϕ ′′ +(t0) ⏐⏐ |z1 − e1|2
+≥ 1 λ M |z1 − e1| − λ |z1 − e1|2 ≥ 1 2λ γM |z − e| ,
+where we have used the assumption that r ≤ 1 2λ 2 M and the observation in (2.14). Since
+√
+1 + |ϕ ′(e1 − α)|2 ≤√
+2, then
+|(z − e) · ω| =
+⏐⏐⏐⏐⏐⏐ (z − e) · (ϕ ′ (e1 − α) , −1)√ 1 + |ϕ ′(e1 − α)|2 ⏐⏐⏐⏐⏐⏐ ≥ 1 2 √ 2λ γM |z − e| ,
+showing that Xe,α (r, M) ⊃ Xe,ω
+(
+r,
+√
+8λ γM
+)
+, as required. □
+Next we make an observation about the height of straight double-sectors. This result will be combined
+with the previous one to prove the ﬁnal estimate of the subsection.
+Lemma 2.2 (Height of a straight double-sector). Let e ∈ R2, ω ∈ S1 make an angle in [ − 3π 4 , − π 4 ] with
+the positive x-axis, r > 0, and µ ∈
+(
+0, 1√ 2
+)
+. Then any vertical slice of Xe,ω
+(
+r, µ −1) has length at most
+√
+8µr.
+Proof. There is no loss in assuming that e = 0. By symmetry, we may further assume that ω ∈ S1 makes
+an angle in
+[
+− π 2 , − π 4 ] with the positive x-axis so that ω ⊥ ∈ S1 makes an angle θ ∈ [ 0, π 4 ] with the
+positive x-axis.
+Deﬁne β0 = arcsin (µ) ∈
+(
+0, π 4 ) . For any β ∈ [−β0, β0], the point Pβ = (r cos (θ + β ) , r sin (θ + β ))
+lies on the round boundary of X0,ω
+(
+r, µ −1) . To determine the maximal vertical segment in X0,ω ( r, µ −1)
+originating at Pβ , we ﬁnd the coordinates of the other endpoint, denoted by Qβ . The point Qβ has the
+same x-coordinate as Pβ and lies on the line through the origin that makes an angle of θ − β0 with the
+x-axis. That is, Qβ =
+(
+ρβ cos (θ − β0) , ρβ sin (θ − β0)
+)
+, where ρβ = r cos (θ + β ) cos (θ − β0) . Then the vertical
+distance between Pβ and Qβ is given by
+vβ = r sin (θ + β ) − ρβ sin (θ − β0) = r sin (β + β0) cos (θ − β0) .
+This distance is maximized when β = β0, so that
+vβ ≤ r sin (2β0) cos (θ − β0) = 2r sin (β0) cos(β0) cos θ cos β0 + sin θ sin β0 = 2rµ cos θ + sin θ µ√ 1−µ 2 ≤ √ 8µr,
+as claimed. □
+14
+
+===== PAGE 15 =====
+By combining the previous two results, we arrive at an important set containment result that will be
+used in Section 6.
+Corollary 2.3 (Curve strips contain curve double-sectors). Let (e, α) ∈ E . Set ω = (ϕ ′(e1 −α),−1)√
+1+[ϕ ′(e1−α)]2 , the
+unit vector that is perpendicular to the tangent vector of Ce,α at e. Assume that r, M > 0 are chosen so
+that 1 M + r < min { 1√ 2λ , δ } . Then with J = [ Φα (e) − √ 8λ ( 1 M + r ) r, Φα (e) + √ 8λ ( 1 M + r ) r ] ,
+Xe,α (r, M) ⊂ Φ−1 α,+ (J) .
+Proof. Since δ ≥ 1 M + r, then Lemma 2.1 shows that Xe,α (r, M) ⊂ Xe,ω
+(
+r, M λ (1+Mr)
+)
+. Since ω corre-
+sponds to an angle in
+[
+− 3π 4 , − π 4 ] and λ (1+Mr) M ∈ ( 0, 1√ 2 ) , then Lemma 2.2 shows that any vertical slice
+of Xe,ω
+(
+r, M λ (1+Mr)
+)
+has length at most
+√
+8λ
+( 1
+M + r
+)
+r.
+Let z ∈ Xe,α (r, M), then z ∈ Xe,ω
+(
+r, M λ (1+Mr)
+)
+. Since Ce,α = Φ−1 α,+ (Φα (e)) is the curve that passes
+through Xe,α (r, M), then because z ∈ Xe,ω
+(
+r, M λ (1+Mr)
+)
+, the the vertical distance between z and Ce,α is at
+most
+√
+8λ
+( 1
+M + r
+)
+r. Since Φ−1 α,+ doesn’t change vertical distances, then z ∈ Φ−1 α,+ (J) and the conclusion
+follows. □
+2.5. The measures. Here we introduce the measures that we will work with and collect some observa-
+tions about their relationships to the curve projections.
+Let µ be the 1-dimensional Hausdorff measure H 1 restricted to E ⊂ [0, 1]2. In other words, µ
+is supported on E and, under the assumptions of Theorem 1.6, µ(E) ≤ L. Let ν = |· ∩ A| |I|−1, the
+1-dimensional Lebesgue measure restricted to A = [0, 1] − I, reweighted by dividing through by the
+measure of I. If we let µ × ν denote the product measure on E × R, then
+(2.15) (µ × ν) (E ) ≤ L.
+In the next section, we break down E, or E , into subsets that will be individually analyzed. Before
+describing the decomposition, we make the following observation.
+Lemma 2.4 (Projection is bounded by measure). For any S ⊂ E ⊂ R2 and any α ∈ R, |Φα (S)| ≲ µ (S),
+where the implicit constant depends on λ and is independent of α.
+The idea behind this observation is that the projection is Lipschitz in nature, so it cannot increase the
+measure of a set by too much.
+Proof. By deﬁnition, there exists a countable collection B = {Bn} of balls that covers S = S ∩ E and
+satisﬁes ∑ r (Bn) ≲ µ (S). By monotone convergence and the separability of R, it sufﬁces to show that
+whenever ~B is a ﬁnite subcollection of B, we have
+⏐⏐⏐⏐⏐⏐ ⋃ B∈ ~B Φα (B) ⏐⏐⏐⏐⏐⏐ ≲ µ (S).
+Choose α ∈ A and B ∈ ~B. If B ∩ {(α + I) × R} = /0, then Φα (B) = /0. If B ⊂ {(α + I) × R}, then
+since ϕ is 1-Lipschitz, Φα (B) = J for some interval J with |J| ≲ r (B). Otherwise, Φα (B) = J, where J
+satisﬁes a size condition as before. In all three cases, we see that |Φα (B)| ≲ r (B). It follows that⏐⏐⏐⏐⏐⏐ ⋃ B∈ ~B Φα (B) ⏐⏐⏐⏐⏐⏐ ≤ ∑ B∈ ~B |Φα (B)| ≲ ∑ B∈ ~B r (B) ≤ ∑ Bn∈B r (Bn) ≲ µ (S) ,
+as required. □
+Corollary 2.5 (Favard length is bounded by measure). For any S ⊂ E ⊂ R2, FavC (S) ≲ µ (S). Similarly,
+for any S ⊂ E ⊂ R3, FavC (S ) ≲ (µ × ν) (S ).
+Proof. By the deﬁnition of Favard curve length described by (2.6) and Lemma 2.4,
+FavC (S) =
+ˆ
+A
+|Φα (S)| dα ≲
+ˆ
+A
+µ (S) dα ≲ µ (S) ,
+15
+
+===== PAGE 16 =====
+where we have used that A = [0, 1] − I is bounded in the last step.
+With Sα =
+{
+s ∈ R2 : (s, α) ∈ S } ⊂ E, it follows from the deﬁnition of Favard curve length described
+by (2.7) that
+FavC (S ) =
+ˆ
+A
+|Φα (Sα )| dα ≲
+ˆ
+A
+µ (Sα ) dα ≲ (µ × ν) (S ) ,
+where we have again used Lemma 2.4 and the boundedness of A. □
+The takeaway is that we have three different approaches to estimating the Favard curve length. The
+ﬁrst way is to work directly with the projection. In the other two approaches, we either show that the
+µ-measure or the (µ × ν)-measure is small, and then conclude from either Lemma 2.4 or Corollary 2.5
+that the Favard curve length is comparably small. We use these distinct approaches on the different
+pieces of E and E .
+3. DECOMPOSITION OF THE SET
+Using the tools that were established in the previous section, we now decompose the compact set E
+and the corresponding set of pairs E associated to E as deﬁned in (2.5). Recall our hypotheses, that for
+some sufﬁciently large N ∈ N, there is a sequence of scales
+(3.1) 0 < r− N ≤ r+ N < · · · < r− 1 ≤ r+ 1 ≤ 1
+satisfying the uniform length bound, H 1 r−n ,r+n (E) ≤ L for all n = 1, 2, . . . , N; and separation of scales,
+r+ n+1 ≤ 1 2 r− n for all n = 1, 2, . . . , N − 1. The curve double-sectors are denoted by Xe,α (r, M) and deﬁned
+in (2.11). We begin with a deﬁnition.
+Deﬁnition 3.1 (Curve pairs). Let n ∈ {101, 102, . . . , N − 100} and assume that M > 105. We say that a
+pair (e, α) ∈ E is a curve pair at scale n with Lipschitz constant M if there exists r ∈
+[
+r− n+100, r+ n−100 ] so
+that
+µ
+(
+Xe,α
+(
+r, M/104) \ Xe,α ( r− n+100, M/104)) > N−1/100r/M.
+Let Curn,M ⊂ E denote the set of all curve pairs at scale n with Lipschitz constant M.
+Deﬁnition 3.2 (Non-curve pairs). A pair (e, α) ∈ E is called a non-curve pair at scale n with Lipschitz
+constant M if it is does not belong to Curn,M . We let the set of all such pairs be denoted by NCurn,M .
+Now,
+E = Curn,M ⊔ NCurn,M .
+Although this decomposition of E holds for any scale n ∈ {101, 102, . . . , N − 100}, we will make a
+speciﬁc choice for n and M below.
+Remark 3.1. For a non-curve pair (e, α), while a neighborhood of e may still concentrate along some
+curve, we name them as such because there is not a clustering of points along the speciﬁc curve Ce,α .
+3.1. Non-curve elements. For each α ∈ A, we deﬁne
+(3.2) Nα := {e ∈ E : (e, α) ∈ NCurn,M } ,
+where NCurn,M is as in Deﬁnition 3.2. We refer to these points as the non-curve elements (with respect
+to α). Roughly speaking, this is the set of points e ∈ E whose neighborhoods don’t cluster about the
+curve Ce,α .
+By the uniform length bound described in (1.6), there exists a ﬁnite collection Bn of open balls of
+radius between r− n and r+ n that cover E, such that
+(3.3) ∑
+B∈Bn
+r (B) ≲ L.
+We use this cover to deﬁne an exceptional subset of low-density elements in Nα as follows.
+16
+
+===== PAGE 17 =====
+Deﬁnition 3.3 (Low density intervals). For each B ∈ Bn, we say that an interval J ⊂ R is of low density
+relative to B and α if |J| ≤ r(B) and
+(3.4) µ
+(
+B ∩ Nα ∩ Φ−1 α (5J) ) ≤ 1010N−1/100 |J| ,
+where 5J denotes the interval with the same center as J but 5 times its radius. Let JB denote the set of
+all intervals of low density relative to B and α.
+Then we deﬁne the exceptional set Gα as
+(3.5) Gα =
+⋃
+B∈Bn
+⋃
+J∈JB
+B ∩ Nα ∩ Φ−1 α (J) .
+If we deﬁne Kα = Nα \ Gα , then it is clear that
+Nα = Kα ⊔ Gα .
+A Vitali covering argument is used to show that the exceptional points, Gα , have a small µ-measure.
+Then we show that the remaining points in Kα are Lipschitz in nature. By the near unrectiﬁability
+assumption given in (1.8), the µ-measure of Kα must be small. These details are presented in Section 4.
+This part of our article contains a number of novel ideas that differentiate it from the corresponding
+arguments given in [19].
+3.2. Curve pairs. The way in which we break down the curve pairs is somewhat complex. Our decom-
+position will consist of (neighborhoods of) subsets of E associated to high multiplicity curves, positive
+multiplicity curves, and high density curve strips at various scales. Here we use the pigeonhole principle
+to choose scales, and we therefore need to work on different scales at each stage of the decomposition.
+We start by deﬁning the different kinds of subsets that we use to decompose our set.
+Deﬁnition 3.4 (High multiplicity curves). Let n ∈ {1, 2, . . . , N}. A curve C ⊂ R2 is said to be of high
+multiplicity at a scale index at most n if E ∩C contains a subset of cardinality at least N1/100 that is
+r− n -separated. That is, for any two points in this subset of E ∩C, the distance between these points is at
+least r− n . Let
+Hn = {(e, α) ∈ E : Ce,α is of high multiplicity at a scale index at most n} .
+Using a diagonalization argument and that E is compact, it can be shown that each Hn is closed, and
+therefore is itself compact; see Appendix A for details. Note that these sets are also nested in the sense
+that
+H1 ⊂ H2 ⊂ . . . ⊂ HN ⊂ E .
+If a pair is not associated with a high multiplicity curve, but is also not associated with a curve that
+only intersects E at one point, then it is associated to what we call a positive multiplicity curve. We use
+our scales to quantify such pairs and the associated curves as follows.
+Deﬁnition 3.5 (Positive multiplicity curves). Let n ∈ {1, 2, . . . , N}. We say that a pair (e, α) ∈ E has pos-
+itive multiplicity at scale index n if there exists a y ∈ E ∩Ce,α such that |y − e| ∈
+[
+r− n+N−7/100N , r+ n−N−7/100N
+]
+.
+Let
+Pn = {(e, α) ∈ E : Ce,α has positive multiplicity at a scale index n} .
+To allow for some wiggle room, we also introduce high density curve strips.
+Deﬁnition 3.6 (High density strips). Let n ∈ {1, 2, . . . , N}. For α ∈ A and an interval J ⊂ R with |J| ≥ r− n ,
+a curve strip Φ−1 α,+ (J) ⊂ R2 is said to have high density at scale index n if
+µ
+(
+Φ−1 α,+ (J) ) ≥ N1/100 |J| .
+Let
+Dn =
+{
+(e, α) ∈ E : Ce,α ⊂ Φ−1 α,+ (J) for some Φ−1 α,+ (J) with high density at scale index n } .
+17
+
+===== PAGE 18 =====
+In a sense, these high density curve strips resemble the high multiplicity curves when the counting
+measure is replaced by the µ-measure. In fact, we have that each Dn is compact (since each Dn is closed,
+as shown in Appendix A) and that
+D1 ⊂ D2 ⊂ . . . ⊂ DN ⊂ E .
+When we decompose our set, we use two different kinds of neighborhoods: standard neighborhoods
+and parametric neighborhoods.
+Deﬁnition 3.7 (Neighborhoods). Let S ⊂ E and ε > 0.
+- The ε-neighborhood of S is deﬁned as
+Nε (S ) =
+{
+(b, β ) ∈ R2 × R : ‖(e − b, α − β )‖ < ε for some (e, α) ∈ S } ,
+where ‖·‖ denotes the Euclidean norm in R3.
+- The ε-parametric neighborhood of S is deﬁned as
+Mε (S ) = {(e, β ) ∈ E × R : |α − β | < ε for some (e, α) ∈ S } .
+As we will see below, the parametric neighborhoods are used with the high multiplicity curves, while
+the standard neighborhoods are used with the high density strips. The reason why we require different
+kinds of neighborhoods becomes evident in the technical arguments that appear in Section 5.
+Now we state the sliding pigeonhole principle that will be used repeatedly when we choose our scales.
+Lemma 3.8 (Pigeonhole Principle). Let (X, µ) be a measure space. Suppose E0 ⊂ E1 ⊂ . . . ⊂ EN ⊂ X
+is sequence of measurable sets with N ≥ 2. If ε ∈
+[ 1
+N , 1 2 ] , then there exists n, m ∈ {0, 1, . . . , N} with
+m − n ≥ εN such that µ (Em \ En) ≲ ε µ (EN ).
+Proof. Note that we can write EN = E0 ⊔ (E1 \ E0) ⊔ . . . ⊔ (EN \ EN−1), where the union is disjoint.
+Observe that for any ℓ ∈ {1, 2, . . . , N} and any k ∈ N, Eℓ \ Eℓ−1 ⊂ En+k \ En whenever max {ℓ − k, 0} ≤
+n ≤ min {ℓ − 1, N − k}. This means that each set of the form Eℓ \ Eℓ−1 can belong to at most k sets of the
+form En+k \ En. It follows that
+N−k
+∑
+n=0
+µ (En+k \ En) ≤ k
+N
+∑
+ℓ=1
+µ (Eℓ \ Eℓ−1) ≤ kµ (EN ) .
+We deduce from the pigeonhole principle that there exists n ∈ {0, 1, . . . , N − k} for which µ (En+k \ En) ≤
+k
+N−k µ (EN ) . We reach the conclusion of the lemma by setting k = ⌈εN⌉. □
+We’ve reached the description of the decomposition and the role of scales.
+Step 1: Our ﬁrst sets in the decomposition of the normal pairs will be associated to the high mul-
+tiplicity curves. Let Z0 := [0.1N, 0.9N] ∩ Z and note that since N1/100 ∈ Z≥3, then for any n ∈ Z0, we
+have that n ± N−3/100N ∈ {1, . . . , N}. An application of the pigeonhole principle from Lemma 3.8 in
+combination with (2.15) implies that there exists a stable scale index n0 ∈ Z0 for which
+(3.6) (µ × ν)
+(
+Hn0+N−3/100N \ Hn0−N−3/100N
+)
+≲ N−3/100L.
+With this scale index n0 ﬁxed, we deﬁne parametric neighborhoods of the smaller set as
+~H = Mr−
+n0−N−3/100N+10
+(
+Hn0−N−3/100N
+)
+(3.7)
+H = M 1
+2 r− n0−N−3/100N+10
+(
+Hn0−N−3/100N
+)
+.(3.8)
+Since Hn0−N−3/100N ⊂ H ⊂ ~H, if we deﬁne ∆H := Hn0+N−3/100N \H, then ∆H ⊂ Hn0+N−3/100N \Hn0−N−3/100N . Combining this observation with (3.6) shows that
+(3.9) (µ × ν) (∆H) ≲ N−3/100L.
+In Section 5.1, we will estimate FavC ( ~H) and show that it is also small. While the speciﬁc choice of
+n0 ∈ Z0 is not used to estimate FavC ( ~H), it is used to control (µ × ν)(∆H), which will be important in
+Step 4, where we handle the remaining curve pairs.
+18
+
+===== PAGE 19 =====
+Step 2: Our next stage of the decomposition uses the positive multiplicity curves. For this step,
+we restrict to the range of indices to Z1 :=
+[
+n0 − 0.9N−3/100N, n0 + 0.9N−3/100N ] ∩ Z. If (e, α) ∈ E \
+(H ∪ ∆H), then (e, α) /∈ Hn0+N−3/100N . By Deﬁnition 3.4, this means that the curve Ce,α contains at
+most N1/100 points of E that are r− n0+N−3/100N -separated. Let y ∈ E ∩ Ce,α . If |y − e| ∼ r− n0+N−3/100N ,
+then there can be at most O
+(
+N−7/100N ) indices n such that |y − e| ∈ [ r− n+N−7/100N , r+ n−N−7/100N ] . Note
+that if ˜y ∈ E ∩Ce,α is another point for which | ˜y − e| ≈ |y − e|, so that y and ˜y are not scale-separated,
+then ˜y is associated to roughly the same set of indices as y. Repeating the argument for all of the
+scale-separated points in E ∩Ce,α , we see that there are at most N1/100 × O ( N−7/100N ) indices n such
+that |y − e| ∈
+[
+r− n+N−7/100N , r+ n−N−7/100N
+]
+for some y ∈ E ∩ Ce,α . Comparing this with Deﬁnition 3.5, we
+conclude that there are at most O
+(
+N−6/100N ) indices n in our range such that (e, α) ∈ Pn. It follows that
+∑
+n∈Z1
+(µ × ν) (Pn \ (H ∪ ∆H)) ≲ (µ × ν) (E \ (H ∪ ∆H))N−6/100N
+≤ (µ × ν) (E )N−6/100N ≤ N−6/100NL,
+where we have applied (2.15). The standard pigeonhole principle then implies that there exists n1 ∈ Z1
+such that
+(3.10) (µ × ν) (Pn1 \ (H ∪ ∆H)) ≲ N−3/100L.
+Next, we make the elementary observation that (Pn1 \ H) ⊂ (Pn1 \ (H ∪ ∆H)) ⊔ ∆H and apply (3.9) and
+(3.10) to conclude that
+(3.11) (µ × ν) (Pn1 \ H) ≲ N−3/100L.
+Step 3: Now we use the high density curve strips to further decompose the curve pairs. For this step,
+we restrict our range of indices to Z2 :=
+[
+n1 − 0.9N−7/100N, n1 + 0.9N−7/100N ] ∩ Z and we observe that
+since n1 ∈ Z1 and n0 ∈ Z0, then
+(3.12)
+Z2 =
+[
+n1 − 0.9N−7/100N, n1 + 0.9N−7/100N ] ∩ Z
+⊂
+[
+n0 − 0.9N−3/100N − 0.9N−7/100N, n0 + 0.9N−3/100N + 0.9N−7/100N ] ∩ Z
+⊂
+[
+0.1N
+(
+1 − 9N−3/100 − 9N−7/100
+)
+, 0.9N
+(
+1 + N−3/100 + N−7/100
+)]
+∩ Z
+⊂
+[ 161
+2430 N, 2269 2430 N ] ∩ Z,
+where we have used the assumption that N1/100 ≥ 3 to reach the last line. Moreover, for any n ∈ Z2,
+n ± N−10/100N ∈ {1, 2, . . . , N}. By (2.15) and Lemma 3.8, there exists n2 ∈ Z2 so that
+(3.13) (µ × ν)
+(
+Dn2+N−10/100N \ Dn2−N−10/100N
+)
+≲ N−3/100L.
+Following the constructions from the high density curves, we ﬁx n2 and deﬁne (standard) neighborhoods
+of the smaller set as
+~D = Nr−
+n2−N−10/100N+10
+(
+Dn2−N−10/100N
+)
+(3.14)
+D = N 1
+2 r− n2−N−10/100N+10
+(
+Dn2−N−10/100N
+)
+.(3.15)
+Since Dn2−N−10/100N ⊂ D ⊂ ~D, then with ∆D := Dn2+N−10/100N \D, we have ∆D ⊂ Dn2+N−10/100N \Dn2−N−10/100N
+and we conclude from (3.13) that
+(3.16) (µ × ν) (∆D) ≲ N−3/100L.
+19
+
+===== PAGE 20 =====
+We analyze FavC
+(
+~D
+)
+in an upcoming section and show that it is also small, see Section 5.2.
+Step 4: We now handle the remaining curve pairs. First, we deﬁne an exceptional set of the ﬁner
+scale elements of the sets we have just introduced. Let
+(3.17) ∆ = ∆H ∪ (Pn1 \ H) ∪ ∆D.
+By combining (3.9), (3.11), and (3.16), we see that
+(3.18) (µ × ν) (∆) ≲ N−3/100L.
+Now, with n2 as selected above, deﬁne the Lipschitz constant to be
+(3.19) M2 := 104 r− n2−200 .
+By (3.12) and the assumption that N1/100 ≥ 3, we have n2 ≥ 161 2430 N ≫ 400, so that M2 is well-deﬁned.
+Moreover, since n2 ≤ 2269 2430 N ≪ N − 100, then we may deﬁne curve pairs with respect to n2, see Deﬁni-
+tion 3.1. If we set
+(3.20) F = Curn2,M2 \
+(
+~H ∪ ~D
+)
+⊂ E ,
+then
+(3.21) Curn2 ,M2 ⊂ ( ~H ∪ ~D) ⊔ F.
+We use that ∆ has a small measure to prove that F has a small measure as well. These details are
+available in Section 6.
+3.3. Summary of decomposition. For our set E ⊂ [0, 1]2, we have the associated set E ⊂ E × A with
+the property that for each (e, α) ∈ E , the projection Φα (e) is non-empty. Moreover, (µ × ν) (E ) ≤
+µ(E) = L.
+We choose index scales sequentially via the pigeonhole principle where n0 ∈ Z0, n1 ∈ Z1, and n2 ∈ Z2.
+The Lipschitz constant M2 is chosen to depend on n2.
+E
+NCurn2,M2 Curn2 ,M2
+~H ~D F
+Nα ⊂ E
+Gα Kα
+FIGURE 4. Visual representations of how we decompose E and Nα for analysis.
+To decompose E , we ﬁrst write E = Curn2 ,M2 ⊔ NCurn2,M2 , where the union is disjoint. Then we write
+Curn2 ,M2 ⊂ ( ~H ∪ ~D) ⊔ F and deﬁne Nα = {e : (e, α) ∈ NCurn2,M2 } ⊂ E, where Nα = Gα ⊔ Kα . A visual
+representation of this decomposition is given in Figure 4. The next section will be devoted to estimating
+the measures of the non-curve elements, Nα . First we analyze the exceptional set Gα , then we analyze
+the Lipschitz-like set Kα . The Favard curve lengths of ~H and ~D are estimated in Section 5. Section 6
+contains the analysis of F, which uses that ∆ has a small measure. The proof is completed in Section 7.
+20
+
+===== PAGE 21 =====
+4. THE NON-CURVE ELEMENTS
+Here we estimate the measures of the sets Nα = Kα ⊔ Gα deﬁned in Subsection 3.1 with n = n2. We
+show that the exceptional set of low-density elements, Gα , has small µ-measure via a straight-forward
+Vitali covering argument. Next, we turn to the main effort of this section, which is to show that the set
+Kα = Nα \ Gα is Lipschitz in nature. It will follow then from the near unrectiﬁability assumption, (1.8),
+that Kα also has small measure. Speciﬁcally, we show that µ (Gα ) ≲ N−1/100L and µ (Kα ) ≲ N−1/100L,
+where µ denotes the 1-dimensional Hausdorff measure H 1 restricted to E ⊂ [0, 1]2.
+4.1. Estimating the measure of Gα . We prove that the µ-measure of Gα is small. This proof relies on
+a Vitali covering, as well as the deﬁnition of the exceptional set.
+Proposition 4.1 (Gα has small measure). For Gα as deﬁned in (3.5), we have µ (Gα ) ≲ N−1/100L.
+Proof. We ﬁrst show that for any B ∈ Bn2 ,
+µ
+
+ ⋃
+J∈JB
+B ∩ Nα ∩ Φ−1 α (J)
+
+ ≲ N−1/100r (B) .(4.1)
+Recall that JB is the set of all intervals J ⊂ R with |J| ≤ r(B) satisfying the low density condition
+described by (3.4). To prove (4.1), there is no loss in restricting to those intervals J for which B ∩
+Φ−1 α (J) ⁄= /0. Moreover, by monotone convergence and the separability of R, it sufﬁces to show that
+(4.1) holds for any ﬁnite subcollection of JB. Let ~JB ⊂ JB be such a ﬁnite subcollection.
+By the Vitali covering theorem, there exists a ﬁnite, disjoint collection {Jk}K k=1 ⊂ JB so that {5Jk }K k=1
+covers ~JB and B ∩ Φ−1 α (Jk) ⁄= /0 for each k. By the deﬁning property (3.4),
+µ
+(
+B ∩ Nα ∩ Φ−1 α (5Jk) ) ≤ 1010N−1/100 |Jk| for each k = 1, . . . K.
+It then follows from set containment and basic properties of measures that
+µ
+
+ ⋃
+J∈~JB
+B ∩ Nα ∩ Φ−1 α (J)
+
+ ≤ µ
+( K⋃
+k=1
+B ∩ Nα ∩ Φ−1 α (5Jk)
+)
+≤
+K
+∑
+k=1
+µ
+(
+B ∩ Nα ∩ Φ−1 α (5Jk) )
+≲ N−1/100
+K
+∑
+k=1
+|Jk| .
+Since the Jk are disjoint with |Jk| ≤ r (B) and Φ−1 α (Jk) ∩ B ⁄= /0 for each k, then by the Lipschitz nature
+of the projection,
+K
+∑
+k=1
+|Jk| ≲ r (B), leading to (4.1). It then follows from (3.5), (4.1) and (3.3) that
+µ (Gα ) = µ
+
+ ⋃
+B∈Bn2
+⋃
+J∈JB
+B ∩ Nα ∩ Φ−1 α (J)
+
+ ≤ ∑
+B∈Bn2
+µ
+
+ ⋃
+J∈JB
+B ∩ Nα ∩ Φ−1 α (J)
+
+
+≲ N−1/100 ∑
+B∈Bn2
+r (B) ≲ N−1/100L,
+as required. □
+4.2. Estimating Kα , the Lipschitz-like elements. In this subsection, we consider Kα as in Subsec-
+tion 3.1 and show that for a small ball B, all of the elements in B ∩ Kα lie in a narrow band about the
+graph of some Lipschitz function. We then invoke the near unrectiﬁability condition described by (1.8)
+to show that Kα must have small measure.
+Roughly speaking, these arguments follow their counterparts from [19]. However, given the nonlinear
+nature of our projections, many additional details and steps have been added. In fact, this section contains
+many of the new and interesting ideas of the paper.
+21
+
+===== PAGE 22 =====
+We ﬁrst brieﬂy recall the setup given in Section 2. For any (x, α) ∈ E , Cx,α denotes the extended
+curve through x deﬁned by
+Cx,α = Φ−1 α,+ (Φα (x)) = (α, Φα (x)) + C+ = {(α + t, x2 − ϕ (x1 − α) + ϕ+ (t)) : t ∈ I+} ,
+where
+Φα (x) = x2 − ϕ (x1 − α), and C+ = {(t, ϕ+ (t)) : t ∈ I+} .
+Moreover, I is a closed and bounded interval, ϕ is C1, |ϕ ′| ≤ 1, and ϕ ′ is λ -bilipschitz so that for any
+s,t ∈ I,
+λ −1 |s − t| ≤ ⏐⏐ϕ ′ (s) − ϕ ′ (t) ⏐⏐ ≤ λ |s − t| .
+The function ϕ+ extends ϕ to I+, a δ -neighborhood of I, and maintains all of these properties. For
+any (x, α) ∈ E , ϕ+ (x1 − α) = ϕ (x1 − α), so we may drop the cumbersome subscript notation in such
+settings. Plugging t = x1 − α, shows that x ∈ Cx,α and that the slope of the tangent line to the curve Cx,α
+at x = (x1, x2) is ϕ ′(x1 − α).
+Let ω x 1 denote the unit vector that points in the direction of the tangent vector, (1, ϕ ′(x1 − α)), and let
+ω x 2 be the clockwise rotation of ω x 1 through an angle of π 2 . Note that ω2 corresponds to the vector ω that
+appears in Lemma 2.1.
+The ultimate aim of this section is to show that µ (Kα ) ≤ N−1/100L. To this end, we ﬁx a ball B ∈ Bn2 ,
+show that µ (Kα ∩ B) ≤ N−1/100r(B), and then sum over B ∈ Bn2 and apply (3.3) to reach the conclusion.
+Recall, B ∈ Bn2 implies that r(B) ∈ [rn− 2 , rn+ 2 ], where r(B) denotes the radius of B. For ease of notation, we write n instead of n2 within this section.
+Remark 4.1. As pointed out in the previous section, n2 ≫ 400. In particular, it follows from the sepa-
+ration of scales estimate in (1.7) that r± n = r± n2 ≤ 2−400. Moreover, r± n−200 = r± n2−200 ≤ 2−200.
+The following technical lemma serves as the main tool in showing that points in Kα are Lipschitz in
+nature.
+Lemma 4.2 (Φα cones). Suppose x ∈ B ∩ Kα . For each y ∈ B ∩ Kα , it holds that
+(4.2) |(x − y) · ω x 1 | ≤ λ M 200 |Φα (x) − Φα (y)| + 1 60 r+ n+2.
+Proof. Recall that ω x 1 = (1,ϕ ′(x1 −α))√ 1+[ϕ ′(x1 −α)]2 and ω x 2 = (ϕ ′(x1−α),−1)√ 1+[ϕ ′(x1 −α)]2 . For the duration of this proof, we will
+drop the superscripts and simply write ω1 and ω2, keeping in mind that the point x is ﬁxed. For any point
+y = (y1, y2) ∈ R2,
+y · ω1 = y1 + y2ϕ ′ (x1 − α)√
+1 + [ϕ ′ (x1 − α)]2
+and y · ω2 = y1ϕ ′ (x1 − α) − y2√
+1 + [ϕ ′ (x1 − α)]2
+,
+so that
+y1 = y · ω1 + ϕ ′ (x1 − α) y · ω2√
+1 + [ϕ ′ (x1 − α)]2
+and y2 = ϕ ′ (x1 − α) y · ω1 − y · ω2√
+1 + [ϕ ′ (x1 − α)]2
+.(4.3)
+We show that for all y ∈ B ∩ Nα , either |(x − y) · ω1| ≤ 1 60 r+ n+2 or
+|(x − y) · ω1| ≤ λ M 200 |Φα (x) − Φα (y)| .
+Deﬁne the set
+(4.4) Bα =
+{
+y ∈ B ∩ Nα : |(x − y) · ω1| > 1 60 r+ n+2 and |(x − y) · ω1| > λ M 200 |Φα (x) − Φα (y)| } .
+If Bα = /0, then we are done. So assume to the contrary that Bα ⁄= /0 and set
+(4.5) R = sup {|(x − y) · ω1| : y ∈ Bα } .
+Since Bα is assumed to be non-empty, then R > 1 60 r+ n+2 > 0. Choose y ∈ Bα so that |(x − y) · ω1| ≥ R 2 .
+22
+
+===== PAGE 23 =====
+By the deﬁnition of Nα given in Subsection 3.1, we have the following bounds on the curve double-
+sectors (deﬁned in (2.11) and pictured in Figure 2) about x and y:
+µ
+((
+Xx,α
+(
+r, M/104) \ Xx,α ( r− n+100, M/104)) ∩ Nα ) ≤ N−1/100r/M,
+and
+µ
+((
+Xy,α
+(
+r, M/104) \ Xy,α ( r− n+100, M/104)) ∩ Nα ) ≤ N−1/100r/M
+for all r− n+100 ≤ r ≤ r+ n−100. Thus, if we denote the union by
+(4.6)
+Yr =
+[
+Xx,α
+(
+r, M/104) \ Xx,α ( r− n+100, M/104)]⋃[ Xy,α ( r, M/104) \ Xy,α ( r− n+100, M/104)]
+=
+⋃
+e∈{x,y}
+{
+z ∈ Ce,α ′ ⊂ R2 : ⏐⏐α − α ′⏐⏐ ≤ 104 M and r− n+100 ≤ |z − e| ≤ r } ,
+then
+(4.7) µ(Yr ∩ Nα ) ≤ 2N−1/100r/M
+for all r− n+100 ≤ r ≤ r+ n−100. We will use these bounds with the choice r = 5 |(x − y) · ω1| and note that
+this r is in the desired range.
+We have arrived at the heart of the argument. The plan now is to deﬁne an interval J so that
+Φα (x), Φα (y) ∈ J and then to use the bound in (4.7) to show that J is of low density relative to B and α
+in the sense of Deﬁnition 3.3. This will imply that x ∈ Gα . However, we assumed that x ∈ Kα := Nα \Gα ,
+so this will give the desired contradiction.
+Set w = 100 λ M |(x − y) · ω1| and deﬁne
+J =
+[ Φα (x) + Φα (y)
+2 − w, Φα (x) + Φα (y) 2 + w ] .
+Observe that Φα (x), Φα (y) ∈ J if and only if |Φα (x) − Φα (y)| ≤ 200 λ M |(x − y) · ω1|. Since y ∈ Bα , see
+(4.4), then this clearly holds.
+We next verify that
+(4.8) Φ−1 α (5J) ∩ B ∩ Nα ⊂ Yr ∩ Nα .
+Choose an arbitrary point z ∈ Φ−1 α (5J) ∩ B ∩ Nα . Since z belongs to the strip Φ−1 α (5J), we have |Φα (z) −
+Φα (x)+Φα (y)
+2 | ≤ 5w. It follows from the triangle inequality and the bound from above that
+(4.9) |Φα (x) − Φα (z)| ≤
+⏐⏐⏐⏐ Φα (x) + Φα (y) 2 − Φα (z) ⏐⏐⏐⏐ + |Φα (x) − Φα (y)| 2 ≤ 6w = 600 λ M |(x − y) · ω1| .
+The same bound holds for |Φα (y) − Φα (z)|.
+If z /∈ Bα , then by (4.4) either |(x − z) · ω1| ≤ 1 60 r+ n+2 < |(x − y) · ω1| or
+|(x − z) · ω1| ≤ λ M 200 |Φα (x) − Φα (z)| ≤ 3 |(x − y) · ω1| .
+If z ∈ Bα , then |(x − z) · ω1| ≤ R ≤ 2 |(x − y) · ω1|. In every case,
+(4.10) |(x − z) · ω1| ≤ 3 |(x − y) · ω1| ,
+and then the triangle inequality shows that
+|(y − z) · ω1| ≤ |(x − y) · ω1| + |(x − z) · ω1| ≤ 4 |(x − y) · ω1| .(4.11)
+Now, either |(x − z) · ω1| ≥ 1 2 |(x − y) · ω1| or |(y − z) · ω1| ≥ 1 2 |(x − y) · ω1|. Assume ﬁrst that |(x − z) · ω1| ≥ 1
+2 |(x − y) · ω1|. We will show that z lies in a small curve sector about x. In particular, we verify that
+(4.12) z ∈
+(
+Xx,α
+(
+5 |(x − y) · ω1| , M/104) \ Xx,α ( r− n+100, M/104)) ∩ Nα ,
+which will imply that z ∈ Yr ∩ Nα for r = 5 |(x − y) · ω1|.
+23
+
+===== PAGE 24 =====
+Since x, z ∈ E , then x1 − α and z1 − α ∈ I, so the mean value theorem shows that for some h ∈ I
+between x1 − α and z1 − α,
+Φα (x) − Φα (z) = x2 − ϕ (x1 − α) − z2 + ϕ (z1 − α) = (x2 − z2) − ϕ ′ (h) (x1 − z1)
+= ϕ ′ (x1 − α) (x − z) · ω1 − (x − z) · ω2√
+1 + [ϕ ′ (x1 − α)]2
+− ϕ ′ (h) (x − z) · ω1 + ϕ ′ (x1 − α) (x − z) · ω2√
+1 + [ϕ ′ (x1 − α)]2
+,
+where we have used (4.3) with y replaced by x − z. Simplifying this expression shows that
+(4.13) (Φα (x) − Φα (z))
+√
+1 + [ϕ ′ (x1 − α)]2 = [ ϕ ′ (x1 − α) − ϕ ′(h) ] (x − z) · ω1
+−
+[
+1 + ϕ ′ (x1 − α)ϕ ′(h) ] (x − z) · ω2,
+and in particular
+(4.14)
+⏐⏐1 + ϕ ′ (x1 − α) ϕ ′(h) ⏐⏐ |(x − z) · ω2| ≤ |Φα (x) − Φα (z)| √ 1 + [ϕ ′ (x1 − α)]2
++
+⏐⏐ϕ ′ (x1 − α) − ϕ ′(h) ⏐⏐ |(x − z) · ω1| .
+To bound the left-hand-side of (4.14) from below, observe that 1 − 2λ r+ n ≤ |1 + ϕ ′ (x1 − α)ϕ ′(h)| .
+Indeed,
+1 − 2λ r+ n ≤ 1 − ⏐⏐( ϕ ′(x1 − α) − ϕ ′(h) ) ϕ ′(x1 − α) ⏐⏐
+≤ 1 −
+(
+ϕ ′(x1 − α) − ϕ ′(h) ) ϕ ′(x1 − α)
+≤ 1 −
+(
+ϕ ′(x1 − α) − ϕ ′(h) ) ϕ ′(x1 − α) + [ ϕ ′(x1 − α) ]2
+= 1 + ϕ ′(h)ϕ ′(x1 − α),
+where we have used |ϕ ′ (x1 − α) − ϕ ′ (h)| |ϕ ′ (x1 − α)| ≤ |ϕ ′ (x1 − α) − ϕ ′ (h)| ≤ λ |x1 − z1| ≤ 2λ r+ n .
+To bound the right-hand-side of (4.14) from above, we use (4.9) and the assumption that |(x − y) · ω1| ≤
+2 |(x − z) · ω1| to see that
+|Φα (x) − Φα (z)|
+√
+1 + [ϕ ′ (x1 − α)]2 + ⏐⏐ϕ ′ (x1 − α) − ϕ ′(h) ⏐⏐ |(x − z) · ω1|
+≤ 600
+√
+2
+λ M |(x − y) · ω1| + 2λ r+ n |(x − z) · ω1|
+≤
+(
+1200
+√
+2
+λ M + 2λ r+ n
+)
+|(x − z) · ω1| ,
+where we recall that |ϕ ′| ≤ 1.
+Putting the upper and lower bounds for the expression in (4.14) together, we deduce that
+(1 − 2λ r+ n ) |(x − z) · ω2| ≤
+(
+1200
+√
+2
+λ M + 2λ r+ n
+)
+|(x − z) · ω1| .
+Remarks 2.1 and 4.1 imply that 2λ r+ n ≤ 2−364 from which we conclude that
+|(x − z) · ω2| ≤ 2000 λ M |(x − z) · ω1| .
+Recalling the deﬁnition of M from (3.19), another application of Remarks 2.1 and 4.1 implies that 2λ M =
+2·10−4r− n−200λ ≤ 2−16410−4. Letting c1 be as in Lemma 2.1, it follows that c1 λ =
+√
+8
+[
+1 +
+(
+1 + 2λ M
+)2]
+≤
+5. Therefore,
+|(x − z) · ω2| ≤ 2000 λ M |(x − z) · ω1| = c1 λ 2000 c1M |(x − z) · ω1| ≤ 104 c1M |x − z| .
+24
+
+===== PAGE 25 =====
+Moreover, by the assumption that |(z − x) · ω1| ≥ 1 2 |(y − x) · ω1|, since y ∈ Bα , and by the scale-separation
+assumption, we have
+|x − z| ≥ |(z − x) · ω1| ≥ 1 2 |(y − x) · ω1| > 1 120 r+ n+2 > r− n+100
+and
+|x − z| =
+√
+|(x − z) · ω1|2 + |(x − z) · ω2|2 ≤
+√
+1 +
+(2000
+λ M
+)2
+|(x − z) · ω1| ≤ 5 |(x − y) · ω1| ,
+where we have used (4.10). In particular, z ∈ Xx,ω2
+(
+5 |(x − y) · ω1| , c1M/104) \ Br− n+100 (x). Since λ ≤ 235,
+then λ 2105 < 287 < 2199, and we see that
+r = 5 |(x − y) · ω1| ≤ 5 |x − y| ≤ 10r+ n ≤ r− n−200 2λ 2104 = 1 2λ 2M .
+Furthermore, since M > 105 (see Deﬁnition 3.1) and r = 5 |(x − y) · ω1| ≤ 5 |x − y| ≤ 10r+ n < 2−196, then
+δ = 10−5 + 2−100 ≥ 1 M + r.
+Then we can use the second containment in Lemma 2.1 to deduce that (4.12) holds.
+On the other hand, if |(y − z) · ω1| ≥ 1 2 |(x − y) · ω1|, then we may repeat the arguments from above
+with y in place of x to show that |(y − z) · ω2| ≤ 104 c1M |y − z|, |y − z| ≥ r− n+100, and |y − z| ≤ 5 |(x − y) · ω1|, where the last inequality uses (4.11). Then we use Lemma 2.1 again to deduce that
+z ∈
+(
+Xy,α
+(
+5 |(x − y) · ω1| , M/104) \ Xy,α ( r− n+100, M/104)) ∩ Nα .
+It follows that (4.8) holds with r = 5 |(x − y) · ω1|. Therefore,
+µ
+(
+Φ−1 α (5J) ∩ B ∩ Nα ) ≤ µ ( Y5|(x−y)·ω1| ∩ Nα ) ≤ 10N−1/100 |(x − y) · ω1| /M = λ 20 N−1/100 |J|
+≤ 1010N−1/100 |J| ,
+where we have used that λ ≤ 235 ≤ 2 · 1011. This shows that J is low density relative to B and α from
+which we deduce that x ∈ Gα . As this is a contradiction to the assumption that x ∈ Kα , the proof is
+complete. □
+Now we use a Taylor approximation to straighten out the previous result.
+Corollary 4.3 (Standard cones). Suppose x ∈ B ∩ Kα . For each y ∈ B ∩ Kα , it holds that
+(4.15) |(x − y) · ω x 1 | ≤ λ M 50 |(x − y) · ω x 2 | + 1 30 r+ n+2.
+Proof. As in the previous proof, we will drop the superscripts and simply write ω1 and ω2, keeping in
+mind that the point x is ﬁxed. As in the display preceding (4.13), there exists an h ∈ I between x1 − α
+and y1 − α so that
+Φα (x) − Φα (y) = ϕ ′ (x1 − α) − ϕ ′(h)√
+1 + [ϕ ′ (x1 − α)]2
+(x − y) · ω1 − 1 + ϕ ′ (x1 − α) ϕ ′(h)√
+1 + [ϕ ′ (x1 − α)]2
+(x − y) · ω2
+and then, by the Lipschitz condition on ϕ ′ in (2.2),
+|Φα (x) − Φα (y)| ≤ λ |x1 − y1| |(x − y) · ω1| + 2 |(x − y) · ω2| .
+Substituting this bound into (4.2) and bounding |x − y| ≤ 2r+ n shows that
+|(x − y) · ω1| ≤ λ M 100 λ r+ n |(x − y) · ω1| + λ M 100 |(x − y) · ω2| + 1 60 r+ n+2.
+Observe that M 100 λ 2r+ n = 102λ 2 r+ n r− n−200 ≤ 2−123 ≪ 1 2 , where we have used (3.19), Remark 2.1, and (1.7).
+Thus, we may rearrange to reach the conclusion. □
+25
+
+===== PAGE 26 =====
+And here we show that this Lipschitz-result is independent of the basis vector we choose. See Figure 5
+for an illustration of this result.
+ω x 1
+ω x 2
+y z1
+z2
+z3 slope is λ M 10
+r+ n+2
+10
+FIGURE 5. Corollary 4.4 shows that any point z ∈ Kα can lie in the non-shaded region
+around y.
+Corollary 4.4 (Standard cones with arbitrary basis). Fix x ∈ B ∩ Kα . For each y, z ∈ B ∩ Kα , it holds that
+(4.16) |(y − z) · ω x 1 | ≤ λ M 10 |(y − z) · ω x 2 | + 1 10 r+ n+2.
+Proof. Recall that for any point x ∈ B ∩ Nα , ω x 1 = (1,ϕ ′(x1 −α))√ 1+[ϕ ′(x1 −α)]2 and ω x 2 = (ϕ ′(x1−α),−1)√ 1+[ϕ ′(x1 −α)]2 . As we will
+be switching bases, we maintain the superscript notation. Observe that
+(4.17)
+|(y − z) · ω x 1 | =
+⏐⏐⏐⏐⏐⏐ (y − z) · (1, ϕ ′ (y1 − α) + ϕ ′ (x1 − α) − ϕ ′ (y1 − α))√ 1 + [ϕ ′ (x1 − α)]2 ⏐⏐⏐⏐⏐⏐
+≤
+⏐⏐(y − z) · ω y 1 ⏐⏐
+√
+1 + [ϕ ′ (y1 − α)]2
+1 + [ϕ ′ (x1 − α)]2 +
+⏐⏐⏐⏐⏐⏐ (y − z) · (0, ϕ ′ (x1 − α) − ϕ ′ (y1 − α))√ 1 + [ϕ ′ (x1 − α)]2 ⏐⏐⏐⏐⏐⏐
+≤
+√
+2
+⏐⏐(y − z) · ω y 1 ⏐⏐ + λ |x1 − y1| |y2 − z2|
+≤
+√
+2
+⏐⏐(y − z) · ω y 1 ⏐⏐ + 2λ r+ n
+⏐⏐⏐⏐⏐⏐ ϕ ′ (x1 − α) (y − z) · ω x 1 − (y − z) · ω x 2√ 1 + [ϕ ′ (x1 − α)]2 ⏐⏐⏐⏐⏐⏐
+≤
+√
+2
+⏐⏐(y − z) · ω y 1 ⏐⏐ + 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 | ,
+where we have used (4.3) with y replaced by y − z to rewrite y2 − z2. Combining this with Corollary 4.3
+shows that
+|(y − z) · ω x 1 | ≤ √ 2 ( λ M 50 ⏐⏐(y − z) · ω y 2 ⏐⏐ + 1 30 r+ n+2 ) + 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 |
+≤
+√
+2λ M
+50
+⏐⏐(y − z) · ω y 2 ⏐⏐ + 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 | + 1 20 r+ n+2.
+26
+
+===== PAGE 27 =====
+A similar computation to (4.17) shows that
+⏐⏐(y − z) · ω y 2 ⏐⏐ =
+⏐⏐⏐⏐⏐⏐ (y − z) · (ϕ ′ (x1 − α) + ϕ ′ (y1 − α) − ϕ ′ (x1 − α) , −1)√ 1 + [ϕ ′ (y1 − α)]2 ⏐⏐⏐⏐⏐⏐
+≤ |(y − z) · ω x 2 |
+√
+1 + [ϕ ′ (x1 − α)]2
+1 + [ϕ ′ (y1 − α)]2 +
+⏐⏐⏐⏐⏐⏐ (y − z) · (ϕ ′ (y1 − α) − ϕ ′ (x1 − α), 0)√ 1 + [ϕ ′ (y1 − α)]2 ⏐⏐⏐⏐⏐⏐
+≤
+√
+2 |(y − z) · ω x 2 | + 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 | .
+Substituting this bound into the previous expression gives
+|(y − z) · ω x 1 | ≤
+√
+2λ M
+50
+(√
+2 |(y − z) · ω x 2 | + 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 | )
++ 2λ r+ n |(y − z) · ω x 1 | + 2λ r+ n |(y − z) · ω x 2 | + 1 20 r+ n+2
+≤
+[ λ M
+25 + 2λ r+ n
+( λ M
+35 + 1
+)]
+|(y − z) · ω x 2 | + 2λ r+ n
+( λ M
+35 + 1
+)
+|(y − z) · ω x 1 | + 1 20 r+ n+2.
+Observe that 2λ r+ n
+(
+λ M
+35 + 1
+)
+= 2λ r+ n
+(
+λ 104
+35r− n−200 + 1
+)
+≤ 210λ 2 r+ n r− n−200 ≤ 2−120, where we have used (3.19),
+Remark 2.1, and (1.7). In particular, 2λ r+ n
+(
+λ M
+35 + 1
+)
+≤ 1 2 ≤ λ M 100 , and then
+|(y − z) · ω x 1 | ≤ λ M 10 |(y − z) · ω x 2 | + 1 10 r+ n+2,
+as required. □
+We now deﬁne a piecewise linear function and use Corollary 4.4 to show that it is Lipschitz with an
+appropriate constant. Recall that B is a ball with radius r ∈ [r− n , r+ n ]. For ﬁxed x ∈ B ∩ Kα , let ω1 = ω x 1
+and ω2 = ω x 2 , so that (ω1, ω2) deﬁnes a frame on B. Set w = 7r+ n+2 4λ M , then divide B into strips S of width w
+that are parallel to the direction ω1. There will be on the order of r(B)/w strips in this collection. Next
+we select and name a subset of the strips from the collection so that at least half of them are non-empty.
+When we say that a strip S is to the left of a strip T , we mean with respect to the direction ω2. That is,
+for any y ∈ S and any z ∈ T , y · ω2 ≤ z · ω2. Similarly, we say that T is to the right of S if S is to the left
+of T . If we say that S abuts T , then we mean that S and T are adjacent strips, meaning that they share a
+boundary line that runs parallel to ω1.
+Starting from the leftmost strip in our collection and moving to the right, let S− 1 denote the ﬁrst strip
+for which S− 1 ∩ Kα ⁄= /0. Let S+ 1 denote the strip that abuts and is to the right of S− 1 . Let S− 2 denote the next
+strip that is to the right of S+ 1 for which S− 2 ∩ Kα ⁄= /0. Set S+ 2 to be the strip that abuts and is to the right of
+S− 2 . Continuing on, we have a collection of strips { S− i }N i=1 for which S− i ∩ Kα ⁄= /0 for each i = 1, . . . , N.
+We also have a collection
+{
+S+ i }N i=1 so that S+ i abuts and is to the right of S− i for each i = 1, . . . , N.
+27
+
+===== PAGE 28 =====
+ω1
+ω2
+y1
+y2
+y3
+y4
+G(F)
+N(F)
+S− 1 S+ 1
+S− 2 S+ 2 S− 3 S+ 3 S− 4 S+ 4
+FIGURE 6. When B is divided into strips, each S− i is non-empty, while S+ i is immedi-
+ately to the right and could be empty. Points yi are chosen from each S− i , then connected
+to make the graph of F, G (F). The neighborhood of the graph, N (F), is the shaded
+region.
+Now we use a selection of points from
+{
+S− i }N i=1 to deﬁne a piecewise linear function. For each
+i = 1, . . . , N, choose a point yi ∈ S− i ∩ Kα . By connecting these points with straight lines, we deﬁne a
+piecewise linear function over the interval U := B · ω2:
+(4.18) F (t) =
+
+
+
+y1 · ω1 t ≤ y1 · ω2
+yi · ω1 + (yi+1−yi)·ω1 (yi+1−yi)·ω2 (t − yi · ω2) yi · ω2 < t ≤ yi+1 · ω2
+yN · ω1 t > yN · ω2
+.
+Note that, by construction, (yi+1 − yi) · ω2 ≥ w for each i = 2, . . . , N. We use mi to denote the slope over
+the ith interval. That is,
+(4.19) mi = (yi+1 − yi) · ω1 (yi+1 − yi) · ω2 .
+We ﬁrst observe that F is Lipschitz.
+Lemma 4.5 (Lipschitz function). The function F deﬁned in (4.18) is Lipschitz continuous with constant
+at most 11λ M 70 .
+Proof. Since F is piecewise linear, we simply need to ﬁnd an upper bound for each of the slopes mi
+deﬁned in (4.19). Observe that by Corollary 4.4,
+|mi| =
+⏐⏐⏐⏐ (yi+1 − yi) · ω1 (yi+1 − yi) · ω2 ⏐⏐⏐⏐ ≤ ⏐⏐⏐⏐⏐⏐ λ M 10 (yi+1 − yi) · ω2 + r+ n+2 10 (yi+1 − yi) · ω2 ⏐⏐⏐⏐⏐⏐ ≤ λ M 10 + r+ n+2 10w = 11λ M 70 ,(4.20)
+where we have used the lower bound on the denominator. This shows that F is 11λ M 70 -Lipschitz, as
+required. □
+Now we’ll show that all points in B ∩ Kα lie in a small region around the graph of F. Let
+G (F) = {tω2 + F (t) ω1 : t ∈ U} ,
+28
+
+===== PAGE 29 =====
+the graph of F over (ω2, ω1). Then deﬁne a neighborhood (measured with respect to the ω1 direction)
+of the graph of F to be
+(4.21) N (F) =
+{
+z ∈ B : |F (z · ω2) − z · ω1| ≤ r+ n+2 } .
+Lemma 4.6 (Neighborhood containment). For F as given in (4.18) and it neighborhood deﬁned in
+(4.21), it holds that B ∩ Kα ⊂ N (F).
+Proof. Let z ∈ B ∩ Kα . Then z · ω2 ∈ U, so there are three possibilities:
+(1) there exists i ∈ {1, . . . , N − 1} so that z · ω2 ∈ (yi · ω2, yi+1 · ω2];
+(2) z · ω2 ≤ y1 · ω2; or
+(3) z · ω2 > yN · ω2.
+Assume that the ﬁrst case holds. Then z ∈ S− i ∪ S+ i ∪ S− i+1. If z ∈ S− i ∪ S+ i , then |(z − yi) · ω2| ≤ 2w. Using
+(4.18), we see from Corollary 4.4 and (4.20) that
+|F (z · ω2) − z · ω1| = |(yi − z) · ω1 + mi (z − yi) · ω2|
+≤ |(yi − z) · ω1| + |mi| |(z − yi) · ω2|
+≤
+⏐⏐⏐⏐⏐ λ M 10 (yi − z) · ω2 + r+ n+2 10 ⏐⏐⏐⏐⏐ + 11λ M 70 |(z − yi) · ω2|
+≤ λ M 10 2w + r+ n+2 10 + 11λ M 70 2w = r+ n+2.
+On the other hand, if z ∈ S− i+1, then |(yi+1 − z) · ω2| ≤ w. Note that we can rearrange (4.18) to get that
+F (z · ω2) = yi+1 · ω1 − mi (yi+1 − z) · ω2.
+Proceeding as above, we see that
+|F (z · ω2) − z · ω1| ≤
+⏐⏐⏐⏐⏐ λ M 10 (yi+1 − z) · ω2 + r+ n+2 10 ⏐⏐⏐⏐⏐ + 11λ M 70 |(yi+1 − z) · ω2| ≤ 11r+ n+2 20 .
+If the second case holds, then z ∈ S− 1 and |(y1 − z) · ω2| ≤ w. Since F (z · ω2) = y1 · ω1 by (4.18), then
+Corollary 4.4 shows that
+|F (z · ω2) − z · ω1| = |(y1 − z) · ω1| ≤
+⏐⏐⏐⏐⏐ λ M 10 (y1 − z) · ω2 + r+ n+2 10 ⏐⏐⏐⏐⏐ ≤ λ M 10 w + r+ n+2 10 = 11r+ n+2 40 .
+Finally, if the third case holds, then z ∈ S− N ∪ S+ N and |(yN − z) · ω2| ≤ 2w. Using F (z · ω2) = yN · ω1 by
+(4.18), Corollary 4.4 again shows that
+|F (z · ω2) − z · ω1| = |(yN − z) · ω1| ≤
+⏐⏐⏐⏐⏐ λ M 10 (yN − z) · ω2 + r+ n+2 10 ⏐⏐⏐⏐⏐ ≤ λ M 10 2w + r+ n+2 10 = 9r+ n+2 20 .
+In all cases, we have shown that |F (z · ω2) − z · ω1| ≤ rn+2,+, proving that B ∩ Kα ⊂ N (F). □
+These observations lead us to the following.
+Proposition 4.7 (Kα has small measure). For Kα = Nα \ Gα , we have µ (Kα ) ≲ N−1/100L.
+Proof. By combining our previous results, we see that
+µ (B ∩ Kα ) ≤ µ (N (F)) (by Lemma 4.6)
+≤ RE
+(
+r+ n+2, r− n , λ M ) r (B) (by Lemma 4.5 and the deﬁnition of RE )
+≤ RE
+(
+r+ n+2, r− n , 1 r−n
+)
+r (B) (by (3.19))
+≤ N−1/100r (B) (by (1.8)).
+Summing over all B, we see that µ (Kα ) ≲ N−1/100L. □
+29
+
+===== PAGE 30 =====
+5. FAVARD CURVE LENGTH BOUNDS
+In this section, we estimate the Favard curve lengths of the sets ~H and ~D. For ~H, we rely on a Fubini-
+type argument reminiscent of [10, Lemma 8.4] and [15, Theorem 7.7]. To estimate the curve projection
+of ~D, we use the Hardy-Littlewood maximal inequality, which may be interpeted as a quantiﬁcation of
+the Lebesgue differentiation theorem.
+5.1. Estimating the Favard curve length of ~H. Recall that ~H is a parametric neighborhood of the
+collection of points corresponding to high-multiplicity curves, recall Deﬁnition 3.4. See (3.7) for the
+precise deﬁnition of ~H. Here we use a Fubini-type argument to establish the following bound.
+Proposition 5.1 ( ~H has small Favard length). For ~H as given in (3.7), it holds that FavC
+(
+~H
+)
+≲
+N−1/100L.
+Proof. Set n− 0 = n0 − N−3/100N, an abbreviation for the scale around which we are working. Since
+Hn− 0 ⊂ E , then it follows from the deﬁnition of ~H given in (3.7) that ~H ⊂ R2 × A0, where A0 is the r− n− 0 +10
+neighborhood of the bounded interval A. By the deﬁnition of Favard curve length described by (2.7),
+since A0 is a bounded interval, then it sufﬁces to show that for any α ∈ A0, ⏐⏐⏐Φα ( ~Hα )⏐⏐⏐ ≲ N−1/100L,
+where ~Hα =
+{
+e : (e, α) ∈ ~H
+}
+.
+Fix α ∈ A0. Given (e, α) ∈ ~H, there exists (e, α ′) ∈ Hn− 0 so that |α − α ′| ≤ r− n− 0 +10. If (e, α ′) ∈ Hn− 0 ,
+then by Deﬁnition 3.4, there exists a set of points
+{
+e j
+}N1/100
+j=1 ⊂ Ce,α ′ ∩ E that are rn− 0 -separated. By
+the uniform length bound given in (1.6), there exists a collection B of balls B that cover E for which
+r (B) ∈
+[
+r− n− 0 +5, r+ n− 0 +5
+]
+and ∑
+B∈B
+r (B) ≲ L. Since B covers E, then for each point e j, there exists a
+ball B ∈ B such that e j ∈ B. As r (B) ≤ r+ n− 0 +5 ≤ 1 32 rn− 0 by (1.7), then each e j belongs to a distinct ball.
+Therefore, there are N1/100 distinct, non-overlapping balls { B j }N1/100 j=1 associated to the pair (e, α ′) ∈ Hn− 0 .
+Note that the distance between a ﬁxed point on one curve and another curve over the same parameter
+range is bounded above by the distance between their centers, see Figure 7 (left). Therefore, for any j,
+since e j ∈ Ce,α ′ , then
+dist (e j ,Ce,α ) ≤ dist
+(
+(α, Φα (e)) ,
+(
+α ′, Φα ′,+(e) )) = √ |α − α ′|2 + ( Φα (e) − Φα ′,+(e) )2
+=
+√
+|α − α ′|2 + (ϕ (e1 − α) − ϕ+ (e1 − α ′))2 ≤
+√
+|α − α ′|2 + |α − α ′|2
+< 2r− n− 0 +5 ≤ 2−4r (B j) ,
+where we have used that ϕ+ is 1-Lipschitz and the separation of scales (1.7). Since each B j intersects
+Ce,α ′ at e j, then 5B j intersects Ce,α along a small curve of length /greaterorsimilar r (B j), see Figure 7 (right). That is,
+for each j ˆ
+Ce,α
+15B j dH 1 /greaterorsimilar r (B j) .
+The separation of the points ensures separation of the balls, and so we may sum over j to get that for
+any e ∈ ~Hα ,
+(5.1)
+ˆ
+Ce,α
+N1/100
+∑
+j=1
+15B j
+r (B j) dH 1 /greaterorsimilar N1/100.
+Observe that
+R2 ⊃ ⨆
+β ∈R
+Φ−1 α,+ (β ) ⊃ ⨆
+β ∈Φα ( ~Hα )
+Φ−1 α,+ (β ) = ⨆
+β ∈Φα ( ~Hα )
+Ce,α ,
+30
+
+===== PAGE 31 =====
+e
+e j
+(α, Φα (e))( α ′, Φα ′,+(e) )
+x = α ′
+x = α
+Ce,α ′
+Ce,α
+e jB j
+5B j Ce,α ′
+Ce,α
+FIGURE 7. The images of Ce,α and Ce,α ′ when α and α ′ are close (left), and a visual-
+ization of the behavior near some e j (right).
+where e = eβ ∈ ~Hα is some point for which Φα (e) = β . Indeed, if β ∈ Φα
+(
+~Hα
+)
+, then there exists
+e ∈ ~Hα so that Φα (e) = β and it follows that Φ−1 α,+ (β ) = Ce,α . An application of Fubini’s theorem then
+shows that
+ˆ
+R2
+N1/100
+∑
+j=1
+15B j
+r (B j) dx ≥
+ˆ
+Φα ( ~Hα )
+ˆ
+Ce,α
+N1/100
+∑
+j=1
+15B j
+r (B j) dH 1 dβ
+/greaterorsimilar
+ˆ
+Φα ( ~Hα ) N1/100 dβ = N1/100
+⏐⏐⏐Φα ( ~Hα )⏐⏐⏐ ,
+where we have applied (5.1). On the other hand,
+N1/100
+∑
+j=1
+ˆ
+R2
+1
+r (B j) 15B j dx ≲
+N1/100
+∑
+j=1
+r (B j) ≤ ∑
+B∈B
+r (B) ≲ L,
+so by combining the previous two inequalities, we see that
+⏐⏐⏐Φα ( ~Hα )⏐⏐⏐ ≲ N−1/100L, as required. □
+5.2. Estimating the Favard curve length of ~D. Recall that ~D is a standard neighborhood of the col-
+lection of points that are contained in high-density curve strips, see Deﬁnition 3.6. The set ~D is deﬁned
+in (3.14). Here we use an argument involving the Hardy-Littlewood maximal inequality to establish the
+following bound.
+Proposition 5.2 ( ~D has small Favard length). For ~D as given in (3.14), it holds that FavC
+(
+~D
+)
+≲
+N−1/100L.
+Proof. For brevity, set n− 2 = n2 − N−10/100N. Since Dn− 2 ⊂ E , then it follows from the deﬁnition of
+~D given in (3.14) that ~D ⊂ R2 × A2, where A2 denotes the r− n− 2 +10 neighborhood of the interval A. In
+particular, we may use (2.7) to deﬁne FavC
+(
+~D
+)
+. Since A2 is a bounded interval, it sufﬁces to show that
+for any α ∈ A2, ⏐⏐⏐Φα ( ~Dα )⏐⏐⏐ ≲ N−1/100L,
+where ~Dα =
+{
+e : (e, α) ∈ ~D
+}
+.
+Fix α ∈ A2. Let (e, α) ∈ ~D and then e ∈ ~Dα . Assume that (e, α) ∈ E for otherwise Φα (e) = /0
+and there is nothing to show. By the deﬁnition of ~D given in (3.14), there exists (e′, α ′) ∈ Dn− 2 so
+that ‖(e − e′, α − α ′)‖ ≤ r− n− 2 +10. Since (e′, α ′) ∈ Dn− 2 , then by Deﬁnition 3.6, there exists an interval
+J ⊂ R containing Φα ′ (e′) with |J| ≥ r− n− 2 and µ ( Φ−1 α ′,+ (J) ) ≥ N1/100 |J|. Since e′ ∈ Φ−1 α ′ (J) implies that
+31
+
+===== PAGE 32 =====
+e′ ∈ Φ−1 α ′,+ (J), and ‖e − e′‖ ≤ r− n− 2 +10 ≤ 2−10 |J|, then e ∈ Φ−1 α ′,+ (2J). Moreover,
+(5.2) µ
+(
+Φ−1 α ′,+ (2J) ) ≥ µ ( Φ−1 α ′,+ (J) ) ≥ N1/100 |J| .
+Claim: Φα
+(
+Φ−1 α ′,+ (2J) ) ⊂ 3J. In particular, since e ∈ Φ−1 α ′,+ (2J), then Φα (e) ∈ 3J.
+If p ∈ Φ−1 α ′,+ (2J), then p = (α ′ + t, β + ϕ+(t)) for some t ∈ I+ and some β ∈ 2J. By (2.4), if t +α ′ −α ∈
+I, then Φα (p) = β + ϕ+(t) − ϕ (α ′ + t − α); otherwise, the projection is empty. Since ϕ is 1-Lipschitz,
+|Φα (p) − β | ≤ |α − α ′|. Since our separation of scales implies that, |α − α ′| ≤ 2−10r− n− 2 ≤ 2−10 |J|, then
+|Φα (p) − β | ≤ 2−10 |J| and the claim follows.
+Let µ1 be the pushforward of the measure µ to R under the projection Φα . Since µ
+(
+R2) ≤ L, then
+µ1 (R) = µ(Φ−1 α (R)) ≲ L. The Hardy-Littlewood maximal function of µ1 is deﬁned by
+Mµ1 (x) = sup
+r>0
+1
+2r µ1 ([x − r, x + r]) .
+Since Φα (e) ∈ 3J by the claim, then 3J ⊂ [Φα (e) − r, Φα (e) + r] for some r ≤ 3 |J|. Then
+µ1 ([Φα (e) − r, Φα (e) + r]) ≥ µ1 (3J) ≥ µ1
+(
+Φα
+(
+Φ−1 α ′,+ (2J) )) = µ ( Φ−1 α ′,+ (2J) ) ≥ N1/100 |J| ,
+where we have applied set containment, the claim, the deﬁnition of µ1, and (5.2). It follows that,
+Mµ1 (Φα (e)) ≥ µ1 ([Φα (e) − r, Φα (e) + r]) 2r ≥ N1/100 6 .
+The Hardy-Littlewood maximal inequality for measures states that |{β : Mµ1 (β ) ≥ λ }| ≤ 1 λ µ1 (R).
+In particular,
+⏐⏐⏐ { β : Mµ1 (β ) ≥ N1/100 6 }⏐⏐⏐ ≲ N−1/100L. Since we showed that Mµ1 (Φα (e)) ≥ N1/100 6 for an
+arbitrary e ∈ ~Dα for which Φα (e) ⁄= /0, then
+Φα
+(
+~Dα
+)
+⊂
+{
+β : Mµ1 (β ) ≥ N1/100 6 }
+and we conclude that
+⏐⏐⏐Φα ( ~Dα )⏐⏐⏐ ≲ N−1/100L, as required. □
+We conclude this section by pointing out that although Lemmas 5.1 and 5.2 are proved for ~H and ~D as
+deﬁned in (3.7) and (3.14), respectively, the selection of scales is not important to the arguments that we
+made in this section. For example, if we set H ′ = Mr− n+10 (Hn) for any n ∈ [0.1N, 0.9N], the arguments
+in Lemma 5.1 show that FavC (H ′) ≲ N−1/100L. While the speciﬁc choices of n0 and n2 are not used in
+this section, these choices were important for guaranteeing that ∆ has small measure. This fact will be
+important in the next section where we analyze the measure of F.
+6. THE REMAINING CURVE PAIRS
+Within this section, we estimate the (µ × ν)-measure of the set F. Recall that F is deﬁned to contain
+the curve pairs that don’t belong to ~H or ~D, the sets that have already been analyzed, see (3.20). Our
+main tool in this endeavor is the following technical lemma, which can be viewed as a type of density
+theorem on slices. This lemma will in turn be used to control the measure of F by the measure of ∆.
+Lemma 6.1 (Parameter mass). Let ∆ ⊂ E be as in (3.17). For any (e, α) ∈ F as given in (3.20), deﬁne
+the set
+Ωe,α =
+{
+α ′ ∈ A : ⏐⏐α − α ′⏐⏐ ≤ 104r− n2−200 and ( e, α ′) ∈ ∆ } .
+Then ν (Ωe,α ) /greaterorsimilar N−2/100r− n2−200.
+An overview of the proof is as follows. To establish a lower bound on ν (Ωe,α ), we ﬁrst introduce a
+cover of the parameter set Ωe,α by a ﬁnite collection of carefully chosen intervals. We then observe that,
+to each such interval Ik, the corresponding curve double-sector,
+{
+y ∈ Ce,α ′ : α ′ ∈ Ik } intersected with the
+small ball, Br(e), is contained in a narrow strip described by the inverse image of an r-dilate of Ik, an
+32
+
+===== PAGE 33 =====
+interval Jk. Further, by arranging matters so that this curve strip is not of high density, we can bound
+the µ-measure of the truncated curve sector above by the ν-measure of the interval Jk in the parameter
+space. The fact that (e, α) is a curve pair is crucial. Now we proceed with the proof.
+Proof. Let (e, α) ∈ F ⊂ Curn2,M2 . If Ωe,α = I∗ :=
+{
+α ′ ∈ A : |α − α ′| ≤ 104r− n2 −200
+}
+, then the result is
+immediate, so assume that Ωe,α ⁄= I∗. By Deﬁnition 3.1 and (3.19), there exists r ∈
+[
+r− n2+100, r+ n2 −100
+]
+so
+that
+(6.1) µ
+(
+Xe,α
+(
+r, 1/r− n2 −200 ) \ Xe,α ( r− n2 +100, 1/r− n2 −200 )) > 10−4rN−1/100r− n2−200.
+We ﬁx this scale r.
+Since ∆ is the union of three parametrically closed sets, then ∆ itself is parametrically closed, see
+Appendix A for details. It follows that the set Ωe,α is a compact subset of A. Indeed, as a subset of A,
+Ωe,α is bounded; further, since Ωe,α is the continuous image of the closed set ∆ under the projection
+map in the last coordinate, it is also closed. As such, given an open cover of intervals contained in{
+α ′ : |α − α ′| ≤ 105r− n2 −200
+}
+, we may select a ﬁnite subcover of intervals I1, I2, . . . , IK that cover Ωe,α
+with the following properties:
+(i) ν
+( K⋃
+k=1
+Ik
+)
+≲ ν (Ωe,α ) .
+(ii) By taking an appropriate intersection, there is no loss in assuming that each interval Ik is con-
+tained in the set I∗.
+(iii) By concatenating the overlapping parts, we may also assume that all intervals Ik are disjoint with
+length at least max
+{
+r− n2 +N−10/100N /r, r } .
+(iv) Since Ωe,α ⁄= I∗, then by enlarging each set slightly, we may also assume that each Ik contains a
+point in the complement of Ωe,α .
+We establish a lower bound on ν
+( K⋃
+k=1
+Ik
+)
+. Before proceeding, we gather two observations. First,
+observe that since (e, α) ∈ F, then for every α ′ ∈ I∗, (e, α ′) /∈ H ∪ D. Indeed, by the deﬁnition of F
+given in (3.20), (e, α) /∈ ~H. By (1.7) and the assumption that n2 ≥ n0 − 0.9 ( N−3/100 + N−7/100) N,
+we have 104r− n2 −200 ≤ 1 2 r− n0 −N−3/100N+10. Therefore, since (e, α) /∈ ~H, see (3.7), then for every α ′ ∈ I∗,
+(e, α ′) /∈ H, see (3.8). By analogy, since (e, α) /∈ ~D, see (3.14), and 104r− n2 −200 ≤ 1 2 r− n2−N−10/100N+10, we
+also have that for every α ′ in I∗, (e, α ′) /∈ D, where D is as deﬁned in (3.15).
+Next, observe that
+(6.2) E ∩Ce,α ′ ∩
+(
+Br(e) \ Br− n2+100 (e)
+)
+= /0 for any α ′ ∈ I∗ \
+K⋃
+k=1
+Ik.
+Let α ′ ∈ I∗ be a point that is not contained in I1, I2, . . . , IK . By the discussion in the previous paragraph,
+(e, α ′) /∈ H. Since I1, I2, . . . , IK forms a cover for Ωe,α , then (e, α ′) /∈ ∆. From (3.17), we conclude that
+(e, α ′) /∈ Pn1 . Looking at Deﬁnition 3.5, this means that
+E ∩Ce,α ′ ∩
+(
+Br+
+n1−N−7/100N
+(e) \ Br−
+n1+N−7/100N
+(e)
+)
+= /0.
+Since n2 ∈
+[
+n1 − 0.9N−7/100N, n1 + 0.9N−7/100N ] and we may assume that N−7/100N ≥ 1000, then
+Br(e) \ Br− n2+100 (e) ⊂ Br+ n1−N−7/100N (e) \ Br− n1+N−7/100N (e). In other words, (6.2) is veriﬁed.
+With these observations in tow, we turn to establishing upper and lower bounds on the measure of the
+set
+{
+y ∈ Ce,α ′ : α ′ ∈ I∗ } ∩ ( Br(e) \ Br− n2+100 (e) ) . From (2.11), it is immediate that
+Xe,α
+(
+r, 1/r− n2 −200 ) \ Xe,α ( r− n2 +100, 1/r− n2 −200 ) ⊂ { y ∈ Ce,α ′ : α ′ ∈ I∗ } ∩ ( Br(e) \ Br− n2+100 (e) ) .
+33
+
+===== PAGE 34 =====
+e
+r
+Jk (αk, Φαk (e))
+Ce,αk −|Ik |
+Ce,αk +|Ik |
+FIGURE 8. The darkly-shaded curve double-sector around e is deﬁned by{
+y ∈ Ce,α ′ : |α ′ − αk| ≤ |Ik| } ∩ Br(e), while the lightly-shaded region that bounds it is
+the intersection of the curve strip Φ−1 αk ,+ (Jk) with Br(e). The interval Jk is pictured
+along x = αk and is centered at the point (αk, Φαk (e)).
+Since µ is supported on E, we deduce from (6.2) that
+µ
+(
+Xe,α
+(
+r, 1/r− n2 −200 ) \ Xe,α ( r− n2 +100, 1/r− n2 −200 ))
+≤µ
+({
+y ∈ Ce,α ′ : α ′ ∈
+K⋃
+k=1
+Ik
+}
+∩
+(
+Br(e) \ Br− n2+100 (e)
+))
+≤
+K
+∑
+k=1
+µ
+({
+y ∈ Ce,α ′ : α ′ ∈ Ik } ∩ ( Br(e) \ Br− n2+100 (e) )) .
+Combining this inequality with (6.1) shows that
+10−4rN−1/100r− n2 −200 ≤
+K
+∑
+k=1
+µ
+({
+y ∈ Ce,α ′ : α ′ ∈ Ik } ∩ ( Br(e) \ Br− n2+100 (e) )) .(6.3)
+Now choose k ∈ {1, . . . , K}. Observe that for any αk ∈ Ik, since Ik ⊂ [αk − |Ik| , αk + |Ik|], then we have
+{
+y ∈ Ce,α ′ : α ′ ∈ Ik } ∩ ( Br(e) \ Br− n2+100 (e) ) ⊂ { y ∈ Ce,α ′ : ⏐⏐α ′ − αk ⏐⏐ ≤ |Ik| } ∩ Br(e) = Xe,α ( r, 1 |Ik| ) ,
+where we used (2.11) to reach the last equality. To apply Corollary 2.3, we need to check that |Ik| + r <
+min
+{
+10−5 + 2−100, 1√ 2λ
+}
+. By property (ii) and Remark 4.1, |Ik| ≤ |I∗| ≤ 2 · 104r− n2−200 ≤ 2−185 while
+r ≤ r+ n2−100 ≤ 2−300. Since λ ≤ 235 by Remark 2.1, then the assumptions of Corollary 2.3 are satisﬁed and we see that
+(6.4)
+{
+y ∈ Ce,α ′ : α ′ ∈ Ik } ∩ ( Br(e) \ Br− n2+100 (e) ) ⊂ Xe,α ( r, 1 |Ik| ) ⊂ Φ−1 αk ,+ (Jk) ,
+where Jk ⊂ R is an interval centered about Φαk (e) with |Jk| = 4
+√
+2λ (|Ik| + r) r. In fact, by the size
+condition on Ik described in property (iii), r− n2+N−10/100N ≤ |Jk| ≲ |Ik| r. See Figure 8 for a depiction of this second set inclusion.
+By property (iv), there exists αk ∈ Ik such that (e, αk ) /∈ ∆. Referring to (3.17), this means that
+(e, αk ) /∈ ∆D. As discussed above, (e, αk) /∈ D as well, so we deduce that (e, αk ) /∈ Dn2+N−10/100N . From
+Deﬁnition 3.6 applied with n = n2 + N−10/100N, we recall that whenever J ⊂ R with Φαk (e) ∈ J and
+|J| ≥ r− n2 +N−10/100N , we have µ ( Φ−1 αk ,+ (J) ) ≤ N1/100 |J|. In particular, if we take J = Jk as deﬁned in the
+previous paragraph, an interval centered about Φαk (e) with r− n2 +N−10/100N ≤ |Jk| ≲ r |Ik|, then it follows from (6.4) that
+34
+
+===== PAGE 35 =====
+(6.5)
+µ
+({
+y ∈ Ce,α ′ : α ′ ∈ Ik } ∩ ( Br(e) \ Br− n2+100 (e) )) ≤ µ ( Φ−1 αk ,+ (Jk) ) ≤ N1/100 |Jk|
+≲ N1/100r |Ik| .
+Combining (6.3) with (6.5) shows that
+10−4N−1/100r− n2 −200 ≲ N1/100
+K
+∑
+k=1
+|Ik| ≃ N1/100ν
+( K⋃
+k=1
+Ik
+)
+≲ N1/100ν (Ωe,α ) ,
+where we have applied property (i) in the last inequality. The conclusion of Lemma 6.1 follows. □
+Using the lemma, we show that the points in F are close to many points in ∆. The main tool in this
+proof is another application of the Hardy-Littlewood maximal inequality.
+Proposition 6.2 (F has small measure). For F as given in (3.17), (µ × ν) (F) ≲ N−1/100L.
+Proof. Given e ∈ E, deﬁne νe,∆ to be the restriction of the measure ν to the set ∆e := {α ′ ∈ A : (e, α ′) ∈ ∆}.
+If (e, α) ∈ F, then Lemma 6.1 shows that
+Mνe,∆ (α) := sup
+r>0
+νe,∆ ([α − r, α + r])
+2r ≥
+νe,∆
+([
+α − 104r− n2 −200, α + 104r− n2−200
+])
+2 · 104r− n2−200
+= ν (Ωe,α ) 2 · 104r− n2 −200 /greaterorsimilar N−2/100.
+It follows that
+Fe := {α : (e, α) ∈ F} ⊂
+{
+α : Mνe,∆ (α) /greaterorsimilar N−2/100
+}
+,
+and so, by the Hardy-Littlewood maximal inequality, we see that for any e ∈ E,
+ν (Fe) ≲
+⏐⏐⏐ { α : Mνe,∆ (α) /greaterorsimilar N−2/100 }⏐⏐⏐ ≲ N2/100νe,∆ (∆e) ,
+where we have used the fact that ν is the normalized Lebesgue measure restricted to A (see Section 2.5).
+Integrating in E then shows that
+(µ × ν) (F) ≲ N2/100 (µ × ν) (∆) .
+An application of (3.18) completes the proof. □
+7. COMPLETION OF THE PROOF
+To prove Theorem 1.6, we need to show that FavC (E) ≲ N−1/100L. Referring to the decomposition
+of E and E described by Figure 4 and using properties of the Favard curve length, we have that
+FavC (E) = FavC (E ) ≤ FavC (NCurn2,M2 ) + FavC (Curn2 ,M2 ) .(7.1)
+Since Nα = {e : (e, α) ∈ NCurn2 ,M2 } ⊂ E and Nα = Gα ∪ Kα , then by Deﬁnition 1.2 (see also (2.7)),
+FavC (NCurn2,M2 ) =
+ˆ
+A
+|Φα (Nα )| dα ≤
+ˆ
+A
+|Φα (Gα )| dα +
+ˆ
+A
+|Φα (Kα )| dα
+≲
+ˆ
+A
+µ (Gα ) dα +
+ˆ
+A
+µ (Kα ) dα,
+where we have applied Lemma 2.4 in the second line. In Section 4, we showed via Propositions 4.1 and
+4.7 that the sets Gα and Kα , respectively, have small µ-measures. Substituting these bounds into the
+previous inequality and using the boundedness of A shows that
+(7.2) FavC (NCurn2,M2 ) ≲ N−1/100L.
+35
+
+===== PAGE 36 =====
+Using the decomposition of Curn2,M2 ⊂ E from (3.21), then applying Corollary 2.5, we see that
+FavC (Curn2,M2 ) ≤ FavC
+(
+~H
+)
++ FavC
+(
+~D
+)
++ FavC (F)
+≲ FavC
+(
+~H
+)
++ FavC
+(
+~D
+)
++ (µ × ν) (F)
+≲ N−1/100L + N−1/100L + N−1/100L,
+where we have invoked Propositions 5.1, 5.2, and 6.2, respectively, in the last line. Therefore, the
+inequality above reduces to
+(7.3) FavC (Curn2,M2 ) ≲ N−1/100L.
+Substituting (7.2) and (7.3) into (7.1) leads to the conclusion of the proof of Theorem 1.6.
+APPENDIX A. TECHNICAL RESULTS
+In this section, we prove that the sets of high multiplicity pairs and high density pairs are closed. We
+also show that ∆ is parametrically closed.
+Lemma A.1 (Hn is closed). Let Hn be as in Deﬁnition 3.4. For any 1 ≤ n ≤ N, Hn closed.
+Proof. Fix n and let {(em, αm)}∞ m=1 ⊂ Hn be a sequence of points such that (em, αm) → (e, α). We
+need to show that Ce,α is of high multiplicity at a scale index at most n. Since (em, αm) ∈ Hn, then
+the curve Cm := Cem,αm contains N1/100 points that are r− n -separated. Let em,1, em,2, . . . , em,N1/100 denote
+the points on the curve Cm, where they are ordered so that em,i is to the left of em, j whenever i < j.
+Moreover, for any i = 1, . . . , N1/100 − 1, |em,i+1 − em,i| ≥ r− n . Since {em,1}∞ m=1 ⊂ E is bounded (since
+E is compact), then it contains a convergent subsequence,
+{
+em(1,k),1
+}∞
+k=1. Since
+{
+em(1,k),2
+}∞
+k=1 is also
+bounded, then it too contains a convergent subsequence,
+{
+em(2,k),2
+}∞
+k=1. Continuing on with this diago-
+nalization process, we extract a subsequence {mk}∞ k=1 ⊂ N, where mk = m(N1/100, k), so that for every
+j = 1, . . . , N1/100, lim
+k→∞
+emk , j = e j . Since E is compact, then e j ∈ E for each j. We ﬁrst show that
+{
+e j
+}N1/100
+j=1
+is r− n -separated. Let ε > 0. There exists K ∈ N so that whenever k ≥ K, we have ⏐⏐emk , j − e j ⏐⏐ < ε 2 for any
+j ∈
+{
+1, . . . , N1/100} . It follows that for any j ∈ { 1, . . . , N1/100 − 1 } ,
+r− n ≤ ⏐⏐emK , j+1 − emK , j ⏐⏐ = ⏐⏐emK , j+1 − e j+1 + e j+1 − emK , j + e j − e j ⏐⏐
+≤
+⏐⏐emK , j+1 − e j+1 ⏐⏐ + ⏐⏐e j+1 − e j ⏐⏐ + ⏐⏐emK , j − e j ⏐⏐ < ⏐⏐e j+1 − e j ⏐⏐ + ε.
+Since ε > 0 was arbitrary, we conclude that
+⏐⏐e j+1 − e j ⏐⏐ ≥ r− n , showing that { e j }N1/100 j=1 is r− n -separated.
+Finally, since (em, αm) → (e, α), then Cm → Ce,α . In particular, Cmk → Ce,α . Since each emk , j ∈ Cmk , we
+deduce that e j ∈ Ce,α . It follows that
+{
+e j
+}N1/100
+j=1 ⊂ Ce,α , completing the proof. □
+Lemma A.2 (Dn is closed). Let Dn be as in Deﬁnition 3.6. For any 1 ≤ n ≤ N, Dn is closed.
+Proof. Fix n and let {(em, αm)}∞ m=1 ⊂ Dn so that (em, αm) → (e, α). Since (em, αm) ∈ Dn, then there
+exists Jm with |Jm| ≥ r− n and µ ( Φ−1 αm ,+ (Jm) ) ≥ N1/100 |Jm|. Write Jm = [am, bm]. Since {am}∞ m=1 ⊂ R
+is bounded (since E is compact), then there exists a convergence subsequence
+{
+am(1,k)
+}∞
+k=1. Similarly,{
+bm(1,k)
+}∞
+k=1 ⊂ R is bounded, so there is a convergent subsequence
+{
+bm(2,k)
+}∞
+k=1. With mk = m(2, k),
+both {amk }∞ k=1 and {bmk }∞ k=1 are convergent sequences in R, with limits a and b, respectively. Deﬁne
+J = [a, b]. Since bm − am = |Jm| ≥ r− n for all m ∈ N, then taking limits shows that b − a = |J| ≥ r− n as
+well. Taking limits and appealing to continuity also shows that µ
+(
+Φ−1 α,+ (J) ) ≥ N1/100 |J|. In particular,
+Φ−1 α,+ (J) has high density at scale index n. Since Cem ,αm ⊂ Φ−1 αm,+(Jm) for each m ∈ N, then another
+limiting argument shows that Ce,α ⊂ Φ−1 α,+(J), completing the proof. □
+Lemma A.3 (∆ is parametrically closed). For ∆ be as deﬁned in (3.17), ∆ is parametrically closed.
+36
+
+===== PAGE 37 =====
+Proof. Since H is parametrically open by deﬁnition and Hn0+N−3/100N is closed (by Lemma A.1), and
+therefore parametrically closed, then ∆H := Hn0+N−3/100N \ H is parametrically closed. Similarly, since
+D is open by deﬁnition and Dn2+N−10/100N is closed (by Lemma A.2), then ∆D := Dn2+N−10/100N \ D is
+closed, and consequently parametrically closed. It can be shown (following arguments similar to those
+used for each Hn) that Pn1 is closed. Since H is parametrically open, then Pn1 \ H is also parametrically
+closed. It follows that ∆, the union of three parametrically closed sets, is itself parametrically closed.
+□
+REFERENCES
+[1] M. Bateman and A. Volberg. An estimate from below for the Buffon needle probability of the four-corner Cantor set.
+Math. Res. Lett., 17(5):959–967, 2010.
+[2] M. Bond, I. Łaba, and A. Volberg. Buffon’s needle estimates for rational product Cantor sets. Amer. J. Math., 136(2):357–
+391, 2014.
+[3] M. Bond and A. Volberg. Buffon needle lands in ε-neighborhood of a 1-dimensional Sierpinski gasket with probability
+at most | log ε|−c. C. R. Math. Acad. Sci. Paris, 348(11-12):653–656, 2010.
+[4] M. Bond and A. Volberg. Circular Favard length of the four-corner Cantor set. J. Geom. Anal., 21(1):40–55, 2011.
+[5] M. Bond and A. Volberg. Buffon’s needle landing near Besicovitch irregular self-similar sets. Indiana Univ. Math. J.,
+61(6):2085–2109, 2012.
+[6] T. Bongers. Geometric bounds for Favard length. Proc. Amer. Math. Soc., 147(4):1447–1452, 2019.
+[7] T. Bongers and K. Taylor. Nonlinear projections and the Favard curve length. In preparation, 2020.
+[8] L. Cladek, B. Davey, and K. Taylor. Upper and lower bounds on the rate of decay of the Favard curve length for the
+four-corner Cantor set. To appear in Indiana University Mathematics Journal, 2021.
+[9] V. Y. Eiderman and A. L. Volberg. Nonhomogeneous harmonic analysis: 16 years of development. Uspekhi Mat. Nauk,
+68(6(414)):3–58, 2013.
+[10] K. J. Falconer. The geometry of fractal sets, volume 85 of Cambridge Tracts in Mathematics. Cambridge University Press,
+Cambridge, 1986.
+[11] R. Hovila, E. J¨arvenp¨a¨a, M. J¨arvenp¨a¨a, and F. Ledrappier. Besicovitch-Federer projection theorem and geodesic ﬂows on
+Riemann surfaces. Geom. Dedicata, 161:51–61, 2012.
+[12] I. Łaba. Recent progress on Favard length estimates for planar Cantor sets. In Operator-related function theory and
+time-frequency analysis, volume 9 of Abel Symp., pages 117–145. Springer, Cham, 2015.
+[13] I. Łaba and K. Zhai. The Favard length of product Cantor sets. Bull. Lond. Math. Soc., 42(6):997–1009, 2010.
+[14] P. Mattila. Orthogonal projections, Riesz capacities, and Minkowski content. Indiana Univ. Math. J., 39(1):185–198,
+1990.
+[15] P. Mattila. Geometry of sets and measures in Euclidean spaces, volume 44 of Cambridge Studies in Advanced
+Mathematics. Cambridge University Press, Cambridge, 1995. Fractals and rectiﬁability.
+[16] F. Nazarov, Y. Peres, and A. Volberg. The power law for the Buffon needle probability of the four-corner Cantor set.
+Algebra i Analiz, 22(1):82–97, 2010.
+[17] K. Simon and K. Taylor. Dimension and measure of sums of planar sets and curves. arXiv:1707.01407, 2017.
+[18] K. Simon and K. Taylor. Interior of sums of planar sets and curves. Math. Proc. Cambridge Philos. Soc., 168(1):119–148,
+2020.
+[19] T. Tao. A quantitative version of the Besicovitch projection theorem via multiscale analysis. Proc. Lond. Math. Soc. (3),
+98(3):559–584, 2009.
+[20] S. Zhang. The exact power law for Buffon’s needle landing near some random Cantor sets. Rev. Mat. Iberoam., 36(2):537–
+548, 2020.
+BLAIR DAVEY, DEPARTMENT OF MATHEMATICAL SCIENCES, MONTANA STATE UNIVERSITY
+Email address: blairdavey@montana.edu
+KRYSTAL TAYLOR, DEPARTMENT OF MATHEMATICS, THE OHIO STATE UNIVERSITY
+Email address: taylor.2952@osu.edu
+37
